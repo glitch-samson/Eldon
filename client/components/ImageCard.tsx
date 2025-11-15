@@ -1,16 +1,26 @@
-import { Download, Eye } from "lucide-react";
+import { Download, Eye, Check } from "lucide-react";
 import { Image } from "../data/images";
 
 interface ImageCardProps {
   image: Image;
   onPreview: (image: Image) => void;
   onDownload: (image: Image) => void;
+  isSelected?: boolean;
+  onSelect?: () => void;
 }
 
-export function ImageCard({ image, onPreview, onDownload }: ImageCardProps) {
+export function ImageCard({
+  image,
+  onPreview,
+  onDownload,
+  isSelected = false,
+  onSelect,
+}: ImageCardProps) {
   return (
     <div
-      className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer bg-gray-100"
+      className={`group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer bg-gray-100 ${
+        isSelected ? "ring-4 ring-gold-500" : ""
+      }`}
       onClick={() => onPreview(image)}
     >
       {/* Image */}
@@ -22,6 +32,24 @@ export function ImageCard({ image, onPreview, onDownload }: ImageCardProps) {
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+      {/* Selection Checkbox */}
+      {onSelect && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onSelect();
+          }}
+          className={`absolute top-3 left-3 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${
+            isSelected
+              ? "bg-gold-600 border-gold-600"
+              : "bg-white/80 border-white hover:bg-white"
+          }`}
+          aria-label={isSelected ? "Deselect" : "Select"}
+        >
+          {isSelected && <Check size={16} className="text-white" />}
+        </button>
+      )}
 
       {/* Caption */}
       {image.caption && (
