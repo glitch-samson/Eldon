@@ -2,7 +2,6 @@ export interface Image {
   id: string;
   src: string;
   caption?: string;
-  category: "bride" | "groom" | "reception" | "ceremony" | "details";
   alt: string;
 }
 
