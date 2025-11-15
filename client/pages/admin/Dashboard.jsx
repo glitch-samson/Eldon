@@ -60,7 +60,6 @@ export default function AdminDashboard() {
       src: previewUrl,
       caption: caption || undefined,
       alt: `Wedding photo - ${uploadedFileName}`,
-      uploadDate: new Date().toLocaleDateString(),
     };
 
     setImages([newImage, ...images]);
@@ -86,7 +85,6 @@ export default function AdminDashboard() {
       id: String(Math.max(...videos.map((vid) => parseInt(vid.id)), 0) + 1),
       src: previewUrl,
       caption: caption || undefined,
-      uploadDate: new Date().toLocaleDateString(),
     };
 
     setVideos([newVideo, ...videos]);
@@ -433,9 +431,6 @@ export default function AdminDashboard() {
                             title={image.caption}
                           >
                             {image.caption || "No caption"}
-                          </p>
-                          <p className="text-xs text-gray-500 mt-2">
-                            {image.uploadDate}
                           </p>
                         </div>
                       </div>

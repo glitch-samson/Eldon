@@ -84,12 +84,7 @@ export const coupleInfo = {
   reception_time: "5:00 PM",
 };
 
-export const adminImages = images.map((img) => ({
-  ...img,
-  uploadDate: new Date(
-    Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000,
-  ).toLocaleDateString(),
-}));
+export const adminImages = images;
 
 export const videos = [
   {
