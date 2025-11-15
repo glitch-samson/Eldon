@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Navigation } from "../components/Navigation";
 import { Lightbox } from "../components/Lightbox";
 import { MasonryGrid } from "../components/MasonryGrid";
-import { images } from "../data/images";
+import { VideoGalleryCard } from "../components/VideoGalleryCard";
+import { images, videos } from "../data/images";
 import { Download, X } from "lucide-react";
 
 export default function Gallery() {
