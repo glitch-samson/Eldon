@@ -31,13 +31,18 @@ export default function Gallery() {
   };
 
   const handleDownloadSelected = () => {
+    let downloadDelay = 0;
     selectedImages.forEach((imageId) => {
       const image = filteredImages.find((img) => img.id === imageId);
       if (image) {
-        setTimeout(() => handleDownload(image), 100);
+        setTimeout(() => handleDownload(image), downloadDelay);
+        downloadDelay += 150;
       }
     });
-    setSelectedImages(new Set());
+    // Clear selection after all downloads start
+    setTimeout(() => {
+      setSelectedImages(new Set());
+    }, downloadDelay + 100);
   };
 
   const handleClearSelection = () => {
