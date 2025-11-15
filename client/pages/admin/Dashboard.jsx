@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Trash2, Upload, Eye, LogOut, Image as ImageIcon, Film } from "lucide-react";
+import {
+  Trash2,
+  Upload,
+  Eye,
+  LogOut,
+  Image as ImageIcon,
+  Film,
+} from "lucide-react";
 import { adminImages, videos as initialVideos } from "../../data/images";
 import { VideoCard } from "../../components/VideoCard";
 
@@ -358,7 +365,10 @@ export default function AdminDashboard() {
 
                 {images.length === 0 ? (
                   <div className="bg-white rounded-xl shadow-lg p-16 text-center">
-                    <ImageIcon className="mx-auto text-gray-400 mb-4" size={48} />
+                    <ImageIcon
+                      className="mx-auto text-gray-400 mb-4"
+                      size={48}
+                    />
                     <p className="text-gray-600 text-lg font-medium">
                       No photos yet
                     </p>
@@ -415,7 +425,9 @@ export default function AdminDashboard() {
 
                         {/* Info */}
                         <div className="p-3">
-                          <p className="text-xs text-gray-500">ID: {image.id}</p>
+                          <p className="text-xs text-gray-500">
+                            ID: {image.id}
+                          </p>
                           <p
                             className="text-xs text-gray-700 line-clamp-2 mt-1"
                             title={image.caption}

@@ -42,9 +42,7 @@ export function VideoCard({ video, onDelete }) {
         >
           {video.caption || "No caption"}
         </p>
-        <p className="text-xs text-gray-500 mt-2">
-          {video.uploadDate}
-        </p>
+        <p className="text-xs text-gray-500 mt-2">{video.uploadDate}</p>
       </div>
     </div>
   );

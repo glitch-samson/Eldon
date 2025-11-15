@@ -93,7 +93,9 @@ export default function Gallery() {
       {/* Media Count */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <p className="text-gray-600">
-          Showing {filteredImages.length} photo{filteredImages.length !== 1 ? "s" : ""} and {videos.length} video{videos.length !== 1 ? "s" : ""}
+          Showing {filteredImages.length} photo
+          {filteredImages.length !== 1 ? "s" : ""} and {videos.length} video
+          {videos.length !== 1 ? "s" : ""}
         </p>
       </section>
 
