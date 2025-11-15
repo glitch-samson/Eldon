@@ -151,7 +151,8 @@ export default function Gallery() {
 
       {/* Photos Section */}
       <section
-        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""}`}
+        id="photos-section"
+        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""} scroll-mt-20`}
       >
         <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
           Photos
