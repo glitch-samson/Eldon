@@ -9,6 +9,7 @@ import { Download, X } from "lucide-react";
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImages, setSelectedImages] = useState(new Set());
+  const [activeSection, setActiveSection] = useState("photos");
 
   const filteredImages = images;
 
@@ -100,20 +101,28 @@ export default function Gallery() {
           </p>
           <div className="flex flex-wrap gap-4">
             {filteredImages.length > 0 && (
-              <a
-                href="#photos-section"
-                className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium transition-colors"
+              <button
+                onClick={() => setActiveSection("photos")}
+                className={`inline-flex items-center px-4 py-2 rounded-lg font-medium transition-colors ${
+                  activeSection === "photos"
+                    ? "bg-purple-600 text-white"
+                    : "bg-purple-100 hover:bg-purple-200 text-purple-700"
+                }`}
               >
                 View Photos
-              </a>
+              </button>
             )}
             {videos.length > 0 && (
-              <a
-                href="#videos-section"
-                className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium transition-colors"
+              <button
+                onClick={() => setActiveSection("videos")}
+                className={`inline-flex items-center px-4 py-2 rounded-lg font-medium transition-colors ${
+                  activeSection === "videos"
+                    ? "bg-purple-600 text-white"
+                    : "bg-purple-100 hover:bg-purple-200 text-purple-700"
+                }`}
               >
                 View Videos
-              </a>
+              </button>
             )}
           </div>
         </div>
@@ -150,33 +159,35 @@ export default function Gallery() {
       )}
 
       {/* Photos Section */}
-      <section
-        id="photos-section"
-        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""} scroll-mt-20 border-b-2 border-purple-200`}
-      >
-        <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
-          Photos
-        </h2>
-        {filteredImages.length > 0 ? (
-          <MasonryGrid
-            images={filteredImages}
-            onPreview={setSelectedImage}
-            onDownload={handleDownload}
-            selectedImages={selectedImages}
-            onSelectImage={handleSelectImage}
-          />
-        ) : (
-          <div className="text-center py-20">
-            <p className="text-gray-600 text-lg">No photos available yet.</p>
-          </div>
-        )}
-      </section>
+      {activeSection === "photos" && (
+        <section
+          id="photos-section"
+          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""} scroll-mt-20`}
+        >
+          <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
+            Photos
+          </h2>
+          {filteredImages.length > 0 ? (
+            <MasonryGrid
+              images={filteredImages}
+              onPreview={setSelectedImage}
+              onDownload={handleDownload}
+              selectedImages={selectedImages}
+              onSelectImage={handleSelectImage}
+            />
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-gray-600 text-lg">No photos available yet.</p>
+            </div>
+          )}
+        </section>
+      )}
 
       {/* Videos Section */}
-      {videos.length > 0 && (
+      {activeSection === "videos" && videos.length > 0 && (
         <section
           id="videos-section"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 scroll-mt-20 border-t-2 border-purple-200 pt-20"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 scroll-mt-20"
         >
           <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
             Videos
