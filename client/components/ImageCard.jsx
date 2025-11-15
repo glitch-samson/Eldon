@@ -15,7 +15,7 @@ export function ImageCard({
     >
       {/* Image Container */}
       <div
-        className={`group relative overflow-hidden bg-gray-100 cursor-pointer aspect-square`}
+        className={`group relative overflow-hidden bg-gray-100 cursor-pointer`}
         onClick={() => onPreview(image)}
       >
         {/* Image */}

@@ -8,7 +8,7 @@ export function VideoGalleryCard({ video }) {
     <div className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
       {/* Video Container */}
       <div
-        className="group relative overflow-hidden bg-gray-900 cursor-pointer aspect-square"
+        className="group relative overflow-hidden bg-gray-900 cursor-pointer"
         onClick={() => setIsPlaying(!isPlaying)}
       >
         {/* Video */}
