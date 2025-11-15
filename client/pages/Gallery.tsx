@@ -52,7 +52,7 @@ export default function Gallery() {
   const handleNext = () => {
     if (!selectedImage) return;
     const currentIndex = filteredImages.findIndex(
-      (img) => img.id === selectedImage.id
+      (img) => img.id === selectedImage.id,
     );
     if (currentIndex < filteredImages.length - 1) {
       setSelectedImage(filteredImages[currentIndex + 1]);
@@ -62,7 +62,7 @@ export default function Gallery() {
   const handlePrev = () => {
     if (!selectedImage) return;
     const currentIndex = filteredImages.findIndex(
-      (img) => img.id === selectedImage.id
+      (img) => img.id === selectedImage.id,
     );
     if (currentIndex > 0) {
       setSelectedImage(filteredImages[currentIndex - 1]);
@@ -93,7 +93,8 @@ export default function Gallery() {
       {/* Image Count */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <p className="text-gray-600">
-          Showing {filteredImages.length} photo{filteredImages.length !== 1 ? "s" : ""}
+          Showing {filteredImages.length} photo
+          {filteredImages.length !== 1 ? "s" : ""}
         </p>
       </section>
 
@@ -103,7 +104,8 @@ export default function Gallery() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
             <div>
               <p className="text-sm font-medium text-gray-900">
-                {selectedImages.size} photo{selectedImages.size !== 1 ? "s" : ""} selected
+                {selectedImages.size} photo
+                {selectedImages.size !== 1 ? "s" : ""} selected
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -127,7 +129,9 @@ export default function Gallery() {
       )}
 
       {/* Gallery Grid */}
-      <section className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""}`}>
+      <section
+        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""}`}
+      >
         {filteredImages.length > 0 ? (
           <MasonryGrid
             images={filteredImages}
@@ -138,9 +142,7 @@ export default function Gallery() {
           />
         ) : (
           <div className="text-center py-20">
-            <p className="text-gray-600 text-lg">
-              No photos available yet.
-            </p>
+            <p className="text-gray-600 text-lg">No photos available yet.</p>
           </div>
         )}
       </section>

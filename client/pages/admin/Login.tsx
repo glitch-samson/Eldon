@@ -77,7 +77,10 @@ export default function AdminLogin() {
                 Username
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 text-gold-600" size={20} />
+                <Mail
+                  className="absolute left-3 top-3 text-gold-600"
+                  size={20}
+                />
                 <input
                   type="text"
                   id="username"
@@ -99,7 +102,10 @@ export default function AdminLogin() {
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 text-gold-600" size={20} />
+                <Lock
+                  className="absolute left-3 top-3 text-gold-600"
+                  size={20}
+                />
                 <input
                   type="password"
                   id="password"
@@ -139,7 +145,10 @@ export default function AdminLogin() {
           <div className="mt-6 pt-6 border-t border-gray-200">
             <p className="text-center text-sm text-gray-600">
               Not an admin?{" "}
-              <a href="/" className="text-gold-600 hover:text-gold-700 font-semibold">
+              <a
+                href="/"
+                className="text-gold-600 hover:text-gold-700 font-semibold"
+              >
                 Back to home
               </a>
             </p>

@@ -83,7 +83,8 @@ export default function AdminDashboard() {
               Admin Dashboard
             </h1>
             <p className="text-gray-600 text-sm mt-1">
-              Manage {images.length} wedding photo{images.length !== 1 ? "s" : ""}
+              Manage {images.length} wedding photo
+              {images.length !== 1 ? "s" : ""}
             </p>
           </div>
           <button
@@ -145,7 +146,10 @@ export default function AdminDashboard() {
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     />
                     <div className="w-full px-4 py-3 border-2 border-dashed border-gold-300 rounded-lg text-center bg-gold-50/50 hover:bg-gold-50 transition-colors">
-                      <ImageIcon className="mx-auto text-gold-600 mb-2" size={24} />
+                      <ImageIcon
+                        className="mx-auto text-gold-600 mb-2"
+                        size={24}
+                      />
                       <p className="text-sm text-gray-700 font-medium">
                         Click to select photo
                       </p>

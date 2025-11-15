@@ -1,5 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, Download } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  X,
+  ZoomIn,
+  ZoomOut,
+  Download,
+} from "lucide-react";
 import { Image } from "../data/images";
 
 interface LightboxProps {
@@ -10,7 +17,13 @@ interface LightboxProps {
   onPrev: () => void;
 }
 
-export function Lightbox({ image, images, onClose, onNext, onPrev }: LightboxProps) {
+export function Lightbox({
+  image,
+  images,
+  onClose,
+  onNext,
+  onPrev,
+}: LightboxProps) {
   const [zoom, setZoom] = useState(1);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);

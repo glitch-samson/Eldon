@@ -29,7 +29,10 @@ export default function About() {
           {/* Image */}
           <div className="relative">
             <img
-              src={images[8]?.src || "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=700&fit=crop"}
+              src={
+                images[8]?.src ||
+                "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=700&fit=crop"
+              }
               alt="Sarah and James"
               className="w-full rounded-xl shadow-2xl object-cover aspect-[3/4]"
             />
@@ -62,7 +65,10 @@ export default function About() {
               </h3>
               <p className="text-gray-600 text-lg mb-4">The Bride</p>
               <img
-                src={images[0]?.src || "https://images.unsplash.com/photo-1519741497674-611481863552?w=300&h=300&fit=crop"}
+                src={
+                  images[0]?.src ||
+                  "https://images.unsplash.com/photo-1519741497674-611481863552?w=300&h=300&fit=crop"
+                }
                 alt={coupleInfo.brideName}
                 className="w-48 h-48 mx-auto rounded-full object-cover shadow-lg mb-4"
               />
@@ -78,7 +84,10 @@ export default function About() {
               </h3>
               <p className="text-gray-600 text-lg mb-4">The Groom</p>
               <img
-                src={images[1]?.src || "https://images.unsplash.com/photo-1506748686214-e9b7d7490020?w=300&h=300&fit=crop"}
+                src={
+                  images[1]?.src ||
+                  "https://images.unsplash.com/photo-1506748686214-e9b7d7490020?w=300&h=300&fit=crop"
+                }
                 alt={coupleInfo.groomName}
                 className="w-48 h-48 mx-auto rounded-full object-cover shadow-lg mb-4"
               />

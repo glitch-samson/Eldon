@@ -74,7 +74,9 @@ export default function EventDetails() {
                 <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">
                   Ceremony
                 </h3>
-                <p className="text-gray-600 mb-1">Time: {coupleInfo.ceremony_time}</p>
+                <p className="text-gray-600 mb-1">
+                  Time: {coupleInfo.ceremony_time}
+                </p>
                 <p className="text-gray-600">
                   Location: Main Hall, {coupleInfo.venue}
                 </p>
@@ -92,7 +94,9 @@ export default function EventDetails() {
                 <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">
                   Reception & Dinner
                 </h3>
-                <p className="text-gray-600 mb-1">Time: {coupleInfo.reception_time}</p>
+                <p className="text-gray-600 mb-1">
+                  Time: {coupleInfo.reception_time}
+                </p>
                 <p className="text-gray-600">
                   Location: Ballroom, {coupleInfo.venue}
                 </p>

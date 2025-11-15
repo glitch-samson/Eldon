@@ -19,11 +19,13 @@ export function MasonryGrid({
   return (
     <div
       className="w-full"
-      style={{
-        columnCount: `auto`,
-        columnWidth: "300px",
-        columnGap: "1rem",
-      } as React.CSSProperties}
+      style={
+        {
+          columnCount: `auto`,
+          columnWidth: "300px",
+          columnGap: "1rem",
+        } as React.CSSProperties
+      }
     >
       {images.map((image) => (
         <div
