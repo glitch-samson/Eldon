@@ -126,11 +126,8 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* Add top margin when toolbar is visible */}
-      <div className={selectedImages.size > 0 ? "pt-20" : ""}></div>
-
       {/* Gallery Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <section className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""}`}>
         {filteredImages.length > 0 ? (
           <MasonryGrid
             images={filteredImages}
