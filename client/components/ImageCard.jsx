@@ -54,29 +54,29 @@ export function ImageCard({
         )}
       </div>
 
-      {/* Action Buttons Below */}
-      <div className="flex items-center gap-2 p-3 bg-gray-50">
+      {/* Icon Buttons Below */}
+      <div className="flex items-center justify-center gap-3 p-3 bg-white">
         <button
           onClick={(e) => {
             e.stopPropagation();
             onPreview(image);
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md transition-colors font-medium text-sm"
+          className="p-2 rounded-full bg-gray-100 hover:bg-purple-600 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110"
           aria-label="Preview image"
+          title="Preview"
         >
-          <Eye size={16} />
-          Preview
+          <Eye size={20} />
         </button>
         <button
           onClick={(e) => {
             e.stopPropagation();
             onDownload(image);
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-rose-500 hover:bg-rose-600 text-white py-2 rounded-md transition-colors font-medium text-sm"
+          className="p-2 rounded-full bg-gray-100 hover:bg-rose-500 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110"
           aria-label="Download image"
+          title="Download"
         >
-          <Download size={16} />
-          Download
+          <Download size={20} />
         </button>
       </div>
     </div>

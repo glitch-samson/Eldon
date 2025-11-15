@@ -32,37 +32,28 @@ export function VideoGalleryCard({ video }) {
         )}
       </div>
 
-      {/* Action Buttons Below */}
-      <div className="flex items-center gap-2 p-3 bg-gray-900">
+      {/* Icon Buttons Below */}
+      <div className="flex items-center justify-center gap-3 p-3 bg-gray-800">
         <button
           onClick={(e) => {
             e.stopPropagation();
             setIsPlaying(!isPlaying);
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md transition-colors font-medium text-sm"
+          className="p-2 rounded-full bg-gray-700 hover:bg-purple-600 text-gray-200 hover:text-white transition-all duration-200 hover:scale-110"
           aria-label={isPlaying ? "Pause video" : "Play video"}
+          title={isPlaying ? "Pause" : "Play"}
         >
-          {isPlaying ? (
-            <>
-              <Pause size={16} />
-              Pause
-            </>
-          ) : (
-            <>
-              <Play size={16} />
-              Play
-            </>
-          )}
+          {isPlaying ? <Pause size={20} /> : <Play size={20} />}
         </button>
         <button
           onClick={(e) => {
             e.stopPropagation();
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-rose-500 hover:bg-rose-600 text-white py-2 rounded-md transition-colors font-medium text-sm"
+          className="p-2 rounded-full bg-gray-700 hover:bg-rose-500 text-gray-200 hover:text-white transition-all duration-200 hover:scale-110"
           aria-label="Download video"
+          title="Download"
         >
-          <Download size={16} />
-          Download
+          <Download size={20} />
         </button>
       </div>
     </div>
