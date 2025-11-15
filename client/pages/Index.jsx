@@ -71,12 +71,6 @@ export default function Index() {
               View Gallery
               <ChevronRight size={20} />
             </Link>
-            <Link
-              to="/details"
-              className="inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-purple-600 px-8 py-3 rounded-lg font-semibold border-2 border-purple-600 transition-colors"
-            >
-              Event Details
-            </Link>
           </div>
 
           {/* Hero Image Preview */}
@@ -170,9 +164,6 @@ export default function Index() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/about" className="hover:text-purple-400">
-                    About Us
-                  </Link>
                 </li>
               </ul>
             </div>
