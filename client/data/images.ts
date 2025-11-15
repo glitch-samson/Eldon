@@ -110,3 +110,6 @@ export const adminImages: AdminImage[] = images.map((img) => ({
   ...img,
   uploadDate: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
 }));
+
+// Empty categories array for backwards compatibility (no longer used)
+export const categories: any[] = [];
