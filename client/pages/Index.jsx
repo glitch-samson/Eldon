@@ -163,8 +163,7 @@ export default function Index() {
                     Gallery
                   </Link>
                 </li>
-                <li>
-                </li>
+                <li></li>
               </ul>
             </div>
             <div>
