@@ -8,13 +8,7 @@ import {
   Download,
 } from "lucide-react";
 
-export function Lightbox({
-  image,
-  images,
-  onClose,
-  onNext,
-  onPrev,
-}) {
+export function Lightbox({ image, images, onClose, onNext, onPrev }) {
   const [zoom, setZoom] = useState(1);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
