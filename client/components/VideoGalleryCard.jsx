@@ -8,7 +8,7 @@ export function VideoGalleryCard({ video }) {
     <div className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
       {/* Video Container */}
       <div
-        className="group relative overflow-hidden bg-gray-900 cursor-pointer aspect-square"
+        className="group relative overflow-hidden bg-gray-900 cursor-pointer"
         onClick={() => setIsPlaying(!isPlaying)}
       >
         {/* Video */}
@@ -32,7 +32,7 @@ export function VideoGalleryCard({ video }) {
         )}
 
         {/* Icon Buttons at Bottom Right */}
-        <div className="absolute bottom-2 right-2 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute bottom-2 right-2 flex items-center gap-2 transition-opacity duration-300">
           <button
             onClick={(e) => {
               e.stopPropagation();

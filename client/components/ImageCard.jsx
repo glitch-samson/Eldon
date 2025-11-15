@@ -15,7 +15,7 @@ export function ImageCard({
     >
       {/* Image Container */}
       <div
-        className={`group relative overflow-hidden bg-gray-100 cursor-pointer aspect-square`}
+        className={`group relative overflow-hidden bg-gray-100 cursor-pointer`}
         onClick={() => onPreview(image)}
       >
         {/* Image */}
@@ -54,7 +54,7 @@ export function ImageCard({
         )}
 
         {/* Icon Buttons at Bottom Right */}
-        <div className="absolute bottom-2 right-2 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute bottom-2 right-2 flex items-center gap-2 transition-opacity duration-300">
           <button
             onClick={(e) => {
               e.stopPropagation();
