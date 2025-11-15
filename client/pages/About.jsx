@@ -4,13 +4,13 @@ import { Heart } from "lucide-react";
 
 export default function About() {
   return (
-    <div className="bg-gradient-to-br from-white via-gold-50 to-white min-h-screen">
+    <div className="bg-gradient-to-br from-white via-purple-50 to-white min-h-screen">
       <Navigation />
 
       {/* Header */}
       <section className="relative pt-32 pb-16">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gold-200/20 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -33,10 +33,10 @@ export default function About() {
                 images[8]?.src ||
                 "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=700&fit=crop"
               }
-              alt="Sarah and James"
+              alt="Eldon and Geraldine"
               className="w-full rounded-xl shadow-2xl object-cover aspect-[3/4]"
             />
-            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gold-600 rounded-full flex items-center justify-center shadow-lg">
+            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-purple-600 rounded-full flex items-center justify-center shadow-lg">
               <Heart size={48} className="text-white" />
             </div>
           </div>
@@ -49,7 +49,7 @@ export default function About() {
             <p className="text-lg text-gray-700 font-light leading-relaxed mb-6">
               {coupleInfo.story}
             </p>
-            <p className="text-lg text-gold-600 font-serif font-semibold">
+            <p className="text-lg text-purple-600 font-serif font-semibold">
               Forever starts now ✨
             </p>
           </div>
@@ -106,7 +106,7 @@ export default function About() {
 
           <div className="space-y-8 relative">
             {/* Vertical line */}
-            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gold-200" />
+            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-purple-200" />
 
             {/* Timeline Item 1 */}
             <div className="flex gap-8 items-center">
@@ -116,7 +116,7 @@ export default function About() {
                 </h3>
                 <p className="text-gray-600 mt-2">College days</p>
               </div>
-              <div className="w-6 h-6 bg-gold-600 rounded-full shadow-lg flex-shrink-0 border-4 border-white" />
+              <div className="w-6 h-6 bg-purple-600 rounded-full shadow-lg flex-shrink-0 border-4 border-white" />
               <div className="flex-1"></div>
             </div>
 
@@ -128,7 +128,7 @@ export default function About() {
                 </h3>
                 <p className="text-gray-600 mt-2">Years of adventures</p>
               </div>
-              <div className="w-6 h-6 bg-gold-600 rounded-full shadow-lg flex-shrink-0 border-4 border-white" />
+              <div className="w-6 h-6 bg-purple-600 rounded-full shadow-lg flex-shrink-0 border-4 border-white" />
               <div className="flex-1"></div>
             </div>
 
@@ -162,7 +162,7 @@ export default function About() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-          <p>&copy; 2024 Sarah & James. All rights reserved.</p>
+          <p>&copy; 2024 Eldon and Geraldine. All rights reserved.</p>
         </div>
       </footer>
     </div>

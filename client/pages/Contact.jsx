@@ -28,13 +28,13 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-white via-gold-50 to-white min-h-screen">
+    <div className="bg-gradient-to-br from-white via-purple-50 to-white min-h-screen">
       <Navigation />
 
       {/* Header */}
       <section className="relative pt-32 pb-16">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gold-200/20 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -60,7 +60,7 @@ export default function Contact() {
               {/* Email */}
               <div className="flex gap-4 items-start">
                 <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-gold-600 text-white">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-purple-600 text-white">
                     <Mail size={24} />
                   </div>
                 </div>
@@ -68,9 +68,9 @@ export default function Contact() {
                   <h3 className="text-xl font-semibold text-gray-900 mb-1">
                     Email
                   </h3>
-                  <p className="text-gray-600 hover:text-gold-600">
-                    <a href="mailto:hello@sarahandjames.com">
-                      hello@sarahandjames.com
+                  <p className="text-gray-600 hover:text-purple-600">
+                    <a href="mailto:hello@eldonandgeraldine.com">
+                      hello@eldonandgeraldine.com
                     </a>
                   </p>
                 </div>
@@ -87,7 +87,7 @@ export default function Contact() {
                   <h3 className="text-xl font-semibold text-gray-900 mb-1">
                     Phone
                   </h3>
-                  <p className="text-gray-600 hover:text-gold-600">
+                  <p className="text-gray-600 hover:text-purple-600">
                     <a href="tel:+15551234567">(555) 123-4567</a>
                   </p>
                 </div>
@@ -96,7 +96,7 @@ export default function Contact() {
               {/* Hours */}
               <div className="flex gap-4 items-start">
                 <div className="flex-shrink-0">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-gold-500 text-white">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-purple-500 text-white">
                     <Heart size={24} />
                   </div>
                 </div>
@@ -119,21 +119,21 @@ export default function Contact() {
               <div className="flex gap-4">
                 <a
                   href="#"
-                  className="w-10 h-10 bg-gold-600 hover:bg-gold-700 rounded-lg flex items-center justify-center text-white transition-colors"
+                  className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center text-white transition-colors"
                   aria-label="Instagram"
                 >
                   f
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 bg-gold-600 hover:bg-gold-700 rounded-lg flex items-center justify-center text-white transition-colors"
+                  className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center text-white transition-colors"
                   aria-label="Facebook"
                 >
                   i
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 bg-gold-600 hover:bg-gold-700 rounded-lg flex items-center justify-center text-white transition-colors"
+                  className="w-10 h-10 bg-purple-600 hover:bg-purple-700 rounded-lg flex items-center justify-center text-white transition-colors"
                   aria-label="Twitter"
                 >
                   t
@@ -171,7 +171,7 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   placeholder="Enter your name"
                 />
               </div>
@@ -191,7 +191,7 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -211,7 +211,7 @@ export default function Contact() {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                   placeholder="What's this about?"
                 />
               </div>
@@ -231,7 +231,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-600 focus:border-transparent resize-none"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent resize-none"
                   placeholder="Your message here..."
                 />
               </div>
@@ -239,7 +239,7 @@ export default function Contact() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-gold-600 hover:bg-gold-700 text-white font-semibold py-3 rounded-lg transition-colors"
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg transition-colors"
               >
                 Send Message
               </button>
@@ -251,7 +251,7 @@ export default function Contact() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-          <p>&copy; 2024 Sarah & James. All rights reserved.</p>
+          <p>&copy; 2024 Eldon and Geraldine. All rights reserved.</p>
         </div>
       </footer>
     </div>
