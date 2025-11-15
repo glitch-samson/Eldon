@@ -85,12 +85,38 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* Image Count */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-        <div className="text-center">
+      {/* Image Count & Selection Toolbar */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <p className="text-gray-600">
             Showing {filteredImages.length} photo{filteredImages.length !== 1 ? "s" : ""}
           </p>
+
+          {selectedImages.size > 0 && (
+            <div className="bg-white rounded-lg shadow-md p-4 flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-medium text-gray-900">
+                  {selectedImages.size} photo{selectedImages.size !== 1 ? "s" : ""} selected
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handleDownloadSelected}
+                  className="flex items-center gap-2 bg-gold-600 hover:bg-gold-700 text-white px-4 py-2 rounded-lg transition-colors font-medium text-sm"
+                >
+                  <Download size={16} />
+                  Download All
+                </button>
+                <button
+                  onClick={handleClearSelection}
+                  className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition-colors font-medium text-sm"
+                >
+                  <X size={16} />
+                  Clear
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -101,6 +127,8 @@ export default function Gallery() {
             images={filteredImages}
             onPreview={setSelectedImage}
             onDownload={handleDownload}
+            selectedImages={selectedImages}
+            onSelectImage={handleSelectImage}
           />
         ) : (
           <div className="text-center py-20">
