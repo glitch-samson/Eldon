@@ -4,12 +4,12 @@ import { ChevronLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="bg-gradient-to-br from-white via-gold-50 to-white min-h-screen">
+    <div className="bg-gradient-to-br from-white via-purple-50 to-white min-h-screen">
       <Navigation />
 
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="text-center">
-          <h1 className="text-9xl font-serif font-bold text-gold-600 mb-4">
+          <h1 className="text-9xl font-serif font-bold text-purple-600 mb-4">
             404
           </h1>
           <h2 className="text-4xl font-serif font-bold text-gray-900 mb-4">
@@ -22,7 +22,7 @@ export default function NotFound() {
 
           <Link
             to="/"
-            className="inline-flex items-center gap-2 bg-gold-600 hover:bg-gold-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+            className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
           >
             <ChevronLeft size={20} />
             Back to Home

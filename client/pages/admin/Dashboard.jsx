@@ -70,9 +70,9 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gold-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-white via-purple-50 to-white">
       {/* Header */}
-      <div className="bg-white shadow-md border-b border-gold-200">
+      <div className="bg-white shadow-md border-b border-purple-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-serif font-bold text-gray-900">
@@ -99,8 +99,8 @@ export default function AdminDashboard() {
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow-lg p-6 sticky top-8">
               <div className="flex items-center gap-2 mb-6">
-                <div className="p-2 bg-gold-100 rounded-lg">
-                  <Upload className="text-gold-600" size={24} />
+                <div className="p-2 bg-purple-100 rounded-lg">
+                  <Upload className="text-purple-600" size={24} />
                 </div>
                 <h2 className="text-2xl font-serif font-bold text-gray-900">
                   Upload
@@ -141,9 +141,9 @@ export default function AdminDashboard() {
                       onChange={handleFileChange}
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     />
-                    <div className="w-full px-4 py-3 border-2 border-dashed border-gold-300 rounded-lg text-center bg-gold-50/50 hover:bg-gold-50 transition-colors">
+                    <div className="w-full px-4 py-3 border-2 border-dashed border-purple-300 rounded-lg text-center bg-purple-50/50 hover:bg-purple-50 transition-colors">
                       <ImageIcon
-                        className="mx-auto text-gold-600 mb-2"
+                        className="mx-auto text-purple-600 mb-2"
                         size={24}
                       />
                       <p className="text-sm text-gray-700 font-medium">
@@ -168,7 +168,7 @@ export default function AdminDashboard() {
                     id="caption"
                     value={caption}
                     onChange={(e) => setCaption(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-600 focus:border-transparent resize-none"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent resize-none"
                     placeholder="Add a caption for this photo..."
                     rows={3}
                   />
@@ -178,7 +178,7 @@ export default function AdminDashboard() {
                 <button
                   type="submit"
                   disabled={!previewUrl}
-                  className="w-full bg-gradient-to-r from-gold-600 to-gold-700 hover:from-gold-700 hover:to-gold-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                 >
                   <Upload size={20} />
                   Upload Photo
@@ -187,8 +187,8 @@ export default function AdminDashboard() {
 
               {/* Stats */}
               <div className="mt-8 pt-6 border-t border-gray-200">
-                <div className="bg-gradient-to-br from-gold-50 to-rose-50 rounded-lg p-4 text-center">
-                  <p className="text-4xl font-serif font-bold text-gold-600 mb-1">
+                <div className="bg-gradient-to-br from-purple-50 to-rose-50 rounded-lg p-4 text-center">
+                  <p className="text-4xl font-serif font-bold text-purple-600 mb-1">
                     {images.length}
                   </p>
                   <p className="text-sm text-gray-600">
@@ -202,7 +202,7 @@ export default function AdminDashboard() {
           {/* Photos Grid */}
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
-              <ImageIcon className="text-gold-600" size={28} />
+              <ImageIcon className="text-purple-600" size={28} />
               Gallery
             </h2>
 
