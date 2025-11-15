@@ -1,15 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Trash2, Upload, Eye, EyeOff, LogOut } from "lucide-react";
-import { adminImages, AdminImage, categories } from "../../data/images";
+import { Trash2, Upload, Eye, LogOut, Image as ImageIcon } from "lucide-react";
+import { adminImages, AdminImage } from "../../data/images";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const [images, setImages] = useState<AdminImage[]>(adminImages);
   const [caption, setCaption] = useState("");
-  const [category, setCategory] = useState<
-    "bride" | "groom" | "reception" | "ceremony" | "details"
-  >("bride");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [uploadedFileName, setUploadedFileName] = useState("");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -53,7 +50,6 @@ export default function AdminDashboard() {
       id: String(Math.max(...images.map((img) => parseInt(img.id)), 0) + 1),
       src: previewUrl,
       caption: caption || undefined,
-      category: category,
       alt: `Wedding photo - ${uploadedFileName}`,
       uploadDate: new Date().toLocaleDateString(),
     };
@@ -63,7 +59,6 @@ export default function AdminDashboard() {
     // Reset form
     setPreviewUrl(null);
     setCaption("");
-    setCategory("bride");
     setUploadedFileName("");
     const fileInput = document.getElementById("imageInput") as HTMLInputElement;
     if (fileInput) fileInput.value = "";
@@ -78,21 +73,22 @@ export default function AdminDashboard() {
     setDeleteConfirm(null);
   };
 
-  const categoryName = (value: string) => {
-    return categories.find((cat) => cat.value === value)?.name || value;
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-gold-50 to-white">
       {/* Header */}
-      <div className="bg-white shadow-lg">
+      <div className="bg-white shadow-md border-b border-gold-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
-          <h1 className="text-3xl font-serif font-bold text-gray-900">
-            Admin Dashboard
-          </h1>
+          <div>
+            <h1 className="text-3xl font-serif font-bold text-gray-900">
+              Admin Dashboard
+            </h1>
+            <p className="text-gray-600 text-sm mt-1">
+              Manage {images.length} wedding photo{images.length !== 1 ? "s" : ""}
+            </p>
+          </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
+            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
           >
             <LogOut size={20} />
             Logout
@@ -104,27 +100,32 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Upload Section */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-8 sticky top-8">
-              <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">
-                Upload Photo
-              </h2>
+            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-8">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="p-2 bg-gold-100 rounded-lg">
+                  <Upload className="text-gold-600" size={24} />
+                </div>
+                <h2 className="text-2xl font-serif font-bold text-gray-900">
+                  Upload
+                </h2>
+              </div>
 
               {showSuccessMessage && (
-                <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-sm">
-                  Image uploaded successfully!
+                <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-sm font-medium animate-in">
+                  ✓ Image uploaded successfully!
                 </div>
               )}
 
-              <form onSubmit={handleUpload} className="space-y-6">
+              <form onSubmit={handleUpload} className="space-y-5">
                 {/* Image Preview */}
                 {previewUrl && (
-                  <div className="relative rounded-lg overflow-hidden">
+                  <div className="relative rounded-lg overflow-hidden bg-gray-100 aspect-square">
                     <img
                       src={previewUrl}
                       alt="Preview"
-                      className="w-full h-48 object-cover"
+                      className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                       <Eye className="text-white" size={32} />
                     </div>
                   </div>
@@ -133,15 +134,26 @@ export default function AdminDashboard() {
                 {/* File Input */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Select Image
+                    Select Photo
                   </label>
-                  <input
-                    type="file"
-                    id="imageInput"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    className="w-full px-4 py-2 border-2 border-dashed border-gold-300 rounded-lg focus:outline-none focus:border-gold-600"
-                  />
+                  <div className="relative">
+                    <input
+                      type="file"
+                      id="imageInput"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    />
+                    <div className="w-full px-4 py-3 border-2 border-dashed border-gold-300 rounded-lg text-center bg-gold-50/50 hover:bg-gold-50 transition-colors">
+                      <ImageIcon className="mx-auto text-gold-600 mb-2" size={24} />
+                      <p className="text-sm text-gray-700 font-medium">
+                        Click to select photo
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {uploadedFileName || "PNG, JPG, GIF up to 10MB"}
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Caption */}
@@ -156,47 +168,17 @@ export default function AdminDashboard() {
                     id="caption"
                     value={caption}
                     onChange={(e) => setCaption(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-600"
-                    placeholder="Add a caption..."
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-600 focus:border-transparent resize-none"
+                    placeholder="Add a caption for this photo..."
                     rows={3}
                   />
-                </div>
-
-                {/* Category */}
-                <div>
-                  <label
-                    htmlFor="category"
-                    className="block text-sm font-medium text-gray-700 mb-2"
-                  >
-                    Category
-                  </label>
-                  <select
-                    id="category"
-                    value={category}
-                    onChange={(e) =>
-                      setCategory(
-                        e.target.value as
-                          | "bride"
-                          | "groom"
-                          | "reception"
-                          | "ceremony"
-                          | "details"
-                      )
-                    }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-600"
-                  >
-                    <option value="bride">Bride</option>
-                    <option value="groom">Groom</option>
-                    <option value="ceremony">Ceremony</option>
-                    <option value="reception">Reception</option>
-                    <option value="details">Details</option>
-                  </select>
                 </div>
 
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-gold-600 hover:bg-gold-700 text-white font-semibold py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  disabled={!previewUrl}
+                  className="w-full bg-gradient-to-r from-gold-600 to-gold-700 hover:from-gold-700 hover:to-gold-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                 >
                   <Upload size={20} />
                   Upload Photo
@@ -204,89 +186,95 @@ export default function AdminDashboard() {
               </form>
 
               {/* Stats */}
-              <div className="mt-8 pt-8 border-t border-gray-200">
-                <div className="text-center">
-                  <p className="text-4xl font-serif font-bold text-gold-600 mb-2">
+              <div className="mt-8 pt-6 border-t border-gray-200">
+                <div className="bg-gradient-to-br from-gold-50 to-rose-50 rounded-lg p-4 text-center">
+                  <p className="text-4xl font-serif font-bold text-gold-600 mb-1">
                     {images.length}
                   </p>
-                  <p className="text-gray-600">Photos in gallery</p>
+                  <p className="text-sm text-gray-600">
+                    Photo{images.length !== 1 ? "s" : ""} in gallery
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Images List */}
+          {/* Photos Grid */}
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6">
-              Manage Photos
+            <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <ImageIcon className="text-gold-600" size={28} />
+              Gallery
             </h2>
 
             {images.length === 0 ? (
-              <div className="bg-white rounded-xl shadow-lg p-12 text-center">
-                <p className="text-gray-600 text-lg">
-                  No photos uploaded yet. Start uploading to build your gallery!
+              <div className="bg-white rounded-xl shadow-lg p-16 text-center">
+                <ImageIcon className="mx-auto text-gray-400 mb-4" size={48} />
+                <p className="text-gray-600 text-lg font-medium">
+                  No photos yet
+                </p>
+                <p className="text-gray-500 text-sm mt-2">
+                  Upload photos using the form to get started
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                 {images.map((image) => (
                   <div
                     key={image.id}
-                    className="bg-white rounded-xl shadow-lg p-4 flex gap-4 items-start hover:shadow-xl transition-shadow"
+                    className="group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all"
                   >
                     {/* Thumbnail */}
-                    <div className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-gray-200">
+                    <div className="relative w-full aspect-square bg-gray-200 overflow-hidden">
                       <img
                         src={image.src}
                         alt={image.alt}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
-                    </div>
 
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-500">
-                        ID: {image.id}
-                      </p>
-                      <p className="font-medium text-gray-900 truncate mb-1">
-                        {image.caption || "No caption"}
-                      </p>
-                      <div className="flex gap-2 flex-wrap">
-                        <span className="px-2 py-1 bg-gold-100 text-gold-700 text-xs rounded font-medium">
-                          {categoryName(image.category)}
-                        </span>
-                        <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-                          {image.uploadDate}
-                        </span>
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <div className="flex gap-2">
+                          {deleteConfirm === image.id ? (
+                            <>
+                              <button
+                                onClick={() => handleDelete(image.id)}
+                                className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                                title="Confirm delete"
+                              >
+                                <Trash2 size={18} />
+                              </button>
+                              <button
+                                onClick={() => setDeleteConfirm(null)}
+                                className="px-3 py-2 bg-gray-600 hover:bg-gray-700 text-white text-sm rounded-lg transition-colors"
+                              >
+                                Cancel
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              onClick={() => setDeleteConfirm(image.id)}
+                              className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                              title="Delete image"
+                            >
+                              <Trash2 size={18} />
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
 
-                    {/* Delete Button */}
-                    <div>
-                      {deleteConfirm === image.id ? (
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => handleDelete(image.id)}
-                            className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-colors"
-                          >
-                            Confirm
-                          </button>
-                          <button
-                            onClick={() => setDeleteConfirm(null)}
-                            className="px-3 py-1 bg-gray-300 hover:bg-gray-400 text-gray-900 text-sm rounded transition-colors"
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => setDeleteConfirm(image.id)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                          title="Delete image"
-                        >
-                          <Trash2 size={20} />
-                        </button>
-                      )}
+                    {/* Info */}
+                    <div className="p-3">
+                      <p className="text-xs text-gray-500">ID: {image.id}</p>
+                      <p
+                        className="text-xs text-gray-700 line-clamp-2 mt-1"
+                        title={image.caption}
+                      >
+                        {image.caption || "No caption"}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-2">
+                        {image.uploadDate}
+                      </p>
                     </div>
                   </div>
                 ))}
