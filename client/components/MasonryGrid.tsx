@@ -5,9 +5,17 @@ interface MasonryGridProps {
   images: Image[];
   onPreview: (image: Image) => void;
   onDownload: (image: Image) => void;
+  selectedImages?: Set<string>;
+  onSelectImage?: (imageId: string) => void;
 }
 
-export function MasonryGrid({ images, onPreview, onDownload }: MasonryGridProps) {
+export function MasonryGrid({
+  images,
+  onPreview,
+  onDownload,
+  selectedImages = new Set(),
+  onSelectImage,
+}: MasonryGridProps) {
   return (
     <div
       className="w-full"
@@ -29,6 +37,8 @@ export function MasonryGrid({ images, onPreview, onDownload }: MasonryGridProps)
             image={image}
             onPreview={onPreview}
             onDownload={onDownload}
+            isSelected={selectedImages.has(image.id)}
+            onSelect={onSelectImage ? () => onSelectImage(image.id) : undefined}
           />
         </div>
       ))}
