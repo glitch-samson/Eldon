@@ -174,7 +174,10 @@ export default function Gallery() {
 
       {/* Videos Section */}
       {videos.length > 0 && (
-        <section id="videos-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 scroll-mt-20 border-t-2 border-purple-200 pt-20">
+        <section
+          id="videos-section"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 scroll-mt-20 border-t-2 border-purple-200 pt-20"
+        >
           <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
             Videos
           </h2>
