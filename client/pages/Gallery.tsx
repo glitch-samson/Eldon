@@ -3,11 +3,23 @@ import { Navigation } from "../components/Navigation";
 import { Lightbox } from "../components/Lightbox";
 import { MasonryGrid } from "../components/MasonryGrid";
 import { images, Image } from "../data/images";
+import { Download, X } from "lucide-react";
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+  const [selectedImages, setSelectedImages] = useState<Set<string>>(new Set());
 
   const filteredImages = images;
+
+  const handleSelectImage = (imageId: string) => {
+    const newSelected = new Set(selectedImages);
+    if (newSelected.has(imageId)) {
+      newSelected.delete(imageId);
+    } else {
+      newSelected.add(imageId);
+    }
+    setSelectedImages(newSelected);
+  };
 
   const handleDownload = (image: Image) => {
     const link = document.createElement("a");
@@ -16,6 +28,20 @@ export default function Gallery() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleDownloadSelected = () => {
+    selectedImages.forEach((imageId) => {
+      const image = filteredImages.find((img) => img.id === imageId);
+      if (image) {
+        setTimeout(() => handleDownload(image), 100);
+      }
+    });
+    setSelectedImages(new Set());
+  };
+
+  const handleClearSelection = () => {
+    setSelectedImages(new Set());
   };
 
   const handleNext = () => {
