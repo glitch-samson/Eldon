@@ -9,48 +9,53 @@ export function ImageCard({
 }) {
   return (
     <div
-      className={`group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer bg-gray-100 ${
+      className={`flex flex-col rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${
         isSelected ? "ring-4 ring-purple-500" : ""
       }`}
-      onClick={() => onPreview(image)}
     >
-      {/* Image */}
-      <img
-        src={image.src}
-        alt={image.alt}
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-      />
+      {/* Image Container */}
+      <div
+        className={`group relative overflow-hidden bg-gray-100 cursor-pointer flex-1`}
+        onClick={() => onPreview(image)}
+      >
+        {/* Image */}
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-      {/* Selection Checkbox */}
-      {onSelect && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onSelect();
-          }}
-          className={`absolute top-3 left-3 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${
-            isSelected
-              ? "bg-purple-600 border-purple-600"
-              : "bg-white/80 border-white hover:bg-white"
-          }`}
-          aria-label={isSelected ? "Deselect" : "Select"}
-        >
-          {isSelected && <Check size={16} className="text-white" />}
-        </button>
-      )}
+        {/* Selection Checkbox */}
+        {onSelect && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect();
+            }}
+            className={`absolute top-3 left-3 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${
+              isSelected
+                ? "bg-purple-600 border-purple-600"
+                : "bg-white/80 border-white hover:bg-white"
+            }`}
+            aria-label={isSelected ? "Deselect" : "Select"}
+          >
+            {isSelected && <Check size={16} className="text-white" />}
+          </button>
+        )}
 
-      {/* Caption */}
-      {image.caption && (
-        <div className="absolute bottom-12 left-0 right-0 px-3 py-2 text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <p className="line-clamp-2">{image.caption}</p>
-        </div>
-      )}
+        {/* Caption */}
+        {image.caption && (
+          <div className="absolute bottom-12 left-0 right-0 px-3 py-2 text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p className="line-clamp-2">{image.caption}</p>
+          </div>
+        )}
+      </div>
 
-      {/* Action Buttons */}
-      <div className="absolute bottom-0 left-0 right-0 flex items-center gap-2 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      {/* Action Buttons Below */}
+      <div className="flex items-center gap-2 p-3 bg-gray-50">
         <button
           onClick={(e) => {
             e.stopPropagation();
