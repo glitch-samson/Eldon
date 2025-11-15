@@ -90,13 +90,33 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* Media Count */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-        <p className="text-gray-600">
-          Showing {filteredImages.length} photo
-          {filteredImages.length !== 1 ? "s" : ""} and {videos.length} video
-          {videos.length !== 1 ? "s" : ""}
-        </p>
+      {/* Section Navigation */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <div className="flex flex-col gap-4">
+          <p className="text-gray-600">
+            Showing {filteredImages.length} photo
+            {filteredImages.length !== 1 ? "s" : ""} and {videos.length} video
+            {videos.length !== 1 ? "s" : ""}
+          </p>
+          <div className="flex flex-wrap gap-4">
+            {filteredImages.length > 0 && (
+              <a
+                href="#photos-section"
+                className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium transition-colors"
+              >
+                View Photos
+              </a>
+            )}
+            {videos.length > 0 && (
+              <a
+                href="#videos-section"
+                className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium transition-colors"
+              >
+                View Videos
+              </a>
+            )}
+          </div>
+        </div>
       </section>
 
       {/* Fixed Selection Toolbar */}
@@ -131,7 +151,8 @@ export default function Gallery() {
 
       {/* Photos Section */}
       <section
-        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""}`}
+        id="photos-section"
+        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""} scroll-mt-20 border-b-2 border-purple-200`}
       >
         <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
           Photos
@@ -153,7 +174,10 @@ export default function Gallery() {
 
       {/* Videos Section */}
       {videos.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <section
+          id="videos-section"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 scroll-mt-20 border-t-2 border-purple-200 pt-20"
+        >
           <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
             Videos
           </h2>
