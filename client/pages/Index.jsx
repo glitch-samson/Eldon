@@ -36,26 +36,26 @@ export default function Index() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-white via-gold-50 to-white">
+    <div className="bg-gradient-to-br from-white via-purple-50 to-white">
       <Navigation />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
         {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gold-200/30 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl" />
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-rose-200/20 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-6 inline-block">
-            <span className="text-gold-600 font-serif text-lg tracking-widest uppercase">
+            <span className="text-purple-600 font-serif text-lg tracking-widest uppercase">
               Our Wedding
             </span>
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-serif font-bold text-gray-900 mb-6 leading-tight">
-            Sarah & James
+            Eldon and Geraldine
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 font-light mb-8 max-w-2xl mx-auto">
@@ -66,16 +66,10 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link
               to="/gallery"
-              className="inline-flex items-center justify-center gap-2 bg-gold-600 hover:bg-gold-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
             >
               View Gallery
               <ChevronRight size={20} />
-            </Link>
-            <Link
-              to="/details"
-              className="inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gold-600 px-8 py-3 rounded-lg font-semibold border-2 border-gold-600 transition-colors"
-            >
-              Event Details
             </Link>
           </div>
 
@@ -114,7 +108,7 @@ export default function Index() {
         <div className="flex justify-center mt-16">
           <Link
             to="/gallery"
-            className="inline-flex items-center justify-center gap-2 bg-gold-600 hover:bg-gold-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
           >
             View Full Gallery
             <ChevronRight size={20} />
@@ -123,7 +117,7 @@ export default function Index() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gradient-to-r from-gold-600 to-rose-500 text-white py-16">
+      <section className="bg-gradient-to-r from-purple-600 to-rose-500 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
@@ -150,36 +144,32 @@ export default function Index() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
               <h3 className="text-2xl font-serif font-bold mb-4">
-                Sarah & James
+                Eldon and Geraldine
               </h3>
               <p className="text-gray-400">
                 Creating memories that will last a lifetime.
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-gold-400 mb-4">Navigation</h4>
+              <h4 className="font-semibold text-purple-400 mb-4">Navigation</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <Link to="/" className="hover:text-gold-400">
+                  <Link to="/" className="hover:text-purple-400">
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link to="/gallery" className="hover:text-gold-400">
+                  <Link to="/gallery" className="hover:text-purple-400">
                     Gallery
                   </Link>
                 </li>
-                <li>
-                  <Link to="/about" className="hover:text-gold-400">
-                    About Us
-                  </Link>
-                </li>
+                <li></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-gold-400 mb-4">Contact</h4>
+              <h4 className="font-semibold text-purple-400 mb-4">Contact</h4>
               <p className="text-gray-400">
-                Email: hello@sarahandjames.com
+                Email: hello@eldonandgeraldine.com
                 <br />
                 Phone: (555) 123-4567
               </p>
@@ -187,7 +177,7 @@ export default function Index() {
           </div>
 
           <div className="border-t border-gray-700 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Sarah & James. All rights reserved.</p>
+            <p>&copy; 2024 Eldon and Geraldine. All rights reserved.</p>
           </div>
         </div>
       </footer>

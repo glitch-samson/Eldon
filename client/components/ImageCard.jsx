@@ -10,7 +10,7 @@ export function ImageCard({
   return (
     <div
       className={`group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer bg-gray-100 ${
-        isSelected ? "ring-4 ring-gold-500" : ""
+        isSelected ? "ring-4 ring-purple-500" : ""
       }`}
       onClick={() => onPreview(image)}
     >
@@ -33,7 +33,7 @@ export function ImageCard({
           }}
           className={`absolute top-3 left-3 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${
             isSelected
-              ? "bg-gold-600 border-gold-600"
+              ? "bg-purple-600 border-purple-600"
               : "bg-white/80 border-white hover:bg-white"
           }`}
           aria-label={isSelected ? "Deselect" : "Select"}
@@ -56,7 +56,7 @@ export function ImageCard({
             e.stopPropagation();
             onPreview(image);
           }}
-          className="flex-1 flex items-center justify-center gap-1 bg-gold-600 hover:bg-gold-700 text-white py-2 rounded-md transition-colors font-medium text-sm"
+          className="flex-1 flex items-center justify-center gap-1 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md transition-colors font-medium text-sm"
           aria-label="Preview image"
         >
           <Eye size={16} />

@@ -74,10 +74,10 @@ export const images = [
 ];
 
 export const coupleInfo = {
-  brideName: "Sarah",
-  groomName: "James",
+  brideName: "Geraldine",
+  groomName: "Eldon",
   story:
-    "Sarah and James met in college during a study group. What started as late-night study sessions turned into late-night coffee dates. After four years of laughter, adventures, and unforgettable memories, James proposed under the stars at their favorite beach. Now, they're excited to celebrate their love surrounded by family and friends.",
+    "Eldon and Geraldine met in college during a study group. What started as late-night study sessions turned into late-night coffee dates. After four years of laughter, adventures, and unforgettable memories, Eldon proposed under the stars at their favorite beach. Now, they're excited to celebrate their love surrounded by family and friends.",
   wedding_date: "June 15, 2024",
   venue: "The Grand Ballroom, Downtown",
   ceremony_time: "3:00 PM",

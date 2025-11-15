@@ -11,18 +11,15 @@ export function Navigation() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/gallery", label: "Gallery" },
-    { href: "/about", label: "About" },
-    { href: "/details", label: "Event Details" },
-    { href: "/contact", label: "Contact" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gold-200 z-50">
+    <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-purple-200 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-serif font-bold text-gold-600">
-              S & J
+            <div className="text-2xl font-serif font-bold text-purple-600">
+              E & G
             </div>
           </Link>
 
@@ -34,17 +31,17 @@ export function Navigation() {
                 to={link.href}
                 className={`px-4 py-2 rounded-lg transition-colors ${
                   isActive(link.href)
-                    ? "bg-gold-100 text-gold-700 font-medium"
-                    : "text-gray-700 hover:bg-gold-50"
+                    ? "bg-purple-100 text-purple-700 font-medium"
+                    : "text-gray-700 hover:bg-purple-50"
                 }`}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="ml-4 pl-4 border-l border-gold-200">
+            <div className="ml-4 pl-4 border-l border-purple-200">
               <Link
                 to="/admin/login"
-                className="px-4 py-2 rounded-lg bg-gold-600 text-white hover:bg-gold-700 transition-colors font-medium"
+                className="px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors font-medium"
               >
                 Admin
               </Link>
@@ -54,7 +51,7 @@ export function Navigation() {
           {/* Mobile Navigation Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gold-50"
+            className="md:hidden p-2 rounded-lg hover:bg-purple-50"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -70,8 +67,8 @@ export function Navigation() {
                 onClick={() => setIsOpen(false)}
                 className={`block px-4 py-2 rounded-lg transition-colors ${
                   isActive(link.href)
-                    ? "bg-gold-100 text-gold-700 font-medium"
-                    : "text-gray-700 hover:bg-gold-50"
+                    ? "bg-purple-100 text-purple-700 font-medium"
+                    : "text-gray-700 hover:bg-purple-50"
                 }`}
               >
                 {link.label}
@@ -80,7 +77,7 @@ export function Navigation() {
             <Link
               to="/admin/login"
               onClick={() => setIsOpen(false)}
-              className="block px-4 py-2 rounded-lg bg-gold-600 text-white hover:bg-gold-700 transition-colors font-medium"
+              className="block px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors font-medium"
             >
               Admin Login
             </Link>
