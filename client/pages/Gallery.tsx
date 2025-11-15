@@ -59,16 +59,9 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* Filter Section */}
+      {/* Image Count */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-        <CategoryFilter
-          categories={categories}
-          activeCategory={activeCategory}
-          onCategoryChange={setActiveCategory}
-        />
-
-        {/* Image Count */}
-        <div className="text-center mt-6">
+        <div className="text-center">
           <p className="text-gray-600">
             Showing {filteredImages.length} photo{filteredImages.length !== 1 ? "s" : ""}
           </p>
