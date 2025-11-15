@@ -91,4 +91,6 @@ export const adminImages = images.map((img) => ({
   ).toLocaleDateString(),
 }));
 
+export const videos = [];
+
 export const categories = [];
