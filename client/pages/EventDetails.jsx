@@ -4,13 +4,13 @@ import { Calendar, Clock, MapPin, Utensils } from "lucide-react";
 
 export default function EventDetails() {
   return (
-    <div className="bg-gradient-to-br from-white via-gold-50 to-white min-h-screen">
+    <div className="bg-gradient-to-br from-white via-purple-50 to-white min-h-screen">
       <Navigation />
 
       {/* Header */}
       <section className="relative pt-32 pb-16">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gold-200/20 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -30,12 +30,12 @@ export default function EventDetails() {
           {/* Date Card */}
           <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
             <div className="flex items-center gap-4 mb-4">
-              <Calendar className="text-gold-600" size={32} />
+              <Calendar className="text-purple-600" size={32} />
               <h2 className="text-2xl font-serif font-bold text-gray-900">
                 Wedding Date
               </h2>
             </div>
-            <p className="text-4xl font-serif font-bold text-gold-600 mb-2">
+            <p className="text-4xl font-serif font-bold text-purple-600 mb-2">
               {coupleInfo.wedding_date}
             </p>
             <p className="text-gray-600">Saturday, June 15, 2024</p>
@@ -57,7 +57,7 @@ export default function EventDetails() {
         </div>
 
         {/* Schedule */}
-        <div className="bg-gradient-to-br from-gold-50 to-rose-50 rounded-xl p-8 md:p-12 mb-12">
+        <div className="bg-gradient-to-br from-purple-50 to-rose-50 rounded-xl p-8 md:p-12 mb-12">
           <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8 text-center">
             Day of Schedule
           </h2>
@@ -66,7 +66,7 @@ export default function EventDetails() {
             {/* Ceremony */}
             <div className="flex gap-6 items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-gold-600 text-white">
+                <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-purple-600 text-white">
                   <Clock size={24} />
                 </div>
               </div>
@@ -106,7 +106,7 @@ export default function EventDetails() {
             {/* Cocktail Hour */}
             <div className="flex gap-6 items-start">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-gold-500 text-white">
+                <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-purple-500 text-white">
                   <Clock size={24} />
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function EventDetails() {
               </h3>
               <p className="text-gray-600">
                 A block of rooms has been reserved at the Grand Hotel nearby at
-                a special rate for our guests. Use code: SARAHAMES
+                a special rate for our guests. Use code: ELDONGERALDINE
               </p>
             </div>
 
@@ -193,7 +193,7 @@ export default function EventDetails() {
               </h3>
               <p className="text-gray-600">
                 Professional photography will take place throughout the day.
-                Share your photos with us using #SarahAndJames2024
+                Share your photos with us using #EldonAndGeraldine2024
               </p>
             </div>
           </div>
@@ -224,7 +224,7 @@ export default function EventDetails() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
-          <p>&copy; 2024 Sarah & James. All rights reserved.</p>
+          <p>&copy; 2024 Eldon and Geraldine. All rights reserved.</p>
         </div>
       </footer>
     </div>
