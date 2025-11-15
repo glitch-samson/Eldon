@@ -90,11 +90,10 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* Image Count */}
+      {/* Media Count */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
         <p className="text-gray-600">
-          Showing {filteredImages.length} photo
-          {filteredImages.length !== 1 ? "s" : ""}
+          Showing {filteredImages.length} photo{filteredImages.length !== 1 ? "s" : ""} and {videos.length} video{videos.length !== 1 ? "s" : ""}
         </p>
       </section>
 
@@ -128,10 +127,13 @@ export default function Gallery() {
         </div>
       )}
 
-      {/* Gallery Grid */}
+      {/* Photos Section */}
       <section
         className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""}`}
       >
+        <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
+          Photos
+        </h2>
         {filteredImages.length > 0 ? (
           <MasonryGrid
             images={filteredImages}
@@ -146,6 +148,35 @@ export default function Gallery() {
           </div>
         )}
       </section>
+
+      {/* Videos Section */}
+      {videos.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+          <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
+            Videos
+          </h2>
+          <div
+            className="w-full"
+            style={{
+              columnCount: "auto",
+              columnWidth: "300px",
+              columnGap: "1rem",
+            }}
+          >
+            {videos.map((video) => (
+              <div
+                key={video.id}
+                className="mb-4 break-inside-avoid"
+                style={{
+                  breakInside: "avoid",
+                }}
+              >
+                <VideoGalleryCard video={video} />
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
