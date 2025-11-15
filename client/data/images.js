@@ -91,6 +91,31 @@ export const adminImages = images.map((img) => ({
   ).toLocaleDateString(),
 }));
 
-export const videos = [];
+export const videos = [
+  {
+    id: "v1",
+    src: "https://videos.unsplash.com/video-static/converted/0c6a06c7a9a43ba039751b22be0e573d-OptimizedCompressionUHD.mp4?w=800&h=600&fit=crop",
+    caption: "First kiss as married couple",
+    alt: "Wedding kiss moment",
+  },
+  {
+    id: "v2",
+    src: "https://videos.unsplash.com/video-static/converted/2a1e34cf06d3f5ad3c1e4d0a9c8c5f7b-OptimizedCompressionUHD.mp4?w=800&h=600&fit=crop",
+    caption: "Bride's grand entrance",
+    alt: "Bride walking down the aisle",
+  },
+  {
+    id: "v3",
+    src: "https://videos.unsplash.com/video-static/converted/4f8c9e1b6d2a3e5f7c9a1b3d5f7a9b1c-OptimizedCompressionUHD.mp4?w=800&h=600&fit=crop",
+    caption: "Reception dancing and celebration",
+    alt: "Dance floor celebration",
+  },
+  {
+    id: "v4",
+    src: "https://videos.unsplash.com/video-static/converted/8b5c2e9f1a4d7g3h6i2j5k8l1m4n7o9p-OptimizedCompressionUHD.mp4?w=800&h=600&fit=crop",
+    caption: "Ceremony vow exchange",
+    alt: "Exchanging vows",
+  },
+];
 
 export const categories = [];
