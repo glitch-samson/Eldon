@@ -2,17 +2,12 @@ import { useState } from "react";
 import { Navigation } from "../components/Navigation";
 import { Lightbox } from "../components/Lightbox";
 import { MasonryGrid } from "../components/MasonryGrid";
-import { CategoryFilter } from "../components/CategoryFilter";
-import { images, Image, categories } from "../data/images";
+import { images, Image } from "../data/images";
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<Image | null>(null);
-  const [activeCategory, setActiveCategory] = useState("all");
 
-  const filteredImages =
-    activeCategory === "all"
-      ? images
-      : images.filter((img) => img.category === activeCategory);
+  const filteredImages = images;
 
   const handleDownload = (image: Image) => {
     const link = document.createElement("a");
