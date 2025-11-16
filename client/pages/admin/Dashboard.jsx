@@ -317,11 +317,11 @@ export default function AdminDashboard() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={!previewUrl}
+                    disabled={!previewUrl || isUploading}
                     className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
-                    Upload Photo
+                    {isUploading ? "Uploading..." : "Upload Photo"}
                   </button>
                 </form>
               )}
