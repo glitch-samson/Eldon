@@ -174,9 +174,9 @@ export default function AdminDashboard() {
   const totalMedia = images.length + videos.length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-purple-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-white">
       {/* Header */}
-      <div className="bg-white shadow-md border-b border-purple-200">
+      <div className="bg-white shadow-md border-b border-blue-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-serif font-bold text-gray-900">
@@ -212,7 +212,7 @@ export default function AdminDashboard() {
                   }}
                   className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors border-b-2 -mb-[1px] ${
                     activeTab === "images"
-                      ? "border-purple-600 text-purple-600"
+                      ? "border-blue-900 text-blue-900"
                       : "border-transparent text-gray-600 hover:text-gray-900"
                   }`}
                 >
@@ -227,7 +227,7 @@ export default function AdminDashboard() {
                   }}
                   className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors border-b-2 -mb-[1px] ${
                     activeTab === "videos"
-                      ? "border-purple-600 text-purple-600"
+                      ? "border-blue-900 text-blue-900"
                       : "border-transparent text-gray-600 hover:text-gray-900"
                   }`}
                 >
@@ -237,8 +237,8 @@ export default function AdminDashboard() {
               </div>
 
               <div className="flex items-center gap-2 mb-6">
-                <div className="p-2 bg-purple-100 rounded-lg">
-                  <Upload className="text-purple-600" size={24} />
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <Upload className="text-blue-900" size={24} />
                 </div>
                 <h2 className="text-2xl font-serif font-bold text-gray-900">
                   Upload
