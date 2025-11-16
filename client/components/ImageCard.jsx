@@ -69,6 +69,7 @@ export function ImageCard({
           <button
             onClick={(e) => {
               e.stopPropagation();
+              e.preventDefault();
               onDownload(image);
             }}
             className="p-1.5 rounded-full bg-white/90 hover:bg-rose-500 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
