@@ -51,15 +51,15 @@ export function Navigation() {
           {/* Mobile Navigation Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden h-10 w-10 flex items-center justify-center rounded-full hover:bg-amber-50/60 transition-colors"
+            className="md:hidden h-10 w-10 flex items-center justify-center rounded-full hover:bg-blue-50/60 transition-colors"
           >
-            {isOpen ? <X size={24} className="text-amber-900" /> : <Menu size={24} className="text-amber-900" />}
+            {isOpen ? <X size={24} className="text-blue-900" /> : <Menu size={24} className="text-blue-900" />}
           </button>
         </div>
 
         {/* Mobile Navigation Menu */}
         {isOpen && (
-          <div className="md:hidden pb-4 space-y-2 border-t border-amber-200/30">
+          <div className="md:hidden pb-4 space-y-2 border-t border-blue-200/30">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -67,8 +67,8 @@ export function Navigation() {
                 onClick={() => setIsOpen(false)}
                 className={`block px-5 py-3 rounded-full transition-all duration-300 text-sm font-medium ${
                   isActive(link.href)
-                    ? "bg-amber-100/60 text-amber-900"
-                    : "text-gray-600 hover:text-amber-700 hover:bg-amber-50/40"
+                    ? "bg-blue-100/60 text-blue-900"
+                    : "text-gray-600 hover:text-blue-700 hover:bg-blue-50/40"
                 }`}
               >
                 {link.label}
@@ -77,7 +77,7 @@ export function Navigation() {
             <Link
               to="/admin/login"
               onClick={() => setIsOpen(false)}
-              className="block px-5 py-3 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-white hover:from-amber-600 hover:to-amber-500 transition-all duration-300 font-medium text-sm"
+              className="block px-5 py-3 rounded-full bg-gradient-to-r from-blue-900 to-amber-500 text-white hover:from-blue-800 hover:to-amber-600 transition-all duration-300 font-medium text-sm"
             >
               Admin Login
             </Link>
