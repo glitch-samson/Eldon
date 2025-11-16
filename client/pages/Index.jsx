@@ -152,13 +152,18 @@ export default function Index() {
       </section>
 
       {/* Featured Gallery Preview */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mb-4">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-20">
+          <div className="inline-block mb-4">
+            <span className="text-amber-600 font-serif text-xs sm:text-sm tracking-widest uppercase font-semibold">
+              ✦ Capture Every Detail
+            </span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-gray-900 mb-6">
             Gallery Preview
           </h2>
-          <p className="text-xl text-gray-600 font-light">
-            A glimpse of our special day
+          <p className="text-lg text-gray-500 font-light max-w-2xl mx-auto">
+            A curated glimpse into the joy, elegance, and emotion of our special day
           </p>
         </div>
 
@@ -166,59 +171,64 @@ export default function Index() {
           <SkeletonGrid count={3} />
         ) : (
           <>
-            <div className="w-full grid grid-cols-1 md:grid-cols-4 justify-center items-center gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-5">
               {previewImages.map((image, index) => (
                 <div
                   key={image._id}
                   className={`h-fit ${index === 1 ? "md:col-span-2" : "md:col-span-1"}`}
                 >
                   <div
-                    className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                    className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer h-72 md:h-auto"
                     onClick={() => setSelectedImage(image)}
                   >
-                    <div className="group relative overflow-hidden bg-gray-100">
-                      <img
-                        src={image.url}
-                        alt={image.caption || "Wedding photo"}
-                        className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <img
+                      src={image.url}
+                      alt={image.caption || "Wedding photo"}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full font-semibold text-sm">
+                        View Full Resolution
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="flex justify-center mt-16">
+            <div className="flex justify-center mt-20">
               <Link
                 to="/gallery"
-                className="inline-flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-800 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold transition-colors text-base sm:text-base h-12 sm:h-auto"
+                className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-white px-10 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
               >
                 View Full Gallery
-                <ChevronRight size={20} />
+                <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </>
         )}
       </section>
 
-      {/* Stats Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-amber-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-serif font-bold mb-2">
-                {allMedia.length}+
+      {/* Closing Section */}
+      <section className="relative bg-gradient-to-br from-amber-50 via-white to-amber-50/30 py-24 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/2 -right-64 w-96 h-96 bg-amber-300/5 rounded-full blur-3xl" />
+          <div className="absolute -bottom-32 -left-64 w-80 h-80 bg-amber-200/5 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="space-y-6">
+            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900">
+              Thank You for Being Part of Our Story
+            </h2>
+            <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto">
+              Every photograph tells a story of love, laughter, and cherished memories. We're grateful to have shared this beautiful journey with you.
+            </p>
+            <div className="pt-8">
+              <div className="inline-block px-8 py-1 border-2 border-amber-300/50 rounded-full">
+                <p className="text-amber-700 font-serif text-lg">Eldon & Geraldine</p>
               </div>
-              <p className="text-lg font-light">Beautiful Moments</p>
-            </div>
-            <div>
-              <div className="text-4xl font-serif font-bold mb-2">2</div>
-              <p className="text-lg font-light">Happy People</p>
-            </div>
-            <div>
-              <div className="text-4xl font-serif font-bold mb-2">1</div>
-              <p className="text-lg font-light">Magical Day</p>
             </div>
           </div>
         </div>
