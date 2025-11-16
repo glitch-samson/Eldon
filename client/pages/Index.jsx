@@ -148,7 +148,7 @@ export default function Index() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="text-4xl font-serif font-bold mb-2">
-                {images.length}+
+                {allMedia.length}+
               </div>
               <p className="text-lg font-light">Beautiful Moments</p>
             </div>
@@ -166,7 +166,7 @@ export default function Index() {
 
       <Lightbox
         image={selectedImage}
-        images={images}
+        images={allMedia}
         onClose={() => setSelectedImage(null)}
         onNext={handleNext}
         onPrev={handlePrev}
