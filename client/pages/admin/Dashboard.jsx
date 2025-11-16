@@ -440,24 +440,24 @@ export default function AdminDashboard() {
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                     {images.map((image) => (
                       <div
-                        key={image.id}
+                        key={image._id}
                         className="group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all"
                       >
                         {/* Thumbnail */}
                         <div className="relative w-full aspect-square bg-gray-200 overflow-hidden">
                           <img
-                            src={image.src}
-                            alt={image.alt}
+                            src={image.url}
+                            alt={image.caption || "Wedding photo"}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           />
 
                           {/* Hover Overlay */}
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
                             <div className="flex gap-2">
-                              {deleteConfirm === image.id ? (
+                              {deleteConfirm === image._id ? (
                                 <>
                                   <button
-                                    onClick={() => handleDeleteImage(image.id)}
+                                    onClick={() => handleDeleteImage(image._id)}
                                     className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
                                     title="Confirm delete"
                                   >
@@ -472,7 +472,7 @@ export default function AdminDashboard() {
                                 </>
                               ) : (
                                 <button
-                                  onClick={() => setDeleteConfirm(image.id)}
+                                  onClick={() => setDeleteConfirm(image._id)}
                                   className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
                                   title="Delete image"
                                 >
@@ -486,7 +486,7 @@ export default function AdminDashboard() {
                         {/* Info */}
                         <div className="p-3">
                           <p className="text-xs text-gray-500">
-                            ID: {image.id}
+                            ID: {image._id.slice(0, 8)}...
                           </p>
                           <p
                             className="text-xs text-gray-700 line-clamp-2 mt-1"
