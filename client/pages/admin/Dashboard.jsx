@@ -8,20 +8,24 @@ import {
   Image as ImageIcon,
   Film,
 } from "lucide-react";
-import { adminImages, videos as initialVideos } from "../../data/images";
 import { VideoCard } from "../../components/VideoCard";
+import { authApi, mediaApi } from "../../lib/api";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [images, setImages] = useState(adminImages);
-  const [videos, setVideos] = useState(initialVideos);
+  const [images, setImages] = useState([]);
+  const [videos, setVideos] = useState([]);
   const [activeTab, setActiveTab] = useState("images");
   const [caption, setCaption] = useState("");
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadedFileName, setUploadedFileName] = useState("");
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isAdminLoggedIn");
@@ -29,6 +33,28 @@ export default function AdminDashboard() {
       navigate("/admin/login");
     }
   }, [navigate]);
+
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        setIsLoading(true);
+        const response = await mediaApi.getAll({ limit: 100 });
+        const allMedia = response.media || [];
+        setImages(allMedia.filter((m) => m.type === 'image'));
+        setVideos(allMedia.filter((m) => m.type === 'video'));
+        setError(null);
+      } catch (err) {
+        console.error('Failed to fetch media:', err);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (authApi.isLoggedIn()) {
+      fetchMedia();
+    }
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("isAdminLoggedIn");
