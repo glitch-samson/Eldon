@@ -113,9 +113,9 @@ export default function Index() {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 pt-8 border-t border-amber-200/40">
+              <div className="grid grid-cols-3 gap-4 pt-8 border-t border-blue-200/30">
                 <div>
-                  <p className="text-2xl sm:text-3xl font-serif font-bold text-amber-600">{allMedia.length}+</p>
+                  <p className="text-2xl sm:text-3xl font-serif font-bold text-blue-900">{allMedia.length}+</p>
                   <p className="text-xs text-gray-600 mt-1">Moments Captured</p>
                 </div>
                 <div>
@@ -123,7 +123,7 @@ export default function Index() {
                   <p className="text-xs text-gray-600 mt-1">Hearts United</p>
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-serif font-bold text-amber-600">∞</p>
+                  <p className="text-2xl sm:text-3xl font-serif font-bold text-blue-900">∞</p>
                   <p className="text-xs text-gray-600 mt-1">Forever</p>
                 </div>
               </div>
