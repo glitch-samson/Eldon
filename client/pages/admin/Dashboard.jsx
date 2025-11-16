@@ -7,6 +7,7 @@ import {
   LogOut,
   Image as ImageIcon,
   Film,
+  X,
 } from "lucide-react";
 import { VideoCard } from "../../components/VideoCard";
 import { authApi, mediaApi } from "../../lib/api";
@@ -17,9 +18,7 @@ export default function AdminDashboard() {
   const [videos, setVideos] = useState([]);
   const [activeTab, setActiveTab] = useState("images");
   const [caption, setCaption] = useState("");
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [uploadedFileName, setUploadedFileName] = useState("");
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState(null);
