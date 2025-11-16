@@ -523,7 +523,7 @@ export default function AdminDashboard() {
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                     {videos.map((video) => (
                       <VideoCard
-                        key={video.id}
+                        key={video._id}
                         video={video}
                         onDelete={(id) => {
                           if (deleteConfirm === id) {
