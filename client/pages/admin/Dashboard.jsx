@@ -378,27 +378,49 @@ export default function AdminDashboard() {
               {/* Video Upload Form */}
               {activeTab === "videos" && (
                 <form onSubmit={handleVideoUpload} className="space-y-5">
-                  {/* Video Preview */}
-                  {previewUrl && (
-                    <div className="relative rounded-lg overflow-hidden bg-gray-900 aspect-square">
-                      <video
-                        src={previewUrl}
-                        className="w-full h-full object-cover"
-                        controls
-                      />
+                  {/* Selected Files Preview Grid */}
+                  {selectedFiles.length > 0 && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Selected Videos ({selectedFiles.length})
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {selectedFiles.map((fileObj) => (
+                          <div
+                            key={fileObj.id}
+                            className="relative rounded-lg overflow-hidden bg-gray-900 aspect-square group"
+                          >
+                            <video
+                              src={fileObj.preview}
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeSelectedFile(fileObj.id)}
+                              className="absolute inset-0 bg-black/0 group-hover:bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all"
+                            >
+                              <X className="text-white" size={24} />
+                            </button>
+                            <p className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 truncate">
+                              {fileObj.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
 
                   {/* File Input */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Select Video
+                      {selectedFiles.length > 0 ? "Add More Videos" : "Select Videos"}
                     </label>
                     <div className="relative">
                       <input
                         type="file"
                         id="videoInput"
                         accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov"
+                        multiple
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       />
@@ -408,10 +430,12 @@ export default function AdminDashboard() {
                           size={24}
                         />
                         <p className="text-sm text-gray-700 font-medium">
-                          Click to select video
+                          Click to select videos
                         </p>
                         <p className="text-xs text-gray-500 mt-1">
-                          {uploadedFileName || "MP4, WebM up to 100MB"}
+                          {selectedFiles.length > 0
+                            ? `${selectedFiles.length} video${selectedFiles.length !== 1 ? "s" : ""} selected`
+                            : "MP4, WebM up to 100MB • Multiple files supported"}
                         </p>
                       </div>
                     </div>
@@ -430,7 +454,7 @@ export default function AdminDashboard() {
                       value={caption}
                       onChange={(e) => setCaption(e.target.value)}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent resize-none"
-                      placeholder="Add a caption for this video..."
+                      placeholder="Add a caption for all selected videos..."
                       rows={3}
                     />
                   </div>
@@ -438,11 +462,13 @@ export default function AdminDashboard() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={!previewUrl || isUploading}
+                    disabled={selectedFiles.length === 0 || isUploading}
                     className="w-full h-12 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
-                    {isUploading ? "Uploading..." : "Upload Video"}
+                    {isUploading
+                      ? "Uploading..."
+                      : `Upload ${selectedFiles.length} Video${selectedFiles.length !== 1 ? "s" : ""}`}
                   </button>
                 </form>
               )}
