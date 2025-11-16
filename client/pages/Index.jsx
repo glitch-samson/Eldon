@@ -1,14 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
 import { Lightbox } from "../components/Lightbox";
 import { MasonryGrid } from "../components/MasonryGrid";
-import { images } from "../data/images";
 import { ChevronRight } from "lucide-react";
+import { mediaApi } from "../lib/api";
 
 export default function Index() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const previewImages = images.slice(0, 6);
+  const [allMedia, setAllMedia] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        setIsLoading(true);
+        const response = await mediaApi.getAll({ limit: 100, type: 'image' });
+        setAllMedia(response.media || []);
+        setError(null);
+      } catch (err) {
+        console.error('Failed to fetch media:', err);
+        setError(err.message);
+        setAllMedia([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMedia();
+  }, []);
+
+  const previewImages = allMedia.slice(0, 6);
 
   const handleDownload = (image) => {
     const link = document.createElement("a");
