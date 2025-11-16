@@ -151,68 +151,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Featured Gallery Preview */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-900/5 rounded-full blur-3xl" />
-        </div>
-        <div className="relative z-10 text-center mb-20">
-          <div className="inline-block mb-4">
-            <span className="text-blue-900 font-serif text-xs sm:text-sm tracking-widest uppercase font-semibold">
-              ✦ Capture Every Detail
-            </span>
-          </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-gray-900 mb-6">
-            Gallery Preview
-          </h2>
-          <p className="text-lg text-gray-500 font-light max-w-2xl mx-auto">
-            A curated glimpse into the joy, elegance, and emotion of our special day
-          </p>
-        </div>
-
-        {isLoading ? (
-          <SkeletonGrid count={3} />
-        ) : (
-          <>
-            <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-5">
-              {previewImages.map((image, index) => (
-                <div
-                  key={image._id}
-                  className={`h-fit ${index === 1 ? "md:col-span-2" : "md:col-span-1"}`}
-                >
-                  <div
-                    className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer h-72 md:h-auto"
-                    onClick={() => setSelectedImage(image)}
-                  >
-                    <img
-                      src={image.url}
-                      alt={image.caption || "Wedding photo"}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-full font-semibold text-sm">
-                        View Full Resolution
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-center mt-20">
-              <Link
-                to="/gallery"
-                className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-amber-500 via-amber-400 to-blue-900 hover:from-amber-600 hover:via-amber-500 hover:to-blue-800 text-white px-10 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
-              >
-                View Full Gallery
-                <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </>
-        )}
-      </section>
-
       {/* Closing Section */}
       <section className="relative bg-gradient-to-br from-blue-50/20 via-white to-amber-50/20 py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
