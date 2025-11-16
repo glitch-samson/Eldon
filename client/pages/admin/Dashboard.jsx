@@ -279,16 +279,35 @@ export default function AdminDashboard() {
               {/* Image Upload Form */}
               {activeTab === "images" && (
                 <form onSubmit={handleImageUpload} className="space-y-5">
-                  {/* Image Preview */}
-                  {previewUrl && (
-                    <div className="relative rounded-lg overflow-hidden bg-gray-100 aspect-square">
-                      <img
-                        src={previewUrl}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                        <Eye className="text-white" size={32} />
+                  {/* Selected Files Preview Grid */}
+                  {selectedFiles.length > 0 && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Selected Photos ({selectedFiles.length})
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {selectedFiles.map((fileObj) => (
+                          <div
+                            key={fileObj.id}
+                            className="relative rounded-lg overflow-hidden bg-gray-200 aspect-square group"
+                          >
+                            <img
+                              src={fileObj.preview}
+                              alt={fileObj.name}
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeSelectedFile(fileObj.id)}
+                              className="absolute inset-0 bg-black/0 group-hover:bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all"
+                            >
+                              <X className="text-white" size={24} />
+                            </button>
+                            <p className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 truncate">
+                              {fileObj.name}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -296,13 +315,14 @@ export default function AdminDashboard() {
                   {/* File Input */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Select Photo
+                      {selectedFiles.length > 0 ? "Add More Photos" : "Select Photos"}
                     </label>
                     <div className="relative">
                       <input
                         type="file"
                         id="imageInput"
                         accept="image/*"
+                        multiple
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       />
@@ -312,10 +332,12 @@ export default function AdminDashboard() {
                           size={24}
                         />
                         <p className="text-sm text-gray-700 font-medium">
-                          Click to select photo
+                          Click to select photos
                         </p>
                         <p className="text-xs text-gray-500 mt-1">
-                          {uploadedFileName || "PNG, JPG, GIF up to 10MB"}
+                          {selectedFiles.length > 0
+                            ? `${selectedFiles.length} photo${selectedFiles.length !== 1 ? "s" : ""} selected`
+                            : "PNG, JPG, GIF up to 10MB • Multiple files supported"}
                         </p>
                       </div>
                     </div>
@@ -334,7 +356,7 @@ export default function AdminDashboard() {
                       value={caption}
                       onChange={(e) => setCaption(e.target.value)}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent resize-none"
-                      placeholder="Add a caption for this photo..."
+                      placeholder="Add a caption for all selected photos..."
                       rows={3}
                     />
                   </div>
@@ -342,11 +364,13 @@ export default function AdminDashboard() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={!previewUrl || isUploading}
+                    disabled={selectedFiles.length === 0 || isUploading}
                     className="w-full h-12 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
-                    {isUploading ? "Uploading..." : "Upload Photo"}
+                    {isUploading
+                      ? "Uploading..."
+                      : `Upload ${selectedFiles.length} Photo${selectedFiles.length !== 1 ? "s" : ""}`}
                   </button>
                 </form>
               )}
