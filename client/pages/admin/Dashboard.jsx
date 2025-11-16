@@ -101,31 +101,33 @@ export default function AdminDashboard() {
 
   const handleImageUpload = async (e) => {
     e.preventDefault();
-    if (!uploadedFile) {
-      alert("Please select an image first");
+    if (selectedFiles.length === 0) {
+      alert("Please select at least one image");
       return;
     }
 
     try {
       setIsUploading(true);
-      const response = await mediaApi.upload(uploadedFile, caption);
+      const files = selectedFiles.map((f) => f.file);
+      const response = await mediaApi.upload(files, caption);
 
       if (response.media && response.media.length > 0) {
         setImages([...response.media, ...images]);
-        setPreviewUrl(null);
         setCaption("");
-        setUploadedFileName("");
-        setUploadedFile(null);
+        setSelectedFiles([]);
         const fileInput = document.getElementById("imageInput");
         if (fileInput) fileInput.value = "";
 
-        setSuccessMessage("Image uploaded successfully!");
+        const count = response.media.length;
+        setSuccessMessage(
+          `${count} image${count !== 1 ? "s" : ""} uploaded successfully!`
+        );
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
       }
     } catch (err) {
       console.error("Upload error:", err);
-      setError(err.message || "Failed to upload image");
+      setError(err.message || "Failed to upload images");
       setShowSuccessMessage(false);
     } finally {
       setIsUploading(false);
