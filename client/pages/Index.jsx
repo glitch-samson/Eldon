@@ -1,19 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
 import { Lightbox } from "../components/Lightbox";
 import { MasonryGrid } from "../components/MasonryGrid";
-import { images } from "../data/images";
 import { ChevronRight } from "lucide-react";
+import { mediaApi } from "../lib/api";
 
 export default function Index() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const previewImages = images.slice(0, 6);
+  const [allMedia, setAllMedia] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        setIsLoading(true);
+        const response = await mediaApi.getAll({ limit: 100, type: "image" });
+        setAllMedia(response.media || []);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch media:", err);
+        setError(err.message);
+        setAllMedia([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMedia();
+  }, []);
+
+  const previewImages = allMedia.slice(0, 6);
 
   const handleDownload = (image) => {
     const link = document.createElement("a");
-    link.href = image.src;
-    link.download = `wedding-photo-${image.id}.jpg`;
+    link.href = image.url;
+    link.download = `wedding-photo-${image._id}.jpg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -21,17 +44,21 @@ export default function Index() {
 
   const handleNext = () => {
     if (!selectedImage) return;
-    const currentIndex = images.findIndex((img) => img.id === selectedImage.id);
-    if (currentIndex < images.length - 1) {
-      setSelectedImage(images[currentIndex + 1]);
+    const currentIndex = allMedia.findIndex(
+      (img) => img._id === selectedImage._id,
+    );
+    if (currentIndex < allMedia.length - 1) {
+      setSelectedImage(allMedia[currentIndex + 1]);
     }
   };
 
   const handlePrev = () => {
     if (!selectedImage) return;
-    const currentIndex = images.findIndex((img) => img.id === selectedImage.id);
+    const currentIndex = allMedia.findIndex(
+      (img) => img._id === selectedImage._id,
+    );
     if (currentIndex > 0) {
-      setSelectedImage(images[currentIndex - 1]);
+      setSelectedImage(allMedia[currentIndex - 1]);
     }
   };
 
@@ -75,15 +102,21 @@ export default function Index() {
 
           {/* Hero Image Preview */}
           <div className="relative">
-            <img
-              src={
-                images[0]?.src ||
-                "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=900&fit=crop"
-              }
-              alt="Wedding hero"
-              className="w-full max-w-lg mx-auto rounded-xl shadow-2xl object-cover aspect-[4/5] hover:shadow-3xl transition-shadow"
-            />
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/20 to-transparent" />
+            {isLoading ? (
+              <div className="w-full max-w-lg mx-auto rounded-xl shadow-2xl object-cover aspect-[4/5] bg-gray-200 animate-pulse" />
+            ) : (
+              <>
+                <img
+                  src={
+                    allMedia[0]?.url ||
+                    "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=900&fit=crop"
+                  }
+                  alt="Wedding hero"
+                  className="w-full max-w-lg mx-auto rounded-xl shadow-2xl object-cover aspect-[4/5] hover:shadow-3xl transition-shadow"
+                />
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/20 to-transparent" />
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -122,7 +155,7 @@ export default function Index() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="text-4xl font-serif font-bold mb-2">
-                {images.length}+
+                {allMedia.length}+
               </div>
               <p className="text-lg font-light">Beautiful Moments</p>
             </div>
@@ -140,7 +173,7 @@ export default function Index() {
 
       <Lightbox
         image={selectedImage}
-        images={images}
+        images={allMedia}
         onClose={() => setSelectedImage(null)}
         onNext={handleNext}
         onPrev={handlePrev}

@@ -1,16 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigation } from "../components/Navigation";
 import { Lightbox } from "../components/Lightbox";
 import { MasonryGrid } from "../components/MasonryGrid";
 import { VideoGalleryCard } from "../components/VideoGalleryCard";
-import { images, videos } from "../data/images";
 import { Download, X } from "lucide-react";
+import { mediaApi } from "../lib/api";
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImages, setSelectedImages] = useState(new Set());
   const [activeSection, setActiveSection] = useState("photos");
+  const [allMedia, setAllMedia] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        setIsLoading(true);
+        const response = await mediaApi.getAll({ limit: 100 });
+        setAllMedia(response.media || []);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch media:", err);
+        setError(err.message);
+        setAllMedia([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMedia();
+  }, []);
+
+  const images = allMedia.filter((media) => media.type === "image");
+  const videos = allMedia.filter((media) => media.type === "video");
   const filteredImages = images;
 
   const handleSelectImage = (imageId) => {
@@ -25,8 +49,8 @@ export default function Gallery() {
 
   const handleDownload = (image) => {
     const link = document.createElement("a");
-    link.href = image.src;
-    link.download = `wedding-photo-${image.id}.jpg`;
+    link.href = image.url;
+    link.download = `wedding-photo-${image._id}.jpg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -35,7 +59,7 @@ export default function Gallery() {
   const handleDownloadSelected = () => {
     let downloadDelay = 0;
     selectedImages.forEach((imageId) => {
-      const image = filteredImages.find((img) => img.id === imageId);
+      const image = filteredImages.find((img) => img._id === imageId);
       if (image) {
         setTimeout(() => handleDownload(image), downloadDelay);
         downloadDelay += 150;
@@ -53,7 +77,7 @@ export default function Gallery() {
   const handleNext = () => {
     if (!selectedImage) return;
     const currentIndex = filteredImages.findIndex(
-      (img) => img.id === selectedImage.id,
+      (img) => img._id === selectedImage._id,
     );
     if (currentIndex < filteredImages.length - 1) {
       setSelectedImage(filteredImages[currentIndex + 1]);
@@ -63,7 +87,7 @@ export default function Gallery() {
   const handlePrev = () => {
     if (!selectedImage) return;
     const currentIndex = filteredImages.findIndex(
-      (img) => img.id === selectedImage.id,
+      (img) => img._id === selectedImage._id,
     );
     if (currentIndex > 0) {
       setSelectedImage(filteredImages[currentIndex - 1]);

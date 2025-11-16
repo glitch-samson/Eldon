@@ -8,20 +8,24 @@ import {
   Image as ImageIcon,
   Film,
 } from "lucide-react";
-import { adminImages, videos as initialVideos } from "../../data/images";
 import { VideoCard } from "../../components/VideoCard";
+import { authApi, mediaApi } from "../../lib/api";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [images, setImages] = useState(adminImages);
-  const [videos, setVideos] = useState(initialVideos);
+  const [images, setImages] = useState([]);
+  const [videos, setVideos] = useState([]);
   const [activeTab, setActiveTab] = useState("images");
   const [caption, setCaption] = useState("");
   const [previewUrl, setPreviewUrl] = useState(null);
   const [uploadedFileName, setUploadedFileName] = useState("");
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isAdminLoggedIn");
@@ -30,83 +34,141 @@ export default function AdminDashboard() {
     }
   }, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("isAdminLoggedIn");
-    navigate("/admin/login");
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        setIsLoading(true);
+        const response = await mediaApi.getAll({ limit: 100 });
+        const allMedia = response.media || [];
+        setImages(allMedia.filter((m) => m.type === "image"));
+        setVideos(allMedia.filter((m) => m.type === "video"));
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch media:", err);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (authApi.isLoggedIn()) {
+      fetchMedia();
+    }
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+      localStorage.removeItem("isAdminLoggedIn");
+      navigate("/admin/login");
+    } catch (err) {
+      console.error("Logout error:", err);
+      localStorage.removeItem("isAdminLoggedIn");
+      navigate("/admin/login");
+    }
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
+      setUploadedFile(file);
+      setUploadedFileName(file.name);
+
       const reader = new FileReader();
       reader.onload = (event) => {
         const url = event.target?.result;
         setPreviewUrl(url);
-        setUploadedFileName(file.name);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     e.preventDefault();
-    if (!previewUrl) {
+    if (!uploadedFile) {
       alert("Please select an image first");
       return;
     }
 
-    const newImage = {
-      id: String(Math.max(...images.map((img) => parseInt(img.id)), 0) + 1),
-      src: previewUrl,
-      caption: caption || undefined,
-      alt: `Wedding photo - ${uploadedFileName}`,
-    };
+    try {
+      setIsUploading(true);
+      const response = await mediaApi.upload(uploadedFile, caption);
 
-    setImages([newImage, ...images]);
-    setPreviewUrl(null);
-    setCaption("");
-    setUploadedFileName("");
-    const fileInput = document.getElementById("imageInput");
-    if (fileInput) fileInput.value = "";
+      if (response.media && response.media.length > 0) {
+        setImages([...response.media, ...images]);
+        setPreviewUrl(null);
+        setCaption("");
+        setUploadedFileName("");
+        setUploadedFile(null);
+        const fileInput = document.getElementById("imageInput");
+        if (fileInput) fileInput.value = "";
 
-    setSuccessMessage("Image uploaded successfully!");
-    setShowSuccessMessage(true);
-    setTimeout(() => setShowSuccessMessage(false), 3000);
+        setSuccessMessage("Image uploaded successfully!");
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 3000);
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+      setError(err.message || "Failed to upload image");
+      setShowSuccessMessage(false);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
-  const handleVideoUpload = (e) => {
+  const handleVideoUpload = async (e) => {
     e.preventDefault();
-    if (!previewUrl) {
+    if (!uploadedFile) {
       alert("Please select a video first");
       return;
     }
 
-    const newVideo = {
-      id: String(Math.max(...videos.map((vid) => parseInt(vid.id)), 0) + 1),
-      src: previewUrl,
-      caption: caption || undefined,
-    };
+    try {
+      setIsUploading(true);
+      const response = await mediaApi.upload(uploadedFile, caption);
 
-    setVideos([newVideo, ...videos]);
-    setPreviewUrl(null);
-    setCaption("");
-    setUploadedFileName("");
-    const fileInput = document.getElementById("videoInput");
-    if (fileInput) fileInput.value = "";
+      if (response.media && response.media.length > 0) {
+        setVideos([...response.media, ...videos]);
+        setPreviewUrl(null);
+        setCaption("");
+        setUploadedFileName("");
+        setUploadedFile(null);
+        const fileInput = document.getElementById("videoInput");
+        if (fileInput) fileInput.value = "";
 
-    setSuccessMessage("Video uploaded successfully!");
-    setShowSuccessMessage(true);
-    setTimeout(() => setShowSuccessMessage(false), 3000);
+        setSuccessMessage("Video uploaded successfully!");
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 3000);
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+      setError(err.message || "Failed to upload video");
+      setShowSuccessMessage(false);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
-  const handleDeleteImage = (id) => {
-    setImages(images.filter((img) => img.id !== id));
-    setDeleteConfirm(null);
+  const handleDeleteImage = async (id) => {
+    try {
+      await mediaApi.delete(id);
+      setImages(images.filter((img) => img._id !== id));
+      setDeleteConfirm(null);
+    } catch (err) {
+      console.error("Delete error:", err);
+      setError(err.message || "Failed to delete image");
+    }
   };
 
-  const handleDeleteVideo = (id) => {
-    setVideos(videos.filter((vid) => vid.id !== id));
-    setDeleteConfirm(null);
+  const handleDeleteVideo = async (id) => {
+    try {
+      await mediaApi.delete(id);
+      setVideos(videos.filter((vid) => vid._id !== id));
+      setDeleteConfirm(null);
+    } catch (err) {
+      console.error("Delete error:", err);
+      setError(err.message || "Failed to delete video");
+    }
   };
 
   const totalMedia = images.length + videos.length;
@@ -255,11 +317,11 @@ export default function AdminDashboard() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={!previewUrl}
+                    disabled={!previewUrl || isUploading}
                     className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
-                    Upload Photo
+                    {isUploading ? "Uploading..." : "Upload Photo"}
                   </button>
                 </form>
               )}
@@ -327,11 +389,11 @@ export default function AdminDashboard() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={!previewUrl}
+                    disabled={!previewUrl || isUploading}
                     className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
-                    Upload Video
+                    {isUploading ? "Uploading..." : "Upload Video"}
                   </button>
                 </form>
               )}
@@ -378,24 +440,24 @@ export default function AdminDashboard() {
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                     {images.map((image) => (
                       <div
-                        key={image.id}
+                        key={image._id}
                         className="group relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all"
                       >
                         {/* Thumbnail */}
                         <div className="relative w-full aspect-square bg-gray-200 overflow-hidden">
                           <img
-                            src={image.src}
-                            alt={image.alt}
+                            src={image.url}
+                            alt={image.caption || "Wedding photo"}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           />
 
                           {/* Hover Overlay */}
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
                             <div className="flex gap-2">
-                              {deleteConfirm === image.id ? (
+                              {deleteConfirm === image._id ? (
                                 <>
                                   <button
-                                    onClick={() => handleDeleteImage(image.id)}
+                                    onClick={() => handleDeleteImage(image._id)}
                                     className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
                                     title="Confirm delete"
                                   >
@@ -410,7 +472,7 @@ export default function AdminDashboard() {
                                 </>
                               ) : (
                                 <button
-                                  onClick={() => setDeleteConfirm(image.id)}
+                                  onClick={() => setDeleteConfirm(image._id)}
                                   className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
                                   title="Delete image"
                                 >
@@ -424,7 +486,7 @@ export default function AdminDashboard() {
                         {/* Info */}
                         <div className="p-3">
                           <p className="text-xs text-gray-500">
-                            ID: {image.id}
+                            ID: {image._id.slice(0, 8)}...
                           </p>
                           <p
                             className="text-xs text-gray-700 line-clamp-2 mt-1"
@@ -461,7 +523,7 @@ export default function AdminDashboard() {
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                     {videos.map((video) => (
                       <VideoCard
-                        key={video.id}
+                        key={video._id}
                         video={video}
                         onDelete={(id) => {
                           if (deleteConfirm === id) {

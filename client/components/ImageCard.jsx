@@ -20,8 +20,8 @@ export function ImageCard({
       >
         {/* Image */}
         <img
-          src={image.src}
-          alt={image.alt}
+          src={image.url}
+          alt={image.caption || "Wedding photo"}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
 

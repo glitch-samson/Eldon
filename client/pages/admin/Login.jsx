@@ -1,15 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Lock, Mail, LogIn } from "lucide-react";
-
-const ADMIN_CREDENTIALS = {
-  username: "admin",
-  password: "admin123",
-};
+import { authApi } from "../../lib/api";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -19,19 +14,17 @@ export default function AdminLogin() {
     setError("");
     setIsLoading(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    if (
-      username === ADMIN_CREDENTIALS.username &&
-      password === ADMIN_CREDENTIALS.password
-    ) {
-      localStorage.setItem("isAdminLoggedIn", "true");
-      navigate("/admin/dashboard");
-    } else {
-      setError("Invalid username or password. Try admin / admin123");
+    try {
+      const response = await authApi.login(password);
+      if (response.success) {
+        localStorage.setItem("isAdminLoggedIn", "true");
+        navigate("/admin/dashboard");
+      }
+    } catch (err) {
+      setError(err.message || "Invalid password. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (
@@ -65,31 +58,6 @@ export default function AdminLogin() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Username */}
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Username
-              </label>
-              <div className="relative">
-                <Mail
-                  className="absolute left-3 top-3 text-purple-600"
-                  size={20}
-                />
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
-                  placeholder="Enter username"
-                  required
-                />
-              </div>
-            </div>
-
             {/* Password */}
             <div>
               <label
@@ -109,7 +77,7 @@ export default function AdminLogin() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all"
-                  placeholder="Enter password"
+                  placeholder="Enter admin password"
                   required
                 />
               </div>
@@ -125,16 +93,13 @@ export default function AdminLogin() {
             </button>
           </form>
 
-          {/* Demo Credentials */}
+          {/* Backend Info */}
           <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
             <p className="text-xs font-semibold text-blue-900 mb-2 uppercase tracking-wide">
-              Demo Credentials
+              Backend Authentication
             </p>
             <p className="text-sm text-blue-800">
-              <span className="font-medium">Username:</span> admin
-            </p>
-            <p className="text-sm text-blue-800">
-              <span className="font-medium">Password:</span> admin123
+              Enter the admin password configured on the backend server.
             </p>
           </div>
 
