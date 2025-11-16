@@ -35,8 +35,8 @@ export default function Index() {
 
   const handleDownload = (image) => {
     const link = document.createElement("a");
-    link.href = image.src;
-    link.download = `wedding-photo-${image.id}.jpg`;
+    link.href = image.url;
+    link.download = `wedding-photo-${image._id}.jpg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -44,17 +44,17 @@ export default function Index() {
 
   const handleNext = () => {
     if (!selectedImage) return;
-    const currentIndex = images.findIndex((img) => img.id === selectedImage.id);
-    if (currentIndex < images.length - 1) {
-      setSelectedImage(images[currentIndex + 1]);
+    const currentIndex = allMedia.findIndex((img) => img._id === selectedImage._id);
+    if (currentIndex < allMedia.length - 1) {
+      setSelectedImage(allMedia[currentIndex + 1]);
     }
   };
 
   const handlePrev = () => {
     if (!selectedImage) return;
-    const currentIndex = images.findIndex((img) => img.id === selectedImage.id);
+    const currentIndex = allMedia.findIndex((img) => img._id === selectedImage._id);
     if (currentIndex > 0) {
-      setSelectedImage(images[currentIndex - 1]);
+      setSelectedImage(allMedia[currentIndex - 1]);
     }
   };
 
