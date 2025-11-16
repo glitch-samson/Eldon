@@ -68,18 +68,35 @@ export default function AdminDashboard() {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setUploadedFile(file);
-      setUploadedFileName(file.name);
+    const files = Array.from(e.target.files || []);
+    if (files.length > 0) {
+      const newFiles = files.map((file) => ({
+        id: Math.random().toString(36).substr(2, 9),
+        file,
+        name: file.name,
+        preview: null,
+      }));
 
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const url = event.target?.result;
-        setPreviewUrl(url);
-      };
-      reader.readAsDataURL(file);
+      Promise.all(
+        newFiles.map(
+          (fileObj) =>
+            new Promise((resolve) => {
+              const reader = new FileReader();
+              reader.onload = (event) => {
+                fileObj.preview = event.target?.result;
+                resolve();
+              };
+              reader.readAsDataURL(fileObj.file);
+            })
+        )
+      ).then(() => {
+        setSelectedFiles((prev) => [...prev, ...newFiles]);
+      });
     }
+  };
+
+  const removeSelectedFile = (fileId) => {
+    setSelectedFiles((prev) => prev.filter((f) => f.id !== fileId));
   };
 
   const handleImageUpload = async (e) => {
