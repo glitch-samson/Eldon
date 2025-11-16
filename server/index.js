@@ -1,53 +1,6 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import { handleDemo } from "./routes/demo.js";
-
-// In-memory mock data for media
-const mockMedia = [
-  {
-    _id: "1",
-    url: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=900&fit=crop",
-    type: "image",
-    caption: "Wedding ceremony",
-    uploadedAt: new Date(),
-  },
-  {
-    _id: "2",
-    url: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&h=900&fit=crop",
-    type: "image",
-    caption: "Reception",
-    uploadedAt: new Date(),
-  },
-  {
-    _id: "3",
-    url: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&h=900&fit=crop",
-    type: "image",
-    caption: "First dance",
-    uploadedAt: new Date(),
-  },
-  {
-    _id: "4",
-    url: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?w=800&h=900&fit=crop",
-    type: "image",
-    caption: "Bouquet",
-    uploadedAt: new Date(),
-  },
-  {
-    _id: "5",
-    url: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=800&h=900&fit=crop",
-    type: "image",
-    caption: "Bride and groom",
-    uploadedAt: new Date(),
-  },
-  {
-    _id: "6",
-    url: "https://images.unsplash.com/photo-1505252585461-04db1267ae5b?w=800&h=900&fit=crop",
-    type: "image",
-    caption: "Details",
-    uploadedAt: new Date(),
-  },
-];
 
 export function createServer() {
   const app = express();
