@@ -53,7 +53,11 @@ export function Navigation() {
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden h-10 w-10 flex items-center justify-center rounded-full hover:bg-blue-50/60 transition-colors"
           >
-            {isOpen ? <X size={24} className="text-blue-900" /> : <Menu size={24} className="text-blue-900" />}
+            {isOpen ? (
+              <X size={24} className="text-blue-900" />
+            ) : (
+              <Menu size={24} className="text-blue-900" />
+            )}
           </button>
         </div>
 

@@ -88,8 +88,8 @@ export default function AdminDashboard() {
                 resolve();
               };
               reader.readAsDataURL(fileObj.file);
-            })
-        )
+            }),
+        ),
       ).then(() => {
         setSelectedFiles((prev) => [...prev, ...newFiles]);
       });
@@ -125,7 +125,7 @@ export default function AdminDashboard() {
 
         const count = response.media.length;
         setSuccessMessage(
-          `${count} image${count !== 1 ? "s" : ""} uploaded successfully!`
+          `${count} image${count !== 1 ? "s" : ""} uploaded successfully!`,
         );
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
@@ -164,7 +164,7 @@ export default function AdminDashboard() {
 
         const count = response.media.length;
         setSuccessMessage(
-          `${count} video${count !== 1 ? "s" : ""} uploaded successfully!`
+          `${count} video${count !== 1 ? "s" : ""} uploaded successfully!`,
         );
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
@@ -324,7 +324,9 @@ export default function AdminDashboard() {
                   {/* File Input */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {selectedFiles.length > 0 ? "Add More Photos" : "Select Photos"}
+                      {selectedFiles.length > 0
+                        ? "Add More Photos"
+                        : "Select Photos"}
                     </label>
                     <div className="relative">
                       <input
@@ -422,7 +424,9 @@ export default function AdminDashboard() {
                   {/* File Input */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      {selectedFiles.length > 0 ? "Add More Videos" : "Select Videos"}
+                      {selectedFiles.length > 0
+                        ? "Add More Videos"
+                        : "Select Videos"}
                     </label>
                     <div className="relative">
                       <input
@@ -647,7 +651,8 @@ export default function AdminDashboard() {
                 {/* Preview Grid */}
                 <div>
                   <p className="text-sm font-medium text-gray-700 mb-4">
-                    {selectedFiles.length} file{selectedFiles.length !== 1 ? "s" : ""} selected for upload
+                    {selectedFiles.length} file
+                    {selectedFiles.length !== 1 ? "s" : ""} selected for upload
                   </p>
                   <div className="grid grid-cols-3 gap-3">
                     {selectedFiles.map((fileObj) => (
@@ -678,8 +683,12 @@ export default function AdminDashboard() {
                 {/* Caption Preview */}
                 {caption && (
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <p className="text-xs font-medium text-blue-900 mb-2">Caption:</p>
-                    <p className="text-sm text-blue-800 whitespace-pre-wrap">{caption}</p>
+                    <p className="text-xs font-medium text-blue-900 mb-2">
+                      Caption:
+                    </p>
+                    <p className="text-sm text-blue-800 whitespace-pre-wrap">
+                      {caption}
+                    </p>
                   </div>
                 )}
               </div>
@@ -694,7 +703,9 @@ export default function AdminDashboard() {
                 </button>
                 <button
                   onClick={
-                    activeTab === "images" ? confirmImageUpload : confirmVideoUpload
+                    activeTab === "images"
+                      ? confirmImageUpload
+                      : confirmVideoUpload
                   }
                   disabled={isUploading}
                   className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"

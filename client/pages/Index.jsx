@@ -89,7 +89,9 @@ export default function Index() {
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold text-gray-900 leading-tight">
                   <span className="block">Eldon</span>
                   <span className="block">
-                    <span className="text-transparent bg-gradient-to-r from-blue-900 via-amber-500 to-amber-300 bg-clip-text">&</span>
+                    <span className="text-transparent bg-gradient-to-r from-blue-900 via-amber-500 to-amber-300 bg-clip-text">
+                      &
+                    </span>
                   </span>
                   <span className="block">Geraldine</span>
                 </h1>
@@ -97,17 +99,23 @@ export default function Index() {
 
               <div className="space-y-6">
                 <p className="text-lg sm:text-xl text-gray-600 font-light leading-relaxed max-w-md">
-                  A celebration of love, joy, and new beginnings. Join us as we share our most precious moments.
+                  A celebration of love, joy, and new beginnings. Join us as we
+                  share our most precious moments.
                 </p>
 
                 <div className="pt-4 border-t border-blue-200/30">
-                  <p className="text-sm text-blue-900 font-medium tracking-wide mb-4">EXPLORE OUR JOURNEY</p>
+                  <p className="text-sm text-blue-900 font-medium tracking-wide mb-4">
+                    EXPLORE OUR JOURNEY
+                  </p>
                   <Link
                     to="/gallery"
                     className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-900 to-amber-500 hover:from-blue-800 hover:to-amber-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group text-base"
                   >
                     View Gallery
-                    <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                    <ChevronRight
+                      size={20}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
                   </Link>
                 </div>
               </div>
@@ -115,15 +123,21 @@ export default function Index() {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-4 pt-8 border-t border-blue-200/30">
                 <div>
-                  <p className="text-2xl sm:text-3xl font-serif font-bold text-blue-900">{allMedia.length}+</p>
+                  <p className="text-2xl sm:text-3xl font-serif font-bold text-blue-900">
+                    {allMedia.length}+
+                  </p>
                   <p className="text-xs text-gray-600 mt-1">Moments Captured</p>
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-serif font-bold text-amber-600">2</p>
+                  <p className="text-2xl sm:text-3xl font-serif font-bold text-amber-600">
+                    2
+                  </p>
                   <p className="text-xs text-gray-600 mt-1">Hearts United</p>
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-serif font-bold text-blue-900">∞</p>
+                  <p className="text-2xl sm:text-3xl font-serif font-bold text-blue-900">
+                    ∞
+                  </p>
                   <p className="text-xs text-gray-600 mt-1">Forever</p>
                 </div>
               </div>
@@ -164,11 +178,15 @@ export default function Index() {
               Thank You for Being Part of Our Story
             </h2>
             <p className="text-lg text-gray-600 font-light max-w-2xl mx-auto">
-              Every photograph tells a story of love, laughter, and cherished memories. We're grateful to have shared this beautiful journey with you.
+              Every photograph tells a story of love, laughter, and cherished
+              memories. We're grateful to have shared this beautiful journey
+              with you.
             </p>
             <div className="pt-8">
               <div className="inline-block px-8 py-1 border-2 border-blue-900/40 rounded-full">
-                <p className="text-blue-900 font-serif text-lg">Eldon & Geraldine</p>
+                <p className="text-blue-900 font-serif text-lg">
+                  Eldon & Geraldine
+                </p>
               </div>
             </div>
           </div>
