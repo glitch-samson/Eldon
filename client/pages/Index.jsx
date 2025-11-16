@@ -136,7 +136,7 @@ export default function Index() {
           <SkeletonGrid count={3} />
         ) : (
           <>
-            <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-4 justify-center items-center gap-4">
               {previewImages.map((image, index) => (
                 <div
                   key={image._id}
@@ -154,11 +154,6 @@ export default function Index() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
-                    {image.caption && (
-                      <div className="px-3 py-3 bg-white">
-                        <p className="text-sm text-gray-700">{image.caption}</p>
-                      </div>
-                    )}
                   </div>
                 </div>
               ))}
