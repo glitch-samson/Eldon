@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  "https://wedding-site-backend-y4z1.onrender.com/api";
 
 // Token management
 const getToken = () => localStorage.getItem("adminToken");
