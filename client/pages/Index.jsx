@@ -82,14 +82,14 @@ export default function Index() {
             <div className="flex flex-col justify-center space-y-8 lg:pr-8">
               <div className="space-y-2">
                 <div className="inline-block">
-                  <span className="text-amber-600 font-serif text-xs sm:text-sm tracking-widest uppercase font-semibold">
+                  <span className="text-blue-900 font-serif text-xs sm:text-sm tracking-widest uppercase font-semibold">
                     ✦ Our Love Story
                   </span>
                 </div>
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold text-gray-900 leading-tight">
                   <span className="block">Eldon</span>
                   <span className="block">
-                    <span className="text-transparent bg-gradient-to-r from-amber-500 via-amber-400 to-amber-300 bg-clip-text">&</span>
+                    <span className="text-transparent bg-gradient-to-r from-blue-900 via-amber-500 to-amber-300 bg-clip-text">&</span>
                   </span>
                   <span className="block">Geraldine</span>
                 </h1>
