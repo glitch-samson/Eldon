@@ -145,9 +145,13 @@ export default function AdminDashboard() {
       alert("Please select at least one video");
       return;
     }
+    setShowPreviewModal(true);
+  };
 
+  const confirmVideoUpload = async () => {
     try {
       setIsUploading(true);
+      setShowPreviewModal(false);
       const files = selectedFiles.map((f) => f.file);
       const response = await mediaApi.upload(files, caption);
 
