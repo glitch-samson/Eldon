@@ -49,8 +49,8 @@ export default function Gallery() {
 
   const handleDownload = (image) => {
     const link = document.createElement("a");
-    link.href = image.src;
-    link.download = `wedding-photo-${image.id}.jpg`;
+    link.href = image.url;
+    link.download = `wedding-photo-${image._id}.jpg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -59,7 +59,7 @@ export default function Gallery() {
   const handleDownloadSelected = () => {
     let downloadDelay = 0;
     selectedImages.forEach((imageId) => {
-      const image = filteredImages.find((img) => img.id === imageId);
+      const image = filteredImages.find((img) => img._id === imageId);
       if (image) {
         setTimeout(() => handleDownload(image), downloadDelay);
         downloadDelay += 150;
@@ -77,7 +77,7 @@ export default function Gallery() {
   const handleNext = () => {
     if (!selectedImage) return;
     const currentIndex = filteredImages.findIndex(
-      (img) => img.id === selectedImage.id,
+      (img) => img._id === selectedImage._id,
     );
     if (currentIndex < filteredImages.length - 1) {
       setSelectedImage(filteredImages[currentIndex + 1]);
@@ -87,7 +87,7 @@ export default function Gallery() {
   const handlePrev = () => {
     if (!selectedImage) return;
     const currentIndex = filteredImages.findIndex(
-      (img) => img.id === selectedImage.id,
+      (img) => img._id === selectedImage._id,
     );
     if (currentIndex > 0) {
       setSelectedImage(filteredImages[currentIndex - 1]);
