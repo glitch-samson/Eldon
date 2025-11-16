@@ -1,21 +1,57 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Play, Pause, Download } from "lucide-react";
 
-export function VideoGalleryCard({ video }) {
+export function VideoGalleryCard({ video, onDownload }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef(null);
+
+  const togglePlay = (e) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current
+        .play()
+        .catch((err) => console.error("Playback failed:", err));
+      setIsPlaying(true);
+    }
+  };
+
+  const handleDownload = (e) => {
+    e.stopPropagation();
+    if (onDownload) onDownload(video);
+    else {
+      fetch(video.src)
+        .then((res) => res.blob())
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          const extension = video.src.split(".").pop().split("?")[0];
+          a.download = `${video.caption || video._id || "video"}.${extension}`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        })
+        .catch((err) => console.error("Download failed:", err));
+    }
+  };
 
   return (
     <div className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
-      {/* Video Container */}
       <div
-        className="group relative overflow-hidden bg-gray-900 cursor-pointer"
-        onClick={() => setIsPlaying(!isPlaying)}
+        className="group relative cursor-pointer bg-black"
+        style={{ width: "100%", height: "200px" }} // visible video height
+        onClick={togglePlay}
       >
-        {/* Video */}
         <video
+          ref={videoRef}
           src={video.src}
           className="w-full h-full object-cover"
-          autoPlay
           muted
           loop
           playsInline
@@ -31,25 +67,18 @@ export function VideoGalleryCard({ video }) {
           </div>
         )}
 
-        {/* Icon Buttons at Bottom Right */}
-        <div className="absolute bottom-2 right-2 flex items-center gap-2 transition-opacity duration-300">
+        {/* Buttons */}
+        <div className="absolute bottom-2 right-2 flex items-center gap-2">
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsPlaying(!isPlaying);
-            }}
+            onClick={togglePlay}
             className="p-1.5 rounded-full bg-white/90 hover:bg-purple-600 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
-            aria-label={isPlaying ? "Pause video" : "Play video"}
             title={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? <Pause size={16} /> : <Play size={16} />}
           </button>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
+            onClick={handleDownload}
             className="p-1.5 rounded-full bg-white/90 hover:bg-rose-500 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
-            aria-label="Download video"
             title="Download"
           >
             <Download size={16} />

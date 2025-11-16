@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 import { Navigation } from "../components/Navigation";
 import { Lightbox } from "../components/Lightbox";
 import { MasonryGrid } from "../components/MasonryGrid";
@@ -13,6 +15,7 @@ export default function Gallery() {
   const [allMedia, setAllMedia] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     const fetchMedia = async () => {
@@ -29,59 +32,72 @@ export default function Gallery() {
         setIsLoading(false);
       }
     };
-
     fetchMedia();
   }, []);
 
-  const images = allMedia.filter((media) => media.type === "image");
-  const videos = allMedia.filter((media) => media.type === "video");
+  const images = allMedia.filter((m) => m.type === "image");
+  const videos = allMedia.filter((m) => m.type === "video");
   const filteredImages = images;
 
-  const handleSelectImage = (imageId) => {
+  const handleSelectImage = (mediaId) => {
     const newSelected = new Set(selectedImages);
-    if (newSelected.has(imageId)) {
-      newSelected.delete(imageId);
-    } else {
-      newSelected.add(imageId);
-    }
+    if (newSelected.has(mediaId)) newSelected.delete(mediaId);
+    else newSelected.add(mediaId);
     setSelectedImages(newSelected);
   };
 
-  const handleDownload = (image) => {
-    const link = document.createElement("a");
-    link.href = image.url;
-    link.download = `wedding-photo-${image._id}.jpg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  // Download single media file
+  const handleDownload = async (media) => {
+    try {
+      const response = await fetch(media.url);
+      const blob = await response.blob();
+      const extension = media.url.split(".").pop().split("?")[0];
+      const filename = `${media.caption || media._id || "media"}.${extension}`;
+      saveAs(blob, filename);
+    } catch (err) {
+      console.error("Download failed:", err);
+    }
   };
 
-  const handleDownloadSelected = () => {
-    let downloadDelay = 0;
-    selectedImages.forEach((imageId) => {
-      const image = filteredImages.find((img) => img._id === imageId);
-      if (image) {
-        setTimeout(() => handleDownload(image), downloadDelay);
-        downloadDelay += 150;
+  // Download selected files as ZIP
+  const handleDownloadSelectedZip = async () => {
+    if (selectedImages.size === 0) return;
+
+    setIsDownloading(true);
+    const zip = new JSZip();
+
+    try {
+      const selectedArray = Array.from(selectedImages);
+      for (const mediaId of selectedArray) {
+        const media = allMedia.find((m) => m._id === mediaId);
+        if (!media) continue;
+
+        const response = await fetch(media.url);
+        const blob = await response.blob();
+        const extension = media.url.split(".").pop().split("?")[0];
+        const filename = `${media.caption || media._id || "media"}.${extension}`;
+        zip.file(filename, blob);
       }
-    });
-    setTimeout(() => {
+
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      saveAs(zipBlob, `media-${new Date().toISOString().split("T")[0]}.zip`);
+    } catch (err) {
+      console.error("ZIP download failed:", err);
+    } finally {
+      setIsDownloading(false);
       setSelectedImages(new Set());
-    }, downloadDelay + 100);
+    }
   };
 
-  const handleClearSelection = () => {
-    setSelectedImages(new Set());
-  };
+  const handleClearSelection = () => setSelectedImages(new Set());
 
   const handleNext = () => {
     if (!selectedImage) return;
     const currentIndex = filteredImages.findIndex(
       (img) => img._id === selectedImage._id,
     );
-    if (currentIndex < filteredImages.length - 1) {
+    if (currentIndex < filteredImages.length - 1)
       setSelectedImage(filteredImages[currentIndex + 1]);
-    }
   };
 
   const handlePrev = () => {
@@ -89,9 +105,7 @@ export default function Gallery() {
     const currentIndex = filteredImages.findIndex(
       (img) => img._id === selectedImage._id,
     );
-    if (currentIndex > 0) {
-      setSelectedImage(filteredImages[currentIndex - 1]);
-    }
+    if (currentIndex > 0) setSelectedImage(filteredImages[currentIndex - 1]);
   };
 
   return (
@@ -158,17 +172,18 @@ export default function Gallery() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
             <div>
               <p className="text-sm font-medium text-gray-900">
-                {selectedImages.size} photo
+                {selectedImages.size} media
                 {selectedImages.size !== 1 ? "s" : ""} selected
               </p>
             </div>
             <div className="flex items-center gap-3">
               <button
-                onClick={handleDownloadSelected}
+                onClick={handleDownloadSelectedZip}
+                disabled={isDownloading}
                 className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2.5 rounded-lg transition-colors font-medium text-sm shadow-md hover:shadow-lg"
               >
                 <Download size={18} />
-                Download All
+                {isDownloading ? "Downloading..." : "Download All"}
               </button>
               <button
                 onClick={handleClearSelection}
@@ -185,7 +200,6 @@ export default function Gallery() {
       {/* Photos Section */}
       {activeSection === "photos" && (
         <section
-          id="photos-section"
           className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 ${selectedImages.size > 0 ? "pt-24" : ""} scroll-mt-20`}
         >
           <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
@@ -209,10 +223,7 @@ export default function Gallery() {
 
       {/* Videos Section */}
       {activeSection === "videos" && videos.length > 0 && (
-        <section
-          id="videos-section"
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 scroll-mt-20"
-        >
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 scroll-mt-20">
           <h2 className="text-3xl font-serif font-bold text-gray-900 mb-8">
             Videos
           </h2>
@@ -226,13 +237,11 @@ export default function Gallery() {
           >
             {videos.map((video) => (
               <div
-                key={video.id}
+                key={video._id}
                 className="mb-4 break-inside-avoid"
-                style={{
-                  breakInside: "avoid",
-                }}
+                style={{ breakInside: "avoid" }}
               >
-                <VideoGalleryCard video={video} />
+                <VideoGalleryCard video={video} onDownload={handleDownload} />
               </div>
             ))}
           </div>
