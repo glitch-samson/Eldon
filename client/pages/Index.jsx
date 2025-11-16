@@ -214,10 +214,10 @@ export default function Index() {
       </section>
 
       {/* Closing Section */}
-      <section className="relative bg-gradient-to-br from-amber-50 via-white to-amber-50/30 py-24 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-blue-50/20 via-white to-amber-50/20 py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/2 -right-64 w-96 h-96 bg-amber-300/5 rounded-full blur-3xl" />
-          <div className="absolute -bottom-32 -left-64 w-80 h-80 bg-amber-200/5 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 -right-64 w-96 h-96 bg-blue-900/5 rounded-full blur-3xl" />
+          <div className="absolute -bottom-32 -left-64 w-80 h-80 bg-amber-300/5 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
