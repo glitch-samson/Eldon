@@ -136,31 +136,33 @@ export default function AdminDashboard() {
 
   const handleVideoUpload = async (e) => {
     e.preventDefault();
-    if (!uploadedFile) {
-      alert("Please select a video first");
+    if (selectedFiles.length === 0) {
+      alert("Please select at least one video");
       return;
     }
 
     try {
       setIsUploading(true);
-      const response = await mediaApi.upload(uploadedFile, caption);
+      const files = selectedFiles.map((f) => f.file);
+      const response = await mediaApi.upload(files, caption);
 
       if (response.media && response.media.length > 0) {
         setVideos([...response.media, ...videos]);
-        setPreviewUrl(null);
         setCaption("");
-        setUploadedFileName("");
-        setUploadedFile(null);
+        setSelectedFiles([]);
         const fileInput = document.getElementById("videoInput");
         if (fileInput) fileInput.value = "";
 
-        setSuccessMessage("Video uploaded successfully!");
+        const count = response.media.length;
+        setSuccessMessage(
+          `${count} video${count !== 1 ? "s" : ""} uploaded successfully!`
+        );
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
       }
     } catch (err) {
       console.error("Upload error:", err);
-      setError(err.message || "Failed to upload video");
+      setError(err.message || "Failed to upload videos");
       setShowSuccessMessage(false);
     } finally {
       setIsUploading(false);
