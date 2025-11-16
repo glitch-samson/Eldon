@@ -229,8 +229,8 @@ export default function Index() {
               Every photograph tells a story of love, laughter, and cherished memories. We're grateful to have shared this beautiful journey with you.
             </p>
             <div className="pt-8">
-              <div className="inline-block px-8 py-1 border-2 border-amber-300/50 rounded-full">
-                <p className="text-amber-700 font-serif text-lg">Eldon & Geraldine</p>
+              <div className="inline-block px-8 py-1 border-2 border-blue-900/40 rounded-full">
+                <p className="text-blue-900 font-serif text-lg">Eldon & Geraldine</p>
               </div>
             </div>
           </div>
