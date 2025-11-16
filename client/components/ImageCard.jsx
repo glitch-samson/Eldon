@@ -10,7 +10,7 @@ export function ImageCard({
   return (
     <div
       className={`rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${
-        isSelected ? "ring-4 ring-purple-500" : ""
+        isSelected ? "ring-4 ring-blue-900" : ""
       }`}
     >
       {/* Image Container */}
@@ -37,20 +37,13 @@ export function ImageCard({
             }}
             className={`absolute top-2 left-2 w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
               isSelected
-                ? "bg-purple-600 border-purple-600"
+                ? "bg-blue-900 border-blue-900"
                 : "bg-white/80 border-white hover:bg-white"
             }`}
             aria-label={isSelected ? "Deselect" : "Select"}
           >
             {isSelected && <Check size={12} className="text-white" />}
           </button>
-        )}
-
-        {/* Caption */}
-        {image.caption && (
-          <div className="absolute bottom-12 left-0 right-0 px-3 py-2 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <p className="line-clamp-2">{image.caption}</p>
-          </div>
         )}
 
         {/* Icon Buttons at Bottom Right */}
@@ -60,7 +53,7 @@ export function ImageCard({
               e.stopPropagation();
               onPreview(image);
             }}
-            className="p-1.5 rounded-full bg-white/90 hover:bg-purple-600 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
+            className="p-1.5 rounded-full bg-white/90 hover:bg-blue-900 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
             aria-label="Preview image"
             title="Preview"
           >
@@ -72,7 +65,7 @@ export function ImageCard({
               e.preventDefault();
               onDownload(image);
             }}
-            className="p-1.5 rounded-full bg-white/90 hover:bg-rose-500 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
+            className="p-1.5 rounded-full bg-white/90 hover:bg-amber-600 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
             aria-label="Download image"
             title="Download"
           >
@@ -80,6 +73,13 @@ export function ImageCard({
           </button>
         </div>
       </div>
+
+      {/* Caption Below Image */}
+      {image.caption && (
+        <div className="px-3 py-3 bg-white">
+          <p className="text-sm text-gray-700">{image.caption}</p>
+        </div>
+      )}
     </div>
   );
 }
