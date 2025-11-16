@@ -1,14 +1,7 @@
 import { useState, useEffect } from "react";
-import { ImageCard } from "./ImageCard";
+import { SkeletonCard } from "./SkeletonCard";
 
-export function MasonryGrid({
-  images,
-  onPreview,
-  onDownload,
-  selectedImages = new Set(),
-  onSelectImage,
-  showActions = true,
-}) {
+export function SkeletonGrid({ count = 12 }) {
   const [columnCount, setColumnCount] = useState(
     window.innerWidth < 640 ? 2 : window.innerWidth < 1024 ? 3 : 4,
   );
@@ -25,6 +18,10 @@ export function MasonryGrid({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Create varying heights for Pinterest-like layout
+  const heights = ["h-40", "h-56", "h-48", "h-52", "h-44", "h-60"];
+  const getHeight = (index) => heights[index % heights.length];
+
   return (
     <div
       className="w-full"
@@ -35,18 +32,9 @@ export function MasonryGrid({
         gridAutoRows: "auto",
       }}
     >
-      {images.map((image) => (
-        <div key={image._id} className="h-fit">
-          <ImageCard
-            image={image}
-            onPreview={onPreview}
-            onDownload={onDownload}
-            isSelected={selectedImages.has(image._id)}
-            onSelect={
-              onSelectImage ? () => onSelectImage(image._id) : undefined
-            }
-            showActions={showActions}
-          />
+      {Array.from({ length: count }).map((_, index) => (
+        <div key={index} className="h-fit">
+          <SkeletonCard height={getHeight(index)} />
         </div>
       ))}
     </div>

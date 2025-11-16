@@ -3,15 +3,21 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
-  ZoomIn,
-  ZoomOut,
   Download,
+  Play,
+  Pause,
 } from "lucide-react";
 
-export function Lightbox({ image, images, onClose, onNext, onPrev }) {
-  const [zoom, setZoom] = useState(1);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
+export function VideoLightbox({
+  video,
+  videos,
+  onClose,
+  onNext,
+  onPrev,
+  onDownload,
+}) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef(null);
   const lightboxRef = useRef(null);
 
   useEffect(() => {
@@ -19,74 +25,78 @@ export function Lightbox({ image, images, onClose, onNext, onPrev }) {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowRight") onNext();
       if (e.key === "ArrowLeft") onPrev();
+      if (e.key === " ") {
+        e.preventDefault();
+        togglePlay();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose, onNext, onPrev]);
 
-  const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
+  const togglePlay = () => {
+    if (!videoRef.current) return;
 
-  const handleTouchEnd = (e) => {
-    setTouchEnd(e.changedTouches[0].clientX);
-    if (touchStart - touchEnd > 75) {
-      onNext();
-    } else if (touchEnd - touchStart > 75) {
-      onPrev();
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current
+        .play()
+        .catch((err) => console.error("Playback failed:", err));
+      setIsPlaying(true);
     }
   };
 
   const handleDownload = () => {
-    if (image) {
-      const url = image.url;
-      const extension = url.split(".").pop().split("?")[0] || "jpg";
-      const filename = image.caption
-        ? `${image.caption}.${extension}`
-        : `wedding-photo-${image._id}.${extension}`;
-
+    if (video && onDownload) {
+      onDownload(video);
+    } else if (video) {
+      const url = video.url || video.src;
       const link = document.createElement("a");
       link.href = url;
-      link.download = filename;
-      link.setAttribute("target", "_blank");
+      const extension = url.split(".").pop().split("?")[0];
+      link.download = `${video.caption || video._id || "video"}.${extension}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
   };
 
-  if (!image) return null;
+  if (!video) return null;
 
-  const currentIndex = images.findIndex((img) => img._id === image._id);
+  const currentIndex = videos.findIndex((v) => v._id === video._id);
+  const videoUrl = video.url || video.src;
 
   return (
     <div
       ref={lightboxRef}
-      className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-black/95 flex items-center justify-center z-50"
       onClick={onClose}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
       {/* Close Button */}
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-white"
+        className="absolute top-4 right-4 h-10 w-10 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-white z-10"
         aria-label="Close"
       >
         <X size={24} />
       </button>
 
-      {/* Image Container */}
+      {/* Video Container */}
       <div
         className="flex items-center justify-center max-h-[90vh] max-w-[90vw]"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
-          src={image.url}
-          alt={image.caption || "Wedding photo"}
-          style={{ transform: `scale(${zoom})` }}
-          className="max-h-[85vh] max-w-[85vw] object-contain rounded-lg transition-transform"
+        <video
+          ref={videoRef}
+          src={videoUrl}
+          className="max-h-[85vh] max-w-[85vw] rounded-lg"
+          controls
+          autoPlay
+          loop
+          playsInline
         />
       </div>
 
@@ -101,7 +111,7 @@ export function Lightbox({ image, images, onClose, onNext, onPrev }) {
         </button>
       )}
 
-      {currentIndex < images.length - 1 && (
+      {currentIndex < videos.length - 1 && (
         <button
           onClick={onNext}
           className="absolute right-4 h-12 w-12 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-white"
@@ -113,25 +123,13 @@ export function Lightbox({ image, images, onClose, onNext, onPrev }) {
 
       {/* Controls */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-lg p-1">
-        {/* Zoom Controls */}
+        {/* Play/Pause Button */}
         <button
-          onClick={() => setZoom(Math.max(1, zoom - 0.2))}
+          onClick={togglePlay}
           className="h-10 w-10 flex items-center justify-center rounded-md hover:bg-white/20 transition-colors text-white"
-          aria-label="Zoom out"
+          aria-label={isPlaying ? "Pause" : "Play"}
         >
-          <ZoomOut size={20} />
-        </button>
-
-        <span className="text-white text-sm min-w-[3rem] text-center">
-          {Math.round(zoom * 100)}%
-        </span>
-
-        <button
-          onClick={() => setZoom(Math.min(3, zoom + 0.2))}
-          className="h-10 w-10 flex items-center justify-center rounded-md hover:bg-white/20 transition-colors text-white"
-          aria-label="Zoom in"
-        >
-          <ZoomIn size={20} />
+          {isPlaying ? <Pause size={20} /> : <Play size={20} />}
         </button>
 
         <div className="w-px h-6 bg-white/20 mx-1"></div>
@@ -146,16 +144,16 @@ export function Lightbox({ image, images, onClose, onNext, onPrev }) {
         </button>
       </div>
 
-      {/* Image Info */}
-      {image.caption && (
+      {/* Video Info */}
+      {video.caption && (
         <div className="absolute top-16 left-4 right-4 bg-white/10 backdrop-blur-md rounded-lg p-3 text-white max-w-md">
-          <p className="text-sm">{image.caption}</p>
+          <p className="text-sm">{video.caption}</p>
         </div>
       )}
 
-      {/* Image Counter */}
+      {/* Video Counter */}
       <div className="absolute bottom-4 right-4 bg-white/10 backdrop-blur-md rounded-lg px-3 py-2 text-white text-sm">
-        {currentIndex + 1} / {images.length}
+        {currentIndex + 1} / {videos.length}
       </div>
     </div>
   );
