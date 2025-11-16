@@ -100,11 +100,11 @@ export default function Index() {
                   A celebration of love, joy, and new beginnings. Join us as we share our most precious moments.
                 </p>
 
-                <div className="pt-4 border-t border-amber-200/40">
-                  <p className="text-sm text-amber-700 font-medium tracking-wide mb-4">EXPLORE OUR JOURNEY</p>
+                <div className="pt-4 border-t border-blue-200/30">
+                  <p className="text-sm text-blue-900 font-medium tracking-wide mb-4">EXPLORE OUR JOURNEY</p>
                   <Link
                     to="/gallery"
-                    className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group text-base"
+                    className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-900 to-amber-500 hover:from-blue-800 hover:to-amber-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group text-base"
                   >
                     View Gallery
                     <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
