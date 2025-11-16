@@ -203,7 +203,7 @@ export default function Index() {
             <div className="flex justify-center mt-20">
               <Link
                 to="/gallery"
-                className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-white px-10 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
+                className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-amber-500 via-amber-400 to-blue-900 hover:from-amber-600 hover:via-amber-500 hover:to-blue-800 text-white px-10 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group"
               >
                 View Full Gallery
                 <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
