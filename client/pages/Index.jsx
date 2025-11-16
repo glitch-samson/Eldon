@@ -152,10 +152,13 @@ export default function Index() {
       </section>
 
       {/* Featured Gallery Preview */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="text-center mb-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-900/5 rounded-full blur-3xl" />
+        </div>
+        <div className="relative z-10 text-center mb-20">
           <div className="inline-block mb-4">
-            <span className="text-amber-600 font-serif text-xs sm:text-sm tracking-widest uppercase font-semibold">
+            <span className="text-blue-900 font-serif text-xs sm:text-sm tracking-widest uppercase font-semibold">
               ✦ Capture Every Detail
             </span>
           </div>
