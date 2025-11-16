@@ -59,11 +59,11 @@ export default function AdminDashboard() {
     try {
       await authApi.logout();
       localStorage.removeItem("isAdminLoggedIn");
-      navigate("/admin/login");
+      navigate("/gallery");
     } catch (err) {
       console.error("Logout error:", err);
       localStorage.removeItem("isAdminLoggedIn");
-      navigate("/admin/login");
+      navigate("/gallery");
     }
   };
 
