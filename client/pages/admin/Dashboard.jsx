@@ -106,9 +106,13 @@ export default function AdminDashboard() {
       alert("Please select at least one image");
       return;
     }
+    setShowPreviewModal(true);
+  };
 
+  const confirmImageUpload = async () => {
     try {
       setIsUploading(true);
+      setShowPreviewModal(false);
       const files = selectedFiles.map((f) => f.file);
       const response = await mediaApi.upload(files, caption);
 
