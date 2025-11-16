@@ -41,8 +41,8 @@ export function Lightbox({ image, images, onClose, onNext, onPrev }) {
   const handleDownload = () => {
     if (image) {
       const link = document.createElement("a");
-      link.href = image.src;
-      link.download = `wedding-photo-${image.id}.jpg`;
+      link.href = image.url;
+      link.download = `wedding-photo-${image._id}.jpg`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -51,7 +51,7 @@ export function Lightbox({ image, images, onClose, onNext, onPrev }) {
 
   if (!image) return null;
 
-  const currentIndex = images.findIndex((img) => img.id === image.id);
+  const currentIndex = images.findIndex((img) => img._id === image._id);
 
   return (
     <div
