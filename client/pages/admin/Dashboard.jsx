@@ -624,6 +624,88 @@ export default function AdminDashboard() {
             )}
           </div>
         </div>
+
+        {/* Preview Modal */}
+        {showPreviewModal && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full my-8">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <h2 className="text-2xl font-serif font-bold text-gray-900">
+                  Preview Before Upload
+                </h2>
+                <button
+                  onClick={() => setShowPreviewModal(false)}
+                  className="h-10 w-10 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 space-y-6 max-h-96 overflow-y-auto">
+                {/* Preview Grid */}
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-4">
+                    {selectedFiles.length} file{selectedFiles.length !== 1 ? "s" : ""} selected for upload
+                  </p>
+                  <div className="grid grid-cols-3 gap-3">
+                    {selectedFiles.map((fileObj) => (
+                      <div
+                        key={fileObj.id}
+                        className="relative rounded-lg overflow-hidden bg-gray-200 aspect-square"
+                      >
+                        {activeTab === "images" ? (
+                          <img
+                            src={fileObj.preview}
+                            alt={fileObj.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <video
+                            src={fileObj.preview}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-2 truncate">
+                          {fileObj.name}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Caption Preview */}
+                {caption && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <p className="text-xs font-medium text-blue-900 mb-2">Caption:</p>
+                    <p className="text-sm text-blue-800 whitespace-pre-wrap">{caption}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="flex gap-3 p-6 border-t border-gray-200 bg-gray-50">
+                <button
+                  onClick={() => setShowPreviewModal(false)}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-100 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={
+                    activeTab === "images" ? confirmImageUpload : confirmVideoUpload
+                  }
+                  disabled={isUploading}
+                  className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                >
+                  <Upload size={18} />
+                  {isUploading ? "Uploading..." : "Confirm & Upload"}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
