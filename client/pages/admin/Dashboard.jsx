@@ -228,8 +228,10 @@ export default function AdminDashboard() {
                 <button
                   onClick={() => {
                     setActiveTab("images");
-                    setPreviewUrl(null);
                     setCaption("");
+                    setSelectedFiles([]);
+                    const fileInput = document.getElementById("imageInput");
+                    if (fileInput) fileInput.value = "";
                   }}
                   className={`flex items-center gap-2 px-4 py-2.5 sm:py-2 font-medium transition-colors border-b-2 -mb-[1px] h-11 sm:h-auto ${
                     activeTab === "images"
@@ -243,8 +245,10 @@ export default function AdminDashboard() {
                 <button
                   onClick={() => {
                     setActiveTab("videos");
-                    setPreviewUrl(null);
                     setCaption("");
+                    setSelectedFiles([]);
+                    const fileInput = document.getElementById("videoInput");
+                    if (fileInput) fileInput.value = "";
                   }}
                   className={`flex items-center gap-2 px-4 py-2.5 sm:py-2 font-medium transition-colors border-b-2 -mb-[1px] h-11 sm:h-auto ${
                     activeTab === "videos"
