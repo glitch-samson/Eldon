@@ -107,10 +107,7 @@ export default function Index() {
             ) : (
               <>
                 <img
-                  src={
-                    allMedia[0]?.url ||
-                    "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=900&fit=crop"
-                  }
+                  src={allMedia[0]?.url}
                   alt="Wedding hero"
                   className="w-full max-w-lg mx-auto rounded-xl shadow-2xl object-cover aspect-[4/5] hover:shadow-3xl transition-shadow"
                 />
