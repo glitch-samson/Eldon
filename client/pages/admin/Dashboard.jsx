@@ -281,9 +281,9 @@ export default function AdminDashboard() {
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       />
-                      <div className="w-full px-4 py-3 border-2 border-dashed border-purple-300 rounded-lg text-center bg-purple-50/50 hover:bg-purple-50 transition-colors">
+                      <div className="w-full px-4 py-3 border-2 border-dashed border-blue-300 rounded-lg text-center bg-blue-50/50 hover:bg-blue-50 transition-colors">
                         <ImageIcon
-                          className="mx-auto text-purple-600 mb-2"
+                          className="mx-auto text-blue-900 mb-2"
                           size={24}
                         />
                         <p className="text-sm text-gray-700 font-medium">
@@ -308,7 +308,7 @@ export default function AdminDashboard() {
                       id="caption"
                       value={caption}
                       onChange={(e) => setCaption(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent resize-none"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent resize-none"
                       placeholder="Add a caption for this photo..."
                       rows={3}
                     />
@@ -318,7 +318,7 @@ export default function AdminDashboard() {
                   <button
                     type="submit"
                     disabled={!previewUrl || isUploading}
-                    className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
                     {isUploading ? "Uploading..." : "Upload Photo"}
@@ -353,9 +353,9 @@ export default function AdminDashboard() {
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       />
-                      <div className="w-full px-4 py-3 border-2 border-dashed border-purple-300 rounded-lg text-center bg-purple-50/50 hover:bg-purple-50 transition-colors">
+                      <div className="w-full px-4 py-3 border-2 border-dashed border-blue-300 rounded-lg text-center bg-blue-50/50 hover:bg-blue-50 transition-colors">
                         <Film
-                          className="mx-auto text-purple-600 mb-2"
+                          className="mx-auto text-blue-900 mb-2"
                           size={24}
                         />
                         <p className="text-sm text-gray-700 font-medium">
@@ -380,7 +380,7 @@ export default function AdminDashboard() {
                       id="videoCaption"
                       value={caption}
                       onChange={(e) => setCaption(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent resize-none"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent resize-none"
                       placeholder="Add a caption for this video..."
                       rows={3}
                     />
@@ -390,7 +390,7 @@ export default function AdminDashboard() {
                   <button
                     type="submit"
                     disabled={!previewUrl || isUploading}
-                    className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
                     {isUploading ? "Uploading..." : "Upload Video"}
@@ -400,8 +400,8 @@ export default function AdminDashboard() {
 
               {/* Stats */}
               <div className="mt-8 pt-6 border-t border-gray-200">
-                <div className="bg-gradient-to-br from-purple-50 to-rose-50 rounded-lg p-4 text-center">
-                  <p className="text-4xl font-serif font-bold text-purple-600 mb-1">
+                <div className="bg-gradient-to-br from-blue-50 to-amber-50 rounded-lg p-4 text-center">
+                  <p className="text-4xl font-serif font-bold text-blue-900 mb-1">
                     {activeTab === "images" ? images.length : videos.length}
                   </p>
                   <p className="text-sm text-gray-600">
