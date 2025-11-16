@@ -143,7 +143,7 @@ export default function Index() {
                     className="w-full h-full rounded-3xl shadow-2xl object-cover hover:shadow-3xl transition-all duration-500 hover:scale-105"
                   />
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-amber-400 to-amber-300 rounded-full opacity-20 blur-2xl" />
+                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-blue-900 to-amber-400 rounded-full opacity-20 blur-2xl" />
                 </div>
               )}
             </div>
