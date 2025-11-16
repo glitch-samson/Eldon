@@ -41,7 +41,7 @@ export function MasonryGrid({
     >
       {images.map((image) => (
         <div
-          key={image.id}
+          key={image._id}
           className={isMobile ? "" : "mb-4 break-inside-avoid"}
           style={
             isMobile
@@ -55,8 +55,8 @@ export function MasonryGrid({
             image={image}
             onPreview={onPreview}
             onDownload={onDownload}
-            isSelected={selectedImages.has(image.id)}
-            onSelect={onSelectImage ? () => onSelectImage(image.id) : undefined}
+            isSelected={selectedImages.has(image._id)}
+            onSelect={onSelectImage ? () => onSelectImage(image._id) : undefined}
           />
         </div>
       ))}
