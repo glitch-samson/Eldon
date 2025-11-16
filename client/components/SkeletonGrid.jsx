@@ -18,7 +18,7 @@ export function SkeletonGrid({ count = 12 }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Create varying heights for Pinterest-like layout
+  // Varying heights for a Pinterest-style look
   const heights = ["h-40", "h-56", "h-48", "h-52", "h-44", "h-60"];
   const getHeight = (index) => heights[index % heights.length];
 
@@ -26,15 +26,16 @@ export function SkeletonGrid({ count = 12 }) {
     <div
       className="w-full"
       style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${columnCount}, 1fr)`,
-        gap: "1rem",
-        gridAutoRows: "auto",
+        columnCount: columnCount,
+        columnGap: "1rem",
       }}
     >
       {Array.from({ length: count }).map((_, index) => (
-        <div key={index} className="h-fit">
-          <SkeletonCard height={getHeight(index)} />
+        <div
+          key={index}
+          className={`mb-4 break-inside-avoid rounded-lg overflow-hidden ${getHeight(index)}`}
+        >
+          <SkeletonCard />
         </div>
       ))}
     </div>

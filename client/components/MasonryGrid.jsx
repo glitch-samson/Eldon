@@ -10,7 +10,7 @@ export function MasonryGrid({
   showActions = true,
 }) {
   const [columnCount, setColumnCount] = useState(
-    window.innerWidth < 640 ? 2 : window.innerWidth < 1024 ? 3 : 4,
+    window.innerWidth < 640 ? 2 : window.innerWidth < 1024 ? 3 : 4
   );
 
   useEffect(() => {
@@ -27,24 +27,23 @@ export function MasonryGrid({
 
   return (
     <div
-      className="w-full"
+      className={`w-full`}
       style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${columnCount}, 1fr)`,
-        gap: "1rem",
-        gridAutoRows: "auto",
+        columnCount: columnCount,
+        columnGap: "1rem",
       }}
     >
       {images.map((image) => (
-        <div key={image._id} className="h-fit">
+        <div
+          key={image._id}
+          className="mb-4 break-inside-avoid rounded-lg overflow-hidden"
+        >
           <ImageCard
             image={image}
             onPreview={onPreview}
             onDownload={onDownload}
             isSelected={selectedImages.has(image._id)}
-            onSelect={
-              onSelectImage ? () => onSelectImage(image._id) : undefined
-            }
+            onSelect={onSelectImage ? () => onSelectImage(image._id) : undefined}
             showActions={showActions}
           />
         </div>

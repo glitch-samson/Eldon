@@ -14,7 +14,6 @@ export function VideoLightbox({
   onClose,
   onNext,
   onPrev,
-  onDownload,
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
@@ -42,26 +41,24 @@ export function VideoLightbox({
       videoRef.current.pause();
       setIsPlaying(false);
     } else {
-      videoRef.current
-        .play()
-        .catch((err) => console.error("Playback failed:", err));
+      videoRef.current.play().catch((err) => console.error("Playback failed:", err));
       setIsPlaying(true);
     }
   };
 
   const handleDownload = () => {
-    if (video && onDownload) {
-      onDownload(video);
-    } else if (video) {
-      const url = video.url || video.src;
-      const link = document.createElement("a");
-      link.href = url;
-      const extension = url.split(".").pop().split("?")[0];
-      link.download = `${video.caption || video._id || "video"}.${extension}`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    if (!video) return;
+
+    const url = video.url || video.src;
+    const extension = url.split(".").pop().split("?")[0];
+    const fileName = `${video.caption || video._id || "video"}.${extension}`;
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   if (!video) return null;

@@ -55,11 +55,11 @@ export function ImageCard({
                 e.stopPropagation();
                 onPreview(image);
               }}
-              className="h-10 w-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-blue-900 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
+              className="h-8 w-8 flex items-center justify-center rounded-full bg-white/90 hover:bg-blue-900 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
               aria-label="Preview image"
               title="Preview"
             >
-              <Eye size={18} />
+              <Eye size={16} />
             </button>
             <button
               onClick={(e) => {
@@ -67,11 +67,11 @@ export function ImageCard({
                 e.preventDefault();
                 onDownload(image);
               }}
-              className="h-10 w-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-amber-600 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
+              className="h-8 w-8 flex items-center justify-center rounded-full bg-white/90 hover:bg-amber-600 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
               aria-label="Download image"
               title="Download"
             >
-              <Download size={18} />
+              <Download size={16} />
             </button>
           </div>
         )}
@@ -79,7 +79,7 @@ export function ImageCard({
 
       {/* Caption Below Image */}
       {image.caption && (
-        <div className="px-3 py-3 bg-white">
+        <div className="px-2 py-2 bg-white">
           <p className="text-sm text-gray-700">{image.caption}</p>
         </div>
       )}
