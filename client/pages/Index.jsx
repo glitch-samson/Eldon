@@ -68,12 +68,12 @@ export default function Index() {
       <Navigation />
 
       {/* Hero Section - Asymmetrical Modern Design */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-20 bg-gradient-to-br from-white via-amber-50/30 to-white">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-20 bg-gradient-to-br from-white via-amber-50/20 to-blue-50/10">
         {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-96 h-96 bg-amber-300/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-amber-200/8 rounded-full blur-3xl" />
-          <div className="absolute top-1/3 right-1/4 w-64 h-64 border border-amber-200/20 rounded-full blur-2xl" />
+          <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-blue-900/5 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 w-64 h-64 border border-blue-200/20 rounded-full blur-2xl" />
         </div>
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
