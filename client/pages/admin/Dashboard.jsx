@@ -419,7 +419,7 @@ export default function AdminDashboard() {
             {activeTab === "images" && (
               <>
                 <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <ImageIcon className="text-purple-600" size={28} />
+                  <ImageIcon className="text-blue-900" size={28} />
                   Photos
                 </h2>
 
@@ -505,7 +505,7 @@ export default function AdminDashboard() {
             {activeTab === "videos" && (
               <>
                 <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <Film className="text-purple-600" size={28} />
+                  <Film className="text-blue-900" size={28} />
                   Videos
                 </h2>
 
