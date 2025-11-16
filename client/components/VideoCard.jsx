@@ -6,7 +6,7 @@ export function VideoCard({ video, onDelete }) {
       {/* Video Thumbnail */}
       <div className="relative w-full aspect-square bg-gray-900 overflow-hidden">
         <video
-          src={video.src}
+          src={video.url}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           preload="metadata"
         />
@@ -23,7 +23,7 @@ export function VideoCard({ video, onDelete }) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onDelete(video.id);
+              onDelete(video._id);
             }}
             className="absolute top-2 right-2 p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors opacity-0 group-hover:opacity-100"
             title="Delete video"
@@ -35,7 +35,7 @@ export function VideoCard({ video, onDelete }) {
 
       {/* Info */}
       <div className="p-3">
-        <p className="text-xs text-gray-500">ID: {video.id}</p>
+        <p className="text-xs text-gray-500">ID: {video._id.slice(0, 8)}...</p>
         <p
           className="text-xs text-gray-700 line-clamp-2 mt-1"
           title={video.caption}
