@@ -76,8 +76,8 @@ export function Lightbox({ image, images, onClose, onNext, onPrev }) {
         onClick={(e) => e.stopPropagation()}
       >
         <img
-          src={image.src}
-          alt={image.alt}
+          src={image.url}
+          alt={image.caption || "Wedding photo"}
           style={{ transform: `scale(${zoom})` }}
           className="max-h-[85vh] max-w-[85vw] object-contain rounded-lg transition-transform"
         />
