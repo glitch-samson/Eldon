@@ -98,15 +98,18 @@ export default function Index() {
 
           {/* Hero Image Preview */}
           <div className="relative">
-            <img
-              src={
-                images[0]?.src ||
-                "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=900&fit=crop"
-              }
-              alt="Wedding hero"
-              className="w-full max-w-lg mx-auto rounded-xl shadow-2xl object-cover aspect-[4/5] hover:shadow-3xl transition-shadow"
-            />
-            <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/20 to-transparent" />
+            {isLoading ? (
+              <div className="w-full max-w-lg mx-auto rounded-xl shadow-2xl object-cover aspect-[4/5] bg-gray-200 animate-pulse" />
+            ) : (
+              <>
+                <img
+                  src={allMedia[0]?.url || "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=900&fit=crop"}
+                  alt="Wedding hero"
+                  className="w-full max-w-lg mx-auto rounded-xl shadow-2xl object-cover aspect-[4/5] hover:shadow-3xl transition-shadow"
+                />
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/20 to-transparent" />
+              </>
+            )}
           </div>
         </div>
       </section>
