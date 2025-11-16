@@ -1,15 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Lock, Mail, LogIn } from "lucide-react";
-
-const ADMIN_CREDENTIALS = {
-  username: "admin",
-  password: "admin123",
-};
+import { authApi } from "../../lib/api";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -19,19 +14,17 @@ export default function AdminLogin() {
     setError("");
     setIsLoading(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    if (
-      username === ADMIN_CREDENTIALS.username &&
-      password === ADMIN_CREDENTIALS.password
-    ) {
-      localStorage.setItem("isAdminLoggedIn", "true");
-      navigate("/admin/dashboard");
-    } else {
-      setError("Invalid username or password. Try admin / admin123");
+    try {
+      const response = await authApi.login(password);
+      if (response.success) {
+        localStorage.setItem("isAdminLoggedIn", "true");
+        navigate("/admin/dashboard");
+      }
+    } catch (err) {
+      setError(err.message || "Invalid password. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (
