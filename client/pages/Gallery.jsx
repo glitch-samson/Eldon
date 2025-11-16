@@ -22,7 +22,7 @@ export default function Gallery() {
         setAllMedia(response.media || []);
         setError(null);
       } catch (err) {
-        console.error('Failed to fetch media:', err);
+        console.error("Failed to fetch media:", err);
         setError(err.message);
         setAllMedia([]);
       } finally {
@@ -33,8 +33,8 @@ export default function Gallery() {
     fetchMedia();
   }, []);
 
-  const images = allMedia.filter((media) => media.type === 'image');
-  const videos = allMedia.filter((media) => media.type === 'video');
+  const images = allMedia.filter((media) => media.type === "image");
+  const videos = allMedia.filter((media) => media.type === "video");
   const filteredImages = images;
 
   const handleSelectImage = (imageId) => {

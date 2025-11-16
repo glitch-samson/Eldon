@@ -16,11 +16,11 @@ export default function Index() {
     const fetchMedia = async () => {
       try {
         setIsLoading(true);
-        const response = await mediaApi.getAll({ limit: 100, type: 'image' });
+        const response = await mediaApi.getAll({ limit: 100, type: "image" });
         setAllMedia(response.media || []);
         setError(null);
       } catch (err) {
-        console.error('Failed to fetch media:', err);
+        console.error("Failed to fetch media:", err);
         setError(err.message);
         setAllMedia([]);
       } finally {
@@ -44,7 +44,9 @@ export default function Index() {
 
   const handleNext = () => {
     if (!selectedImage) return;
-    const currentIndex = allMedia.findIndex((img) => img._id === selectedImage._id);
+    const currentIndex = allMedia.findIndex(
+      (img) => img._id === selectedImage._id,
+    );
     if (currentIndex < allMedia.length - 1) {
       setSelectedImage(allMedia[currentIndex + 1]);
     }
@@ -52,7 +54,9 @@ export default function Index() {
 
   const handlePrev = () => {
     if (!selectedImage) return;
-    const currentIndex = allMedia.findIndex((img) => img._id === selectedImage._id);
+    const currentIndex = allMedia.findIndex(
+      (img) => img._id === selectedImage._id,
+    );
     if (currentIndex > 0) {
       setSelectedImage(allMedia[currentIndex - 1]);
     }
@@ -103,7 +107,10 @@ export default function Index() {
             ) : (
               <>
                 <img
-                  src={allMedia[0]?.url || "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=900&fit=crop"}
+                  src={
+                    allMedia[0]?.url ||
+                    "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=900&fit=crop"
+                  }
                   alt="Wedding hero"
                   className="w-full max-w-lg mx-auto rounded-xl shadow-2xl object-cover aspect-[4/5] hover:shadow-3xl transition-shadow"
                 />

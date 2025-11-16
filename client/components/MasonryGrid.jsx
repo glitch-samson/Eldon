@@ -56,7 +56,9 @@ export function MasonryGrid({
             onPreview={onPreview}
             onDownload={onDownload}
             isSelected={selectedImages.has(image._id)}
-            onSelect={onSelectImage ? () => onSelectImage(image._id) : undefined}
+            onSelect={
+              onSelectImage ? () => onSelectImage(image._id) : undefined
+            }
           />
         </div>
       ))}

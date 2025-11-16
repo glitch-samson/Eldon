@@ -40,11 +40,11 @@ export default function AdminDashboard() {
         setIsLoading(true);
         const response = await mediaApi.getAll({ limit: 100 });
         const allMedia = response.media || [];
-        setImages(allMedia.filter((m) => m.type === 'image'));
-        setVideos(allMedia.filter((m) => m.type === 'video'));
+        setImages(allMedia.filter((m) => m.type === "image"));
+        setVideos(allMedia.filter((m) => m.type === "video"));
         setError(null);
       } catch (err) {
-        console.error('Failed to fetch media:', err);
+        console.error("Failed to fetch media:", err);
         setError(err.message);
       } finally {
         setIsLoading(false);
@@ -62,7 +62,7 @@ export default function AdminDashboard() {
       localStorage.removeItem("isAdminLoggedIn");
       navigate("/admin/login");
     } catch (err) {
-      console.error('Logout error:', err);
+      console.error("Logout error:", err);
       localStorage.removeItem("isAdminLoggedIn");
       navigate("/admin/login");
     }
@@ -108,7 +108,7 @@ export default function AdminDashboard() {
         setTimeout(() => setShowSuccessMessage(false), 3000);
       }
     } catch (err) {
-      console.error('Upload error:', err);
+      console.error("Upload error:", err);
       setError(err.message || "Failed to upload image");
       setShowSuccessMessage(false);
     } finally {
@@ -141,7 +141,7 @@ export default function AdminDashboard() {
         setTimeout(() => setShowSuccessMessage(false), 3000);
       }
     } catch (err) {
-      console.error('Upload error:', err);
+      console.error("Upload error:", err);
       setError(err.message || "Failed to upload video");
       setShowSuccessMessage(false);
     } finally {
@@ -155,7 +155,7 @@ export default function AdminDashboard() {
       setImages(images.filter((img) => img._id !== id));
       setDeleteConfirm(null);
     } catch (err) {
-      console.error('Delete error:', err);
+      console.error("Delete error:", err);
       setError(err.message || "Failed to delete image");
     }
   };
@@ -166,7 +166,7 @@ export default function AdminDashboard() {
       setVideos(videos.filter((vid) => vid._id !== id));
       setDeleteConfirm(null);
     } catch (err) {
-      console.error('Delete error:', err);
+      console.error("Delete error:", err);
       setError(err.message || "Failed to delete video");
     }
   };
