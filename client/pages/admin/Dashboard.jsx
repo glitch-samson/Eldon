@@ -56,83 +56,119 @@ export default function AdminDashboard() {
     }
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("isAdminLoggedIn");
-    navigate("/admin/login");
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+      localStorage.removeItem("isAdminLoggedIn");
+      navigate("/admin/login");
+    } catch (err) {
+      console.error('Logout error:', err);
+      localStorage.removeItem("isAdminLoggedIn");
+      navigate("/admin/login");
+    }
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
+      setUploadedFile(file);
+      setUploadedFileName(file.name);
+
       const reader = new FileReader();
       reader.onload = (event) => {
         const url = event.target?.result;
         setPreviewUrl(url);
-        setUploadedFileName(file.name);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     e.preventDefault();
-    if (!previewUrl) {
+    if (!uploadedFile) {
       alert("Please select an image first");
       return;
     }
 
-    const newImage = {
-      id: String(Math.max(...images.map((img) => parseInt(img.id)), 0) + 1),
-      src: previewUrl,
-      caption: caption || undefined,
-      alt: `Wedding photo - ${uploadedFileName}`,
-    };
+    try {
+      setIsUploading(true);
+      const response = await mediaApi.upload(uploadedFile, caption);
 
-    setImages([newImage, ...images]);
-    setPreviewUrl(null);
-    setCaption("");
-    setUploadedFileName("");
-    const fileInput = document.getElementById("imageInput");
-    if (fileInput) fileInput.value = "";
+      if (response.media && response.media.length > 0) {
+        setImages([...response.media, ...images]);
+        setPreviewUrl(null);
+        setCaption("");
+        setUploadedFileName("");
+        setUploadedFile(null);
+        const fileInput = document.getElementById("imageInput");
+        if (fileInput) fileInput.value = "";
 
-    setSuccessMessage("Image uploaded successfully!");
-    setShowSuccessMessage(true);
-    setTimeout(() => setShowSuccessMessage(false), 3000);
+        setSuccessMessage("Image uploaded successfully!");
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 3000);
+      }
+    } catch (err) {
+      console.error('Upload error:', err);
+      setError(err.message || "Failed to upload image");
+      setShowSuccessMessage(false);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
-  const handleVideoUpload = (e) => {
+  const handleVideoUpload = async (e) => {
     e.preventDefault();
-    if (!previewUrl) {
+    if (!uploadedFile) {
       alert("Please select a video first");
       return;
     }
 
-    const newVideo = {
-      id: String(Math.max(...videos.map((vid) => parseInt(vid.id)), 0) + 1),
-      src: previewUrl,
-      caption: caption || undefined,
-    };
+    try {
+      setIsUploading(true);
+      const response = await mediaApi.upload(uploadedFile, caption);
 
-    setVideos([newVideo, ...videos]);
-    setPreviewUrl(null);
-    setCaption("");
-    setUploadedFileName("");
-    const fileInput = document.getElementById("videoInput");
-    if (fileInput) fileInput.value = "";
+      if (response.media && response.media.length > 0) {
+        setVideos([...response.media, ...videos]);
+        setPreviewUrl(null);
+        setCaption("");
+        setUploadedFileName("");
+        setUploadedFile(null);
+        const fileInput = document.getElementById("videoInput");
+        if (fileInput) fileInput.value = "";
 
-    setSuccessMessage("Video uploaded successfully!");
-    setShowSuccessMessage(true);
-    setTimeout(() => setShowSuccessMessage(false), 3000);
+        setSuccessMessage("Video uploaded successfully!");
+        setShowSuccessMessage(true);
+        setTimeout(() => setShowSuccessMessage(false), 3000);
+      }
+    } catch (err) {
+      console.error('Upload error:', err);
+      setError(err.message || "Failed to upload video");
+      setShowSuccessMessage(false);
+    } finally {
+      setIsUploading(false);
+    }
   };
 
-  const handleDeleteImage = (id) => {
-    setImages(images.filter((img) => img.id !== id));
-    setDeleteConfirm(null);
+  const handleDeleteImage = async (id) => {
+    try {
+      await mediaApi.delete(id);
+      setImages(images.filter((img) => img._id !== id));
+      setDeleteConfirm(null);
+    } catch (err) {
+      console.error('Delete error:', err);
+      setError(err.message || "Failed to delete image");
+    }
   };
 
-  const handleDeleteVideo = (id) => {
-    setVideos(videos.filter((vid) => vid.id !== id));
-    setDeleteConfirm(null);
+  const handleDeleteVideo = async (id) => {
+    try {
+      await mediaApi.delete(id);
+      setVideos(videos.filter((vid) => vid._id !== id));
+      setDeleteConfirm(null);
+    } catch (err) {
+      console.error('Delete error:', err);
+      setError(err.message || "Failed to delete video");
+    }
   };
 
   const totalMedia = images.length + videos.length;
