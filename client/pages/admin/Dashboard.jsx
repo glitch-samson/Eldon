@@ -174,9 +174,9 @@ export default function AdminDashboard() {
   const totalMedia = images.length + videos.length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-purple-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-white">
       {/* Header */}
-      <div className="bg-white shadow-md border-b border-purple-200">
+      <div className="bg-white shadow-md border-b border-blue-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-serif font-bold text-gray-900">
@@ -212,7 +212,7 @@ export default function AdminDashboard() {
                   }}
                   className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors border-b-2 -mb-[1px] ${
                     activeTab === "images"
-                      ? "border-purple-600 text-purple-600"
+                      ? "border-blue-900 text-blue-900"
                       : "border-transparent text-gray-600 hover:text-gray-900"
                   }`}
                 >
@@ -227,7 +227,7 @@ export default function AdminDashboard() {
                   }}
                   className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors border-b-2 -mb-[1px] ${
                     activeTab === "videos"
-                      ? "border-purple-600 text-purple-600"
+                      ? "border-blue-900 text-blue-900"
                       : "border-transparent text-gray-600 hover:text-gray-900"
                   }`}
                 >
@@ -237,8 +237,8 @@ export default function AdminDashboard() {
               </div>
 
               <div className="flex items-center gap-2 mb-6">
-                <div className="p-2 bg-purple-100 rounded-lg">
-                  <Upload className="text-purple-600" size={24} />
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <Upload className="text-blue-900" size={24} />
                 </div>
                 <h2 className="text-2xl font-serif font-bold text-gray-900">
                   Upload
@@ -281,9 +281,9 @@ export default function AdminDashboard() {
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       />
-                      <div className="w-full px-4 py-3 border-2 border-dashed border-purple-300 rounded-lg text-center bg-purple-50/50 hover:bg-purple-50 transition-colors">
+                      <div className="w-full px-4 py-3 border-2 border-dashed border-blue-300 rounded-lg text-center bg-blue-50/50 hover:bg-blue-50 transition-colors">
                         <ImageIcon
-                          className="mx-auto text-purple-600 mb-2"
+                          className="mx-auto text-blue-900 mb-2"
                           size={24}
                         />
                         <p className="text-sm text-gray-700 font-medium">
@@ -308,7 +308,7 @@ export default function AdminDashboard() {
                       id="caption"
                       value={caption}
                       onChange={(e) => setCaption(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent resize-none"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent resize-none"
                       placeholder="Add a caption for this photo..."
                       rows={3}
                     />
@@ -318,7 +318,7 @@ export default function AdminDashboard() {
                   <button
                     type="submit"
                     disabled={!previewUrl || isUploading}
-                    className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
                     {isUploading ? "Uploading..." : "Upload Photo"}
@@ -353,9 +353,9 @@ export default function AdminDashboard() {
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       />
-                      <div className="w-full px-4 py-3 border-2 border-dashed border-purple-300 rounded-lg text-center bg-purple-50/50 hover:bg-purple-50 transition-colors">
+                      <div className="w-full px-4 py-3 border-2 border-dashed border-blue-300 rounded-lg text-center bg-blue-50/50 hover:bg-blue-50 transition-colors">
                         <Film
-                          className="mx-auto text-purple-600 mb-2"
+                          className="mx-auto text-blue-900 mb-2"
                           size={24}
                         />
                         <p className="text-sm text-gray-700 font-medium">
@@ -380,7 +380,7 @@ export default function AdminDashboard() {
                       id="videoCaption"
                       value={caption}
                       onChange={(e) => setCaption(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent resize-none"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent resize-none"
                       placeholder="Add a caption for this video..."
                       rows={3}
                     />
@@ -390,7 +390,7 @@ export default function AdminDashboard() {
                   <button
                     type="submit"
                     disabled={!previewUrl || isUploading}
-                    className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
                     {isUploading ? "Uploading..." : "Upload Video"}
@@ -400,8 +400,8 @@ export default function AdminDashboard() {
 
               {/* Stats */}
               <div className="mt-8 pt-6 border-t border-gray-200">
-                <div className="bg-gradient-to-br from-purple-50 to-rose-50 rounded-lg p-4 text-center">
-                  <p className="text-4xl font-serif font-bold text-purple-600 mb-1">
+                <div className="bg-gradient-to-br from-blue-50 to-amber-50 rounded-lg p-4 text-center">
+                  <p className="text-4xl font-serif font-bold text-blue-900 mb-1">
                     {activeTab === "images" ? images.length : videos.length}
                   </p>
                   <p className="text-sm text-gray-600">
@@ -419,7 +419,7 @@ export default function AdminDashboard() {
             {activeTab === "images" && (
               <>
                 <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <ImageIcon className="text-purple-600" size={28} />
+                  <ImageIcon className="text-blue-900" size={28} />
                   Photos
                 </h2>
 
@@ -505,7 +505,7 @@ export default function AdminDashboard() {
             {activeTab === "videos" && (
               <>
                 <h2 className="text-2xl font-serif font-bold text-gray-900 mb-6 flex items-center gap-2">
-                  <Film className="text-purple-600" size={28} />
+                  <Film className="text-blue-900" size={28} />
                   Videos
                 </h2>
 
