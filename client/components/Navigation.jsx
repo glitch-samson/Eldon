@@ -31,17 +31,17 @@ export function Navigation() {
                 to={link.href}
                 className={`px-5 py-2.5 h-10 flex items-center rounded-full transition-all duration-300 text-sm font-medium ${
                   isActive(link.href)
-                    ? "bg-amber-100/60 text-amber-900"
-                    : "text-gray-600 hover:text-amber-700 hover:bg-amber-50/40"
+                    ? "bg-blue-100/60 text-blue-900"
+                    : "text-gray-600 hover:text-blue-700 hover:bg-blue-50/40"
                 }`}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="ml-6 pl-6 border-l border-amber-200">
+            <div className="ml-6 pl-6 border-l border-blue-200">
               <Link
                 to="/admin/login"
-                className="px-5 py-2.5 h-10 flex items-center rounded-full bg-gradient-to-r from-amber-500 to-amber-400 text-white hover:from-amber-600 hover:to-amber-500 transition-all duration-300 font-medium text-sm shadow-md hover:shadow-lg"
+                className="px-5 py-2.5 h-10 flex items-center rounded-full bg-gradient-to-r from-blue-900 to-amber-500 text-white hover:from-blue-800 hover:to-amber-600 transition-all duration-300 font-medium text-sm shadow-md hover:shadow-lg"
               >
                 Admin
               </Link>
