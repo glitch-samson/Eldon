@@ -13,7 +13,7 @@ export function VideoCard({ video, onDelete }) {
 
         {/* Play Icon Overlay */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
-          <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
+          <div className="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center">
             <Play size={24} className="text-white fill-white" />
           </div>
         </div>

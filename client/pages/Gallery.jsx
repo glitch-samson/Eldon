@@ -109,13 +109,13 @@ export default function Gallery() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-white via-purple-50 to-white min-h-screen">
+    <div className="bg-gradient-to-br from-white via-blue-50 to-white min-h-screen">
       <Navigation />
 
       {/* Header */}
       <section className="relative pt-32 pb-16">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -143,8 +143,8 @@ export default function Gallery() {
                 onClick={() => setActiveSection("photos")}
                 className={`inline-flex items-center px-4 py-2 rounded-lg font-medium transition-colors ${
                   activeSection === "photos"
-                    ? "bg-purple-600 text-white"
-                    : "bg-purple-100 hover:bg-purple-200 text-purple-700"
+                    ? "bg-blue-900 text-white"
+                    : "bg-blue-100 hover:bg-blue-200 text-blue-900"
                 }`}
               >
                 View Photos
@@ -155,8 +155,8 @@ export default function Gallery() {
                 onClick={() => setActiveSection("videos")}
                 className={`inline-flex items-center px-4 py-2 rounded-lg font-medium transition-colors ${
                   activeSection === "videos"
-                    ? "bg-purple-600 text-white"
-                    : "bg-purple-100 hover:bg-purple-200 text-purple-700"
+                    ? "bg-blue-900 text-white"
+                    : "bg-blue-100 hover:bg-blue-200 text-blue-900"
                 }`}
               >
                 View Videos
@@ -168,7 +168,7 @@ export default function Gallery() {
 
       {/* Fixed Selection Toolbar */}
       {selectedImages.size > 0 && (
-        <div className="fixed top-0 left-0 right-0 bg-white border-b-2 border-purple-200 shadow-lg z-40 animate-in slide-in-from-top-4 duration-300">
+        <div className="fixed top-0 left-0 right-0 bg-white border-b-2 border-blue-900 shadow-lg z-40 animate-in slide-in-from-top-4 duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-4">
             <div>
               <p className="text-sm font-medium text-gray-900">
@@ -180,7 +180,7 @@ export default function Gallery() {
               <button
                 onClick={handleDownloadSelectedZip}
                 disabled={isDownloading}
-                className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2.5 rounded-lg transition-colors font-medium text-sm shadow-md hover:shadow-lg"
+                className="flex items-center gap-2 bg-blue-900 hover:bg-blue-800 text-white px-6 py-2.5 rounded-lg transition-colors font-medium text-sm shadow-md hover:shadow-lg"
               >
                 <Download size={18} />
                 {isDownloading ? "Downloading..." : "Download All"}
