@@ -7,6 +7,7 @@ import {
   LogOut,
   Image as ImageIcon,
   Film,
+  X,
 } from "lucide-react";
 import { VideoCard } from "../../components/VideoCard";
 import { authApi, mediaApi } from "../../lib/api";
@@ -17,15 +18,14 @@ export default function AdminDashboard() {
   const [videos, setVideos] = useState([]);
   const [activeTab, setActiveTab] = useState("images");
   const [caption, setCaption] = useState("");
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [uploadedFileName, setUploadedFileName] = useState("");
-  const [uploadedFile, setUploadedFile] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState(null);
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isAdminLoggedIn");
@@ -60,56 +60,79 @@ export default function AdminDashboard() {
     try {
       await authApi.logout();
       localStorage.removeItem("isAdminLoggedIn");
-      navigate("/admin/login");
+      navigate("/gallery");
     } catch (err) {
       console.error("Logout error:", err);
       localStorage.removeItem("isAdminLoggedIn");
-      navigate("/admin/login");
+      navigate("/gallery");
     }
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setUploadedFile(file);
-      setUploadedFileName(file.name);
+    const files = Array.from(e.target.files || []);
+    if (files.length > 0) {
+      const newFiles = files.map((file) => ({
+        id: Math.random().toString(36).substr(2, 9),
+        file,
+        name: file.name,
+        preview: null,
+      }));
 
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const url = event.target?.result;
-        setPreviewUrl(url);
-      };
-      reader.readAsDataURL(file);
+      Promise.all(
+        newFiles.map(
+          (fileObj) =>
+            new Promise((resolve) => {
+              const reader = new FileReader();
+              reader.onload = (event) => {
+                fileObj.preview = event.target?.result;
+                resolve();
+              };
+              reader.readAsDataURL(fileObj.file);
+            }),
+        ),
+      ).then(() => {
+        setSelectedFiles((prev) => [...prev, ...newFiles]);
+      });
     }
+  };
+
+  const removeSelectedFile = (fileId) => {
+    setSelectedFiles((prev) => prev.filter((f) => f.id !== fileId));
   };
 
   const handleImageUpload = async (e) => {
     e.preventDefault();
-    if (!uploadedFile) {
-      alert("Please select an image first");
+    if (selectedFiles.length === 0) {
+      alert("Please select at least one image");
       return;
     }
+    setShowPreviewModal(true);
+  };
 
+  const confirmImageUpload = async () => {
     try {
       setIsUploading(true);
-      const response = await mediaApi.upload(uploadedFile, caption);
+      setShowPreviewModal(false);
+      const files = selectedFiles.map((f) => f.file);
+      const response = await mediaApi.upload(files, caption);
 
       if (response.media && response.media.length > 0) {
         setImages([...response.media, ...images]);
-        setPreviewUrl(null);
         setCaption("");
-        setUploadedFileName("");
-        setUploadedFile(null);
+        setSelectedFiles([]);
         const fileInput = document.getElementById("imageInput");
         if (fileInput) fileInput.value = "";
 
-        setSuccessMessage("Image uploaded successfully!");
+        const count = response.media.length;
+        setSuccessMessage(
+          `${count} image${count !== 1 ? "s" : ""} uploaded successfully!`,
+        );
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
       }
     } catch (err) {
       console.error("Upload error:", err);
-      setError(err.message || "Failed to upload image");
+      setError(err.message || "Failed to upload images");
       setShowSuccessMessage(false);
     } finally {
       setIsUploading(false);
@@ -118,31 +141,37 @@ export default function AdminDashboard() {
 
   const handleVideoUpload = async (e) => {
     e.preventDefault();
-    if (!uploadedFile) {
-      alert("Please select a video first");
+    if (selectedFiles.length === 0) {
+      alert("Please select at least one video");
       return;
     }
+    setShowPreviewModal(true);
+  };
 
+  const confirmVideoUpload = async () => {
     try {
       setIsUploading(true);
-      const response = await mediaApi.upload(uploadedFile, caption);
+      setShowPreviewModal(false);
+      const files = selectedFiles.map((f) => f.file);
+      const response = await mediaApi.upload(files, caption);
 
       if (response.media && response.media.length > 0) {
         setVideos([...response.media, ...videos]);
-        setPreviewUrl(null);
         setCaption("");
-        setUploadedFileName("");
-        setUploadedFile(null);
+        setSelectedFiles([]);
         const fileInput = document.getElementById("videoInput");
         if (fileInput) fileInput.value = "";
 
-        setSuccessMessage("Video uploaded successfully!");
+        const count = response.media.length;
+        setSuccessMessage(
+          `${count} video${count !== 1 ? "s" : ""} uploaded successfully!`,
+        );
         setShowSuccessMessage(true);
         setTimeout(() => setShowSuccessMessage(false), 3000);
       }
     } catch (err) {
       console.error("Upload error:", err);
-      setError(err.message || "Failed to upload video");
+      setError(err.message || "Failed to upload videos");
       setShowSuccessMessage(false);
     } finally {
       setIsUploading(false);
@@ -208,8 +237,10 @@ export default function AdminDashboard() {
                 <button
                   onClick={() => {
                     setActiveTab("images");
-                    setPreviewUrl(null);
                     setCaption("");
+                    setSelectedFiles([]);
+                    const fileInput = document.getElementById("imageInput");
+                    if (fileInput) fileInput.value = "";
                   }}
                   className={`flex items-center gap-2 px-4 py-2.5 sm:py-2 font-medium transition-colors border-b-2 -mb-[1px] h-11 sm:h-auto ${
                     activeTab === "images"
@@ -223,8 +254,10 @@ export default function AdminDashboard() {
                 <button
                   onClick={() => {
                     setActiveTab("videos");
-                    setPreviewUrl(null);
                     setCaption("");
+                    setSelectedFiles([]);
+                    const fileInput = document.getElementById("videoInput");
+                    if (fileInput) fileInput.value = "";
                   }}
                   className={`flex items-center gap-2 px-4 py-2.5 sm:py-2 font-medium transition-colors border-b-2 -mb-[1px] h-11 sm:h-auto ${
                     activeTab === "videos"
@@ -255,16 +288,35 @@ export default function AdminDashboard() {
               {/* Image Upload Form */}
               {activeTab === "images" && (
                 <form onSubmit={handleImageUpload} className="space-y-5">
-                  {/* Image Preview */}
-                  {previewUrl && (
-                    <div className="relative rounded-lg overflow-hidden bg-gray-100 aspect-square">
-                      <img
-                        src={previewUrl}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                        <Eye className="text-white" size={32} />
+                  {/* Selected Files Preview Grid */}
+                  {selectedFiles.length > 0 && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Selected Photos ({selectedFiles.length})
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {selectedFiles.map((fileObj) => (
+                          <div
+                            key={fileObj.id}
+                            className="relative rounded-lg overflow-hidden bg-gray-200 aspect-square group"
+                          >
+                            <img
+                              src={fileObj.preview}
+                              alt={fileObj.name}
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeSelectedFile(fileObj.id)}
+                              className="absolute inset-0 bg-black/0 group-hover:bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all"
+                            >
+                              <X className="text-white" size={24} />
+                            </button>
+                            <p className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 truncate">
+                              {fileObj.name}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -272,13 +324,16 @@ export default function AdminDashboard() {
                   {/* File Input */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Select Photo
+                      {selectedFiles.length > 0
+                        ? "Add More Photos"
+                        : "Select Photos"}
                     </label>
                     <div className="relative">
                       <input
                         type="file"
                         id="imageInput"
                         accept="image/*"
+                        multiple
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       />
@@ -288,10 +343,12 @@ export default function AdminDashboard() {
                           size={24}
                         />
                         <p className="text-sm text-gray-700 font-medium">
-                          Click to select photo
+                          Click to select photos
                         </p>
                         <p className="text-xs text-gray-500 mt-1">
-                          {uploadedFileName || "PNG, JPG, GIF up to 10MB"}
+                          {selectedFiles.length > 0
+                            ? `${selectedFiles.length} photo${selectedFiles.length !== 1 ? "s" : ""} selected`
+                            : "PNG, JPG, GIF up to 10MB • Multiple files supported"}
                         </p>
                       </div>
                     </div>
@@ -310,7 +367,7 @@ export default function AdminDashboard() {
                       value={caption}
                       onChange={(e) => setCaption(e.target.value)}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent resize-none"
-                      placeholder="Add a caption for this photo..."
+                      placeholder="Add a caption for all selected photos..."
                       rows={3}
                     />
                   </div>
@@ -318,11 +375,13 @@ export default function AdminDashboard() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={!previewUrl || isUploading}
+                    disabled={selectedFiles.length === 0 || isUploading}
                     className="w-full h-12 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
-                    {isUploading ? "Uploading..." : "Upload Photo"}
+                    {isUploading
+                      ? "Uploading..."
+                      : `Upload ${selectedFiles.length} Photo${selectedFiles.length !== 1 ? "s" : ""}`}
                   </button>
                 </form>
               )}
@@ -330,27 +389,51 @@ export default function AdminDashboard() {
               {/* Video Upload Form */}
               {activeTab === "videos" && (
                 <form onSubmit={handleVideoUpload} className="space-y-5">
-                  {/* Video Preview */}
-                  {previewUrl && (
-                    <div className="relative rounded-lg overflow-hidden bg-gray-900 aspect-square">
-                      <video
-                        src={previewUrl}
-                        className="w-full h-full object-cover"
-                        controls
-                      />
+                  {/* Selected Files Preview Grid */}
+                  {selectedFiles.length > 0 && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Selected Videos ({selectedFiles.length})
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {selectedFiles.map((fileObj) => (
+                          <div
+                            key={fileObj.id}
+                            className="relative rounded-lg overflow-hidden bg-gray-900 aspect-square group"
+                          >
+                            <video
+                              src={fileObj.preview}
+                              className="w-full h-full object-cover"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeSelectedFile(fileObj.id)}
+                              className="absolute inset-0 bg-black/0 group-hover:bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all"
+                            >
+                              <X className="text-white" size={24} />
+                            </button>
+                            <p className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 truncate">
+                              {fileObj.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
 
                   {/* File Input */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Select Video
+                      {selectedFiles.length > 0
+                        ? "Add More Videos"
+                        : "Select Videos"}
                     </label>
                     <div className="relative">
                       <input
                         type="file"
                         id="videoInput"
                         accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov"
+                        multiple
                         onChange={handleFileChange}
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       />
@@ -360,10 +443,12 @@ export default function AdminDashboard() {
                           size={24}
                         />
                         <p className="text-sm text-gray-700 font-medium">
-                          Click to select video
+                          Click to select videos
                         </p>
                         <p className="text-xs text-gray-500 mt-1">
-                          {uploadedFileName || "MP4, WebM up to 100MB"}
+                          {selectedFiles.length > 0
+                            ? `${selectedFiles.length} video${selectedFiles.length !== 1 ? "s" : ""} selected`
+                            : "MP4, WebM up to 100MB • Multiple files supported"}
                         </p>
                       </div>
                     </div>
@@ -382,7 +467,7 @@ export default function AdminDashboard() {
                       value={caption}
                       onChange={(e) => setCaption(e.target.value)}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent resize-none"
-                      placeholder="Add a caption for this video..."
+                      placeholder="Add a caption for all selected videos..."
                       rows={3}
                     />
                   </div>
@@ -390,11 +475,13 @@ export default function AdminDashboard() {
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    disabled={!previewUrl || isUploading}
+                    disabled={selectedFiles.length === 0 || isUploading}
                     className="w-full h-12 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
-                    {isUploading ? "Uploading..." : "Upload Video"}
+                    {isUploading
+                      ? "Uploading..."
+                      : `Upload ${selectedFiles.length} Video${selectedFiles.length !== 1 ? "s" : ""}`}
                   </button>
                 </form>
               )}
@@ -541,6 +628,95 @@ export default function AdminDashboard() {
             )}
           </div>
         </div>
+
+        {/* Preview Modal */}
+        {showPreviewModal && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full my-8">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-6 border-b border-gray-200">
+                <h2 className="text-2xl font-serif font-bold text-gray-900">
+                  Preview Before Upload
+                </h2>
+                <button
+                  onClick={() => setShowPreviewModal(false)}
+                  className="h-10 w-10 flex items-center justify-center hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 space-y-6 max-h-96 overflow-y-auto">
+                {/* Preview Grid */}
+                <div>
+                  <p className="text-sm font-medium text-gray-700 mb-4">
+                    {selectedFiles.length} file
+                    {selectedFiles.length !== 1 ? "s" : ""} selected for upload
+                  </p>
+                  <div className="grid grid-cols-3 gap-3">
+                    {selectedFiles.map((fileObj) => (
+                      <div
+                        key={fileObj.id}
+                        className="relative rounded-lg overflow-hidden bg-gray-200 aspect-square"
+                      >
+                        {activeTab === "images" ? (
+                          <img
+                            src={fileObj.preview}
+                            alt={fileObj.name}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <video
+                            src={fileObj.preview}
+                            className="w-full h-full object-cover"
+                          />
+                        )}
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-2 truncate">
+                          {fileObj.name}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Caption Preview */}
+                {caption && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <p className="text-xs font-medium text-blue-900 mb-2">
+                      Caption:
+                    </p>
+                    <p className="text-sm text-blue-800 whitespace-pre-wrap">
+                      {caption}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="flex gap-3 p-6 border-t border-gray-200 bg-gray-50">
+                <button
+                  onClick={() => setShowPreviewModal(false)}
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-100 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={
+                    activeTab === "images"
+                      ? confirmImageUpload
+                      : confirmVideoUpload
+                  }
+                  disabled={isUploading}
+                  className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                >
+                  <Upload size={18} />
+                  {isUploading ? "Uploading..." : "Confirm & Upload"}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
