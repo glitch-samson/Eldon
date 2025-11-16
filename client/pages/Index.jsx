@@ -63,20 +63,20 @@ export default function Index() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-white via-purple-50 to-white">
+    <div className="bg-gradient-to-br from-white via-blue-50 to-white">
       <Navigation />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
         {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-rose-200/20 rounded-full blur-3xl" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-200/20 rounded-full blur-3xl" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-6 inline-block">
-            <span className="text-purple-600 font-serif text-lg tracking-widest uppercase">
+            <span className="text-blue-900 font-serif text-lg tracking-widest uppercase">
               Our Wedding
             </span>
           </div>
@@ -93,7 +93,7 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link
               to="/gallery"
-              className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-800 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
             >
               View Gallery
               <ChevronRight size={20} />
@@ -138,7 +138,7 @@ export default function Index() {
         <div className="flex justify-center mt-16">
           <Link
             to="/gallery"
-            className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-800 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
           >
             View Full Gallery
             <ChevronRight size={20} />
@@ -147,7 +147,7 @@ export default function Index() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gradient-to-r from-purple-600 to-rose-500 text-white py-16">
+      <section className="bg-gradient-to-r from-blue-900 to-amber-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
