@@ -77,7 +77,7 @@ export function createServer() {
       filtered = filtered.filter(
         (m) =>
           m.caption.toLowerCase().includes(searchLower) ||
-          m._id.includes(search)
+          m._id.includes(search),
       );
     }
 
