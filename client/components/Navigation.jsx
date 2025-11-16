@@ -14,11 +14,11 @@ export function Navigation() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white/98 backdrop-blur-sm border-b border-amber-200/30 z-50">
+    <nav className="fixed top-0 left-0 right-0 bg-white/98 backdrop-blur-sm border-b border-blue-200/20 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="text-4xl font-serif font-bold bg-gradient-to-r from-amber-600 to-amber-400 bg-clip-text text-transparent group-hover:from-amber-500 group-hover:to-amber-300 transition-all duration-300">
+            <div className="text-4xl font-serif font-bold bg-gradient-to-r from-blue-900 via-amber-600 to-amber-400 bg-clip-text text-transparent group-hover:from-blue-800 group-hover:via-amber-500 group-hover:to-amber-300 transition-all duration-300">
               E & G
             </div>
           </Link>
