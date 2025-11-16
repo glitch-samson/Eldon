@@ -6,6 +6,7 @@ export function ImageCard({
   onDownload,
   isSelected = false,
   onSelect,
+  showActions = true,
 }) {
   return (
     <div
@@ -15,21 +16,21 @@ export function ImageCard({
     >
       {/* Image Container */}
       <div
-        className={`group relative overflow-hidden bg-gray-100 cursor-pointer`}
+        className={`group relative overflow-hidden bg-gray-100 cursor-pointer aspect-auto`}
         onClick={() => onPreview(image)}
       >
         {/* Image */}
         <img
           src={image.url}
           alt={image.caption || "Wedding photo"}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
         />
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Selection Checkbox */}
-        {onSelect && (
+        {onSelect && showActions && (
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -47,31 +48,33 @@ export function ImageCard({
         )}
 
         {/* Icon Buttons at Bottom Right */}
-        <div className="absolute bottom-2 right-2 flex items-center gap-2 transition-opacity duration-300">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onPreview(image);
-            }}
-            className="p-1.5 rounded-full bg-white/90 hover:bg-blue-900 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
-            aria-label="Preview image"
-            title="Preview"
-          >
-            <Eye size={16} />
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              onDownload(image);
-            }}
-            className="p-1.5 rounded-full bg-white/90 hover:bg-amber-600 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
-            aria-label="Download image"
-            title="Download"
-          >
-            <Download size={16} />
-          </button>
-        </div>
+        {showActions && (
+          <div className="absolute bottom-2 right-2 flex items-center gap-2 transition-opacity duration-300">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onPreview(image);
+              }}
+              className="h-10 w-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-blue-900 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
+              aria-label="Preview image"
+              title="Preview"
+            >
+              <Eye size={18} />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                onDownload(image);
+              }}
+              className="h-10 w-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-amber-600 text-gray-700 hover:text-white transition-all duration-200 hover:scale-110 shadow-md"
+              aria-label="Download image"
+              title="Download"
+            >
+              <Download size={18} />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Caption Below Image */}

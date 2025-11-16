@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Navigation } from "../components/Navigation";
 import { Lightbox } from "../components/Lightbox";
 import { MasonryGrid } from "../components/MasonryGrid";
+import { SkeletonGrid } from "../components/SkeletonGrid";
 import { ChevronRight } from "lucide-react";
 import { mediaApi } from "../lib/api";
 
@@ -31,7 +32,7 @@ export default function Index() {
     fetchMedia();
   }, []);
 
-  const previewImages = allMedia.slice(0, 6);
+  const previewImages = allMedia.slice(0, 3);
 
   const handleDownload = (image) => {
     const link = document.createElement("a");
@@ -93,7 +94,7 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Link
               to="/gallery"
-              className="inline-flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-800 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-800 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold transition-colors text-base sm:text-base h-12 sm:h-auto"
             >
               View Gallery
               <ChevronRight size={20} />
@@ -101,15 +102,17 @@ export default function Index() {
           </div>
 
           {/* Hero Image Preview */}
-          <div className="relative">
+          <div className="relative w-full max-w-lg mx-auto">
             {isLoading ? (
-              <div className="w-full max-w-lg mx-auto rounded-xl shadow-2xl object-cover aspect-[4/5] bg-gray-200 animate-pulse" />
+              <div className="rounded-xl shadow-2xl overflow-hidden">
+                <div className="w-full aspect-[4/5] bg-gray-100 animate-pulse rounded-xl" />
+              </div>
             ) : (
               <>
                 <img
                   src={allMedia[0]?.url}
                   alt="Wedding hero"
-                  className="w-full max-w-lg mx-auto rounded-xl shadow-2xl object-cover aspect-[4/5] hover:shadow-3xl transition-shadow"
+                  className="w-full rounded-xl shadow-2xl object-cover aspect-[4/5] hover:shadow-3xl transition-shadow"
                 />
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/20 to-transparent" />
               </>
@@ -129,21 +132,49 @@ export default function Index() {
           </p>
         </div>
 
-        <MasonryGrid
-          images={previewImages}
-          onPreview={setSelectedImage}
-          onDownload={handleDownload}
-        />
+        {isLoading ? (
+          <SkeletonGrid count={3} />
+        ) : (
+          <>
+            <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-4">
+              {previewImages.map((image, index) => (
+                <div
+                  key={image._id}
+                  className={`h-fit ${index === 1 ? "md:col-span-2" : "md:col-span-1"}`}
+                >
+                  <div
+                    className="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                    onClick={() => setSelectedImage(image)}
+                  >
+                    <div className="group relative overflow-hidden bg-gray-100">
+                      <img
+                        src={image.url}
+                        alt={image.caption || "Wedding photo"}
+                        className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                    {image.caption && (
+                      <div className="px-3 py-3 bg-white">
+                        <p className="text-sm text-gray-700">{image.caption}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
 
-        <div className="flex justify-center mt-16">
-          <Link
-            to="/gallery"
-            className="inline-flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-800 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
-          >
-            View Full Gallery
-            <ChevronRight size={20} />
-          </Link>
-        </div>
+            <div className="flex justify-center mt-16">
+              <Link
+                to="/gallery"
+                className="inline-flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-800 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold transition-colors text-base sm:text-base h-12 sm:h-auto"
+              >
+                View Full Gallery
+                <ChevronRight size={20} />
+              </Link>
+            </div>
+          </>
+        )}
       </section>
 
       {/* Stats Section */}

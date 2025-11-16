@@ -189,10 +189,11 @@ export default function AdminDashboard() {
           </div>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors font-medium"
+            className="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 sm:px-6 py-2.5 sm:py-2 rounded-lg transition-colors font-medium h-11 sm:h-auto"
           >
             <LogOut size={20} />
-            Logout
+            <span className="hidden sm:inline">Logout</span>
+            <span className="sm:hidden">Log out</span>
           </button>
         </div>
       </div>
@@ -210,7 +211,7 @@ export default function AdminDashboard() {
                     setPreviewUrl(null);
                     setCaption("");
                   }}
-                  className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors border-b-2 -mb-[1px] ${
+                  className={`flex items-center gap-2 px-4 py-2.5 sm:py-2 font-medium transition-colors border-b-2 -mb-[1px] h-11 sm:h-auto ${
                     activeTab === "images"
                       ? "border-blue-900 text-blue-900"
                       : "border-transparent text-gray-600 hover:text-gray-900"
@@ -225,7 +226,7 @@ export default function AdminDashboard() {
                     setPreviewUrl(null);
                     setCaption("");
                   }}
-                  className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors border-b-2 -mb-[1px] ${
+                  className={`flex items-center gap-2 px-4 py-2.5 sm:py-2 font-medium transition-colors border-b-2 -mb-[1px] h-11 sm:h-auto ${
                     activeTab === "videos"
                       ? "border-blue-900 text-blue-900"
                       : "border-transparent text-gray-600 hover:text-gray-900"
@@ -318,7 +319,7 @@ export default function AdminDashboard() {
                   <button
                     type="submit"
                     disabled={!previewUrl || isUploading}
-                    className="w-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                    className="w-full h-12 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
                     {isUploading ? "Uploading..." : "Upload Photo"}
@@ -390,7 +391,7 @@ export default function AdminDashboard() {
                   <button
                     type="submit"
                     disabled={!previewUrl || isUploading}
-                    className="w-full bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                    className="w-full h-12 bg-gradient-to-r from-blue-900 to-blue-800 hover:from-blue-800 hover:to-blue-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-semibold py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 disabled:cursor-not-allowed"
                   >
                     <Upload size={20} />
                     {isUploading ? "Uploading..." : "Upload Video"}
@@ -458,14 +459,14 @@ export default function AdminDashboard() {
                                 <>
                                   <button
                                     onClick={() => handleDeleteImage(image._id)}
-                                    className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                                    className="h-10 w-10 flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
                                     title="Confirm delete"
                                   >
                                     <Trash2 size={18} />
                                   </button>
                                   <button
                                     onClick={() => setDeleteConfirm(null)}
-                                    className="px-3 py-2 bg-gray-600 hover:bg-gray-700 text-white text-sm rounded-lg transition-colors"
+                                    className="px-3 py-2.5 h-10 flex items-center justify-center bg-gray-600 hover:bg-gray-700 text-white text-sm rounded-lg transition-colors"
                                   >
                                     Cancel
                                   </button>
@@ -473,7 +474,7 @@ export default function AdminDashboard() {
                               ) : (
                                 <button
                                   onClick={() => setDeleteConfirm(image._id)}
-                                  className="p-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                                  className="h-10 w-10 flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
                                   title="Delete image"
                                 >
                                   <Trash2 size={18} />
