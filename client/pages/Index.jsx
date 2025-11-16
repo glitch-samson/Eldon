@@ -64,59 +64,89 @@ export default function Index() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-white via-blue-50 to-white">
+    <div className="bg-white">
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-        {/* Background decoration */}
+      {/* Hero Section - Asymmetrical Modern Design */}
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-20 bg-gradient-to-br from-white via-amber-50/30 to-white">
+        {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-200/20 rounded-full blur-3xl" />
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-amber-300/10 rounded-full blur-3xl" />
+          <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-amber-200/8 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 w-64 h-64 border border-amber-200/20 rounded-full blur-2xl" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="mb-6 inline-block">
-            <span className="text-blue-900 font-serif text-lg tracking-widest uppercase">
-              Our Wedding
-            </span>
-          </div>
-
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-serif font-bold text-gray-900 mb-6 leading-tight">
-            Eldon and Geraldine
-          </h1>
-
-          <p className="text-xl md:text-2xl text-gray-600 font-light mb-8 max-w-2xl mx-auto">
-            A celebration of love, joy, and new beginnings. Join us as we share
-            our most precious moments.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link
-              to="/gallery"
-              className="inline-flex items-center justify-center gap-2 bg-blue-900 hover:bg-blue-800 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold transition-colors text-base sm:text-base h-12 sm:h-auto"
-            >
-              View Gallery
-              <ChevronRight size={20} />
-            </Link>
-          </div>
-
-          {/* Hero Image Preview */}
-          <div className="relative w-full max-w-lg mx-auto">
-            {isLoading ? (
-              <div className="rounded-xl shadow-2xl overflow-hidden">
-                <div className="w-full aspect-[4/5] bg-gray-100 animate-pulse rounded-xl" />
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            {/* Left Content */}
+            <div className="flex flex-col justify-center space-y-8 lg:pr-8">
+              <div className="space-y-2">
+                <div className="inline-block">
+                  <span className="text-amber-600 font-serif text-xs sm:text-sm tracking-widest uppercase font-semibold">
+                    ✦ Our Love Story
+                  </span>
+                </div>
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold text-gray-900 leading-tight">
+                  <span className="block">Eldon</span>
+                  <span className="block">
+                    <span className="text-transparent bg-gradient-to-r from-amber-500 via-amber-400 to-amber-300 bg-clip-text">&</span>
+                  </span>
+                  <span className="block">Geraldine</span>
+                </h1>
               </div>
-            ) : (
-              <>
-                <img
-                  src={allMedia[0]?.url}
-                  alt="Wedding hero"
-                  className="w-full rounded-xl shadow-2xl object-cover aspect-[4/5] hover:shadow-3xl transition-shadow"
-                />
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/20 to-transparent" />
-              </>
-            )}
+
+              <div className="space-y-6">
+                <p className="text-lg sm:text-xl text-gray-600 font-light leading-relaxed max-w-md">
+                  A celebration of love, joy, and new beginnings. Join us as we share our most precious moments.
+                </p>
+
+                <div className="pt-4 border-t border-amber-200/40">
+                  <p className="text-sm text-amber-700 font-medium tracking-wide mb-4">EXPLORE OUR JOURNEY</p>
+                  <Link
+                    to="/gallery"
+                    className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-600 hover:to-amber-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 group text-base"
+                  >
+                    View Gallery
+                    <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-4 pt-8 border-t border-amber-200/40">
+                <div>
+                  <p className="text-2xl sm:text-3xl font-serif font-bold text-amber-600">{allMedia.length}+</p>
+                  <p className="text-xs text-gray-600 mt-1">Moments Captured</p>
+                </div>
+                <div>
+                  <p className="text-2xl sm:text-3xl font-serif font-bold text-amber-600">2</p>
+                  <p className="text-xs text-gray-600 mt-1">Hearts United</p>
+                </div>
+                <div>
+                  <p className="text-2xl sm:text-3xl font-serif font-bold text-amber-600">∞</p>
+                  <p className="text-xs text-gray-600 mt-1">Forever</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Image */}
+            <div className="relative lg:h-screen lg:-mr-8 lg:-my-20">
+              {isLoading ? (
+                <div className="rounded-3xl shadow-2xl overflow-hidden">
+                  <div className="w-full aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200 animate-pulse rounded-3xl" />
+                </div>
+              ) : (
+                <div className="relative h-full min-h-96 lg:min-h-full">
+                  <img
+                    src={allMedia[0]?.url}
+                    alt="Wedding hero"
+                    className="w-full h-full rounded-3xl shadow-2xl object-cover hover:shadow-3xl transition-all duration-500 hover:scale-105"
+                  />
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-amber-400 to-amber-300 rounded-full opacity-20 blur-2xl" />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
